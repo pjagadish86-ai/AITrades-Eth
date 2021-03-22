@@ -1,0 +1,133 @@
+package com.aitrades.blockchain.eth.gateway.domain;
+
+import java.util.List;
+
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.springframework.data.annotation.Id;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+@JsonInclude(Include.NON_EMPTY)
+public class Order {
+
+	@Id
+	private String id;
+	private String route;
+	private WalletInfo walletInfo;
+	private TickerEntity from;
+	private TickerEntity to;
+	private String gasMode;
+	private Gas gasPrice;
+	private Gas gasLimit;
+	private Slipage slippage;
+	private PairData pairData;
+	private OrderEntity orderEntity;
+	private EventState eventState;
+	private List<AdditionalProperty> AdditionalProperty;
+	private Integer orderCode;
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	public String getRoute() {
+		return route;
+	}
+	public void setRoute(String route) {
+		this.route = route;
+	}
+	
+	public WalletInfo getWalletInfo() {
+		return walletInfo;
+	}
+	public void setWalletInfo(WalletInfo walletInfo) {
+		this.walletInfo = walletInfo;
+	}
+	public TickerEntity getFrom() {
+		return from;
+	}
+	public void setFrom(TickerEntity from) {
+		this.from = from;
+	}
+	public TickerEntity getTo() {
+		return to;
+	}
+	public void setTo(TickerEntity to) {
+		this.to = to;
+	}
+	public Gas getGasPrice() {
+		return gasPrice;
+	}
+	public void setGasPrice(Gas gasPrice) {
+		this.gasPrice = gasPrice;
+	}
+	public Gas getGasLimit() {
+		return gasLimit;
+	}
+	public void setGasLimit(Gas gasLimit) {
+		this.gasLimit = gasLimit;
+	}
+
+	public Slipage getSlippage() {
+		return slippage;
+	}
+	public void setSlippage(Slipage slippage) {
+		this.slippage = slippage;
+	}
+	public PairData getPairData() {
+		return pairData;
+	}
+	public void setPairData(PairData pairData) {
+		this.pairData = pairData;
+	}
+	public OrderEntity getOrderEntity() {
+		return orderEntity;
+	}
+	public void setOrderEntity(OrderEntity orderEntity) {
+		this.orderEntity = orderEntity;
+	}
+	public EventState getEventState() {
+		return eventState;
+	}
+	public void setEventState(EventState eventState) {
+		this.eventState = eventState;
+	}
+	public List<AdditionalProperty> getAdditionalProperty() {
+		return AdditionalProperty;
+	}
+	public void setAdditionalProperty(List<AdditionalProperty> AdditionalProperty) {
+		this.AdditionalProperty = AdditionalProperty;
+	}
+	public Integer getOrderCode() {
+		return orderCode;
+	}
+	public void setOrderCode(Integer orderCode) {
+		this.orderCode = orderCode;
+	}
+	
+	public String getGasMode() {
+		return gasMode;
+	}
+	public void setGasMode(String gasMode) {
+		this.gasMode = gasMode;
+	}
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return EqualsBuilder.reflectionEquals(this, obj);
+	}
+
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
+	}
+}
