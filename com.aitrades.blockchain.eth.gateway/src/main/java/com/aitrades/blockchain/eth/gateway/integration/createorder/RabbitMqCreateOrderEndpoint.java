@@ -1,4 +1,4 @@
-package com.aitrades.blockchain.eth.gateway.integration;
+package com.aitrades.blockchain.eth.gateway.integration.createorder;
 
 import java.util.List;
 
@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.annotation.ServiceActivator;
 
 import com.aitrades.blockchain.eth.gateway.domain.Order;
+import com.aitrades.blockchain.eth.gateway.mq.RabbitMQCreateOrderSender;
 
 public class RabbitMqCreateOrderEndpoint {
 

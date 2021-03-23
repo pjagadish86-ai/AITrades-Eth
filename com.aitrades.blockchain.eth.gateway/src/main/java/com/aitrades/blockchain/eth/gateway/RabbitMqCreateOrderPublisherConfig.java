@@ -7,8 +7,8 @@ import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +25,9 @@ public class RabbitMqCreateOrderPublisherConfig {
 	@Value("${aitrades.order.process.rabbitmq.routingkey}")
 	private String createOrderRoutingkey;
 	
-
+	@Autowired
+	private MessageConverter jsonMessageConverter;
+	
 	@Bean(name="createOrderQueue")
 	public Queue createOrderQueue() {
 		return new Queue(createOrderQueueName, false);
@@ -43,16 +45,11 @@ public class RabbitMqCreateOrderPublisherConfig {
 							 .with(createOrderRoutingkey);
 	}
 
-	@Bean
-	public MessageConverter jsonMessageConverter() {
-		return new Jackson2JsonMessageConverter();
-	}
-
 	// TODO: asyncrabitamqp
 	@Bean(name = "createOrderRabbitTemplate")
 	public AmqpTemplate createOrderRabbitTemplate(ConnectionFactory connectionFactory) {
 		final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
-		rabbitTemplate.setMessageConverter(jsonMessageConverter());
+		rabbitTemplate.setMessageConverter(jsonMessageConverter);
 		rabbitTemplate.setExchange(createOrderExchangeName);
 		rabbitTemplate.setDefaultReceiveQueue(createOrderQueueName);
 		rabbitTemplate.setRoutingKey(createOrderRoutingkey);

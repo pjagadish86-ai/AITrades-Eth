@@ -1,4 +1,4 @@
-package com.aitrades.blockchain.eth.gateway.integration;
+package com.aitrades.blockchain.eth.gateway.mq;
 
 import javax.annotation.Resource;
 

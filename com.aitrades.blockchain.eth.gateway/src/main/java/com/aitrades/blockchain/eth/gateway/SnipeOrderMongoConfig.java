@@ -9,20 +9,20 @@ import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import com.mongodb.reactivestreams.client.MongoClient;
 
 @Configuration
-public class OrderMongoConfig extends AbstractReactiveMongoConfiguration {
-
+public class SnipeOrderMongoConfig extends AbstractReactiveMongoConfiguration {
+	
 	@Autowired
 	public MongoClient mongoClient;
 	
-	
 	@Override
 	protected String getDatabaseName() {
-		return "order";
+		return "snipeOrder";
 	}
 
-	@Bean(name = "orderReactiveMongoTemplate")
+	@Bean(name = "snipeOrderReactiveMongoTemplate")
 	public ReactiveMongoTemplate reactiveOrderMongoTemplate(MongoClient mongoClient) {
 		return new ReactiveMongoTemplate(mongoClient, getDatabaseName());
 	}
 
+	
 }
