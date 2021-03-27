@@ -19,9 +19,9 @@ public class ApprovedTransactionStatusChecker {
 	private Web3jServiceClient web3jServiceClient;
 	
 	
-	public Optional<TransactionReceipt> checkStatusOfApprovalTransaction(SnipeTransactionRequest snipeTransactionRequest) {
+	public Optional<TransactionReceipt> checkStatusOfApprovalTransaction(String approvedHash) {
 		return web3jServiceClient.getWeb3j()
-							     .ethGetTransactionReceipt(snipeTransactionRequest.getApprovedHash())
+							     .ethGetTransactionReceipt(approvedHash)
 							     .flowable()
 							     .subscribeOn(Schedulers.io())
 							     .blockingSingle()

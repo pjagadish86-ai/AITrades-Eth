@@ -49,7 +49,7 @@ public class RabbitMqMongoDBSnipeOrderIntegrationConfig {
 	
 	@Bean(name = "snipePoller")
 	public PollerMetadata snipePoller() {
-		PollerMetadata poll = Pollers.fixedDelay(30, TimeUnit.SECONDS).get();
+		PollerMetadata poll = Pollers.fixedDelay(60, TimeUnit.SECONDS).get();
 		poll.setTaskExecutor(snipeExecutor());
 		// poll.setAdviceChain(transactionInterceptor());
 		return poll;
@@ -90,7 +90,7 @@ public class RabbitMqMongoDBSnipeOrderIntegrationConfig {
 	@Bean
 	@Autowired
 	public MessageSource<Object> mongoSnipeInboundSource() throws Exception {// {'side' : 'buy'} // { qty: { $in: [ 5, 15 ] } } //  { $or: [ { 'status': 'A' } , { age: 50 } ] }
-		MongoDbMessageSource messageSource = new MongoDbMessageSource(snipeOrderMongoDbFactory(), new LiteralExpression("{'snipeStatus': 'PENDING'}"));
+		MongoDbMessageSource messageSource = new MongoDbMessageSource(snipeOrderMongoDbFactory(), new LiteralExpression("{'snipeStatus': 'WORKING'}"));
 		messageSource.setEntityClass(SnipeTransactionRequest.class);
 		messageSource.setCollectionNameExpression(new LiteralExpression("snipeTransactionRequest"));
 		return messageSource;

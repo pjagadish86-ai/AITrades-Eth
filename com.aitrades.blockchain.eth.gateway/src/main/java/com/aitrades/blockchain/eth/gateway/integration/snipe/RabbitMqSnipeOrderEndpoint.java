@@ -2,6 +2,7 @@ package com.aitrades.blockchain.eth.gateway.integration.snipe;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.annotation.ServiceActivator;
 
@@ -29,6 +30,8 @@ public class RabbitMqSnipeOrderEndpoint {
 		if(snipeTransactionRequest.isPreApproved()) {
 			return true;
 		}
-		return !snipeTransactionRequest.isSnipe() && statusChecker.checkStatusOfApprovalTransaction(snipeTransactionRequest).isPresent();
+		return !snipeTransactionRequest.hasSniped() 
+				&& StringUtils.isNotBlank(snipeTransactionRequest.getApprovedHash())
+				&& statusChecker.checkStatusOfApprovalTransaction(snipeTransactionRequest.getApprovedHash()).isPresent();
 	}
 }

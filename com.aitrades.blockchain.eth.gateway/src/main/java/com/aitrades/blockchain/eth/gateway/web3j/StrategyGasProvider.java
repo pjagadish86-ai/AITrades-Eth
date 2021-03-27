@@ -1,5 +1,6 @@
 package com.aitrades.blockchain.eth.gateway.web3j;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Map;
 import java.util.concurrent.Executors;
@@ -36,7 +37,7 @@ public class StrategyGasProvider implements ContractGasProvider{
 	    
 	@SuppressWarnings("unchecked")
 	public BigInteger getGasPrice(GasModeEnum gasModeEnum) throws Exception{
-		Map<String, Double> gasPrices = gasWebClient.get()
+		Map<String, Object> gasPrices = gasWebClient.get()
 													   .uri(GAS_PRICE_ORACLE)
 													   .accept(MediaType.APPLICATION_JSON)
 													   .retrieve()

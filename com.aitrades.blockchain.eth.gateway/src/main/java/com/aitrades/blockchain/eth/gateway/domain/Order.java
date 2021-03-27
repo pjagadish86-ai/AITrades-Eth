@@ -6,7 +6,9 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.springframework.data.annotation.Id;
+import org.web3j.crypto.Credentials;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_EMPTY)
@@ -27,6 +29,7 @@ public class Order {
 	private EventState eventState;
 	private List<AdditionalProperty> AdditionalProperty;
 	private Integer orderCode;
+	private String approvedHash;
 	
 	public String getId() {
 		return id;
@@ -116,6 +119,13 @@ public class Order {
 	public void setGasMode(String gasMode) {
 		this.gasMode = gasMode;
 	}
+	
+	public String getApprovedHash() {
+		return approvedHash;
+	}
+	public void setApprovedHash(String approvedHash) {
+		this.approvedHash = approvedHash;
+	}
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
@@ -129,5 +139,9 @@ public class Order {
 	@Override
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this);
+	}
+	@JsonIgnore
+	public Credentials getCredentials() {
+		return Credentials.create(getWalletInfo().getPrivateKey());
 	}
 }

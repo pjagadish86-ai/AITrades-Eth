@@ -7,18 +7,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aitrades.blockchain.eth.gateway.domain.Order;
-import com.aitrades.blockchain.eth.gateway.service.OrderProcessor;
+import com.aitrades.blockchain.eth.gateway.service.OrderMutator;
 
 @RestController
 @RequestMapping("/api/v1")
 public class CreateOrderController {
 
 	@Autowired
-	private OrderProcessor orderProcessor;
+	private OrderMutator orderMutator;
 	
 	@PostMapping("/createOrder")
-	public String createOrder(@RequestBody Order order) {
-		return orderProcessor.createOrder(order);
+	public String createOrder(@RequestBody Order order) throws Exception {
+		return orderMutator.createOrder(order);
 	}
 	
 	@PostMapping("/cancelOrder")
