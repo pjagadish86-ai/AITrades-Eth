@@ -69,7 +69,7 @@ public class RabbitMqMongoDBSnipeOrderIntegrationConfig {
 	@Autowired
 	public IntegrationFlow mongoDbToRabbitSnipeQueue() throws Exception {
 		return IntegrationFlows.from(mongoSnipeInboundSource(), c -> c.poller(snipePoller()))
-								.handle("rabbitMqsnipeOrderEndpoint", "addSnipeOrderToRabbitMq")
+							   .handle("rabbitMqsnipeOrderEndpoint", "addSnipeOrderToRabbitMq")
 							   .channel(IntegrationContextUtils.NULL_CHANNEL_BEAN_NAME)
 							   .get();
 	}

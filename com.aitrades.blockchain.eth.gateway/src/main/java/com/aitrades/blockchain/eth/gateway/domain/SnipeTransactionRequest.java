@@ -2,13 +2,16 @@ package com.aitrades.blockchain.eth.gateway.domain;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.time.Instant;
 import java.util.List;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.springframework.data.annotation.Id;
+import org.web3j.crypto.Credentials;
+import org.web3j.utils.Convert;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class SnipeTransactionRequest {
 
@@ -46,25 +49,22 @@ public class SnipeTransactionRequest {
 	
 	private String orderType;
 	
-	private Instant createdDateTime = Instant.now();
+	private String createdDateTime;
 	
-	private Instant updatedDateTime;
+	private String updatedDateTime;
 	
 	private boolean snipe;
 	
-	private String snipeStatus;
-
-	public SnipeTransactionRequest() {
-	}
+	private boolean isPreApproved;
 	
-	public WalletInfo getWalletInfo() {
-		return walletInfo;
-	}
-
-	public void setWalletInfo(WalletInfo walletInfo) {
-		this.walletInfo = walletInfo;
-	}
-
+	private String approvedHash;
+	
+	private boolean hasApproved;
+	
+	private boolean isFeeEligible;
+	
+	private String snipeStatus;
+	
 	public String getId() {
 		return id;
 	}
@@ -106,7 +106,7 @@ public class SnipeTransactionRequest {
 	}
 
 	public BigInteger getInputTokenValueAmountAsBigInteger() {
-		return inputTokenValueAmountAsBigInteger;
+		return  Convert.toWei(getInputTokenValueAmountAsBigDecimal(), Convert.Unit.ETHER).toBigInteger();
 	}
 
 	public void setInputTokenValueAmountAsBigInteger(BigInteger inputTokenValueAmountAsBigInteger) {
@@ -129,16 +129,20 @@ public class SnipeTransactionRequest {
 		this.inputTokenValueAmountAsBigDecimal = inputTokenValueAmountAsBigDecimal;
 	}
 
-	public void setCreatedDateTime(Instant createdDateTime) {
-		this.createdDateTime = createdDateTime;
-	}
-
 	public BigDecimal getOuputTokenValueAmounttAsBigDecimal() {
 		return ouputTokenValueAmounttAsBigDecimal;
 	}
 
 	public void setOuputTokenValueAmounttAsBigDecimal(BigDecimal ouputTokenValueAmounttAsBigDecimal) {
 		this.ouputTokenValueAmounttAsBigDecimal = ouputTokenValueAmounttAsBigDecimal;
+	}
+
+	public WalletInfo getWalletInfo() {
+		return walletInfo;
+	}
+
+	public void setWalletInfo(WalletInfo walletInfo) {
+		this.walletInfo = walletInfo;
 	}
 
 	public BigInteger getGasPrice() {
@@ -188,8 +192,32 @@ public class SnipeTransactionRequest {
 	public void setSlipage(BigDecimal slipage) {
 		this.slipage = slipage;
 	}
+	
+	public String getApprovedHash() {
+		return approvedHash;
+	}
+
+	public void setApprovedHash(String approvedHash) {
+		this.approvedHash = approvedHash;
+	}
+
+	public boolean isHasApproved() {
+		return hasApproved;
+	}
+
+	public void setHasApproved(boolean hasApproved) {
+		this.hasApproved = hasApproved;
+	}
+
+	@JsonIgnore
+	public BigDecimal slipageInBips() {
+		return (getSlipage().multiply(new BigDecimal(100))).divide(new BigDecimal(10000));
+	}
 
 	public long getDeadLine() {
+		if(this.deadLine <= 0) {
+			this.deadLine = 300l;
+		}
 		return deadLine;
 	}
 
@@ -205,19 +233,22 @@ public class SnipeTransactionRequest {
 		this.orderType = orderType;
 	}
 
-	
-	public Instant getCreatedDateTime() {
+	public String getCreatedDateTime() {
 		return createdDateTime;
 	}
 
-	public Instant getUpdatedDateTime() {
+	public void setCreatedDateTime(String createdDateTime) {
+		this.createdDateTime = createdDateTime;
+	}
+
+	public String getUpdatedDateTime() {
 		return updatedDateTime;
 	}
 
-	public void setUpdatedDateTime(Instant updatedDateTime) {
+	public void setUpdatedDateTime(String updatedDateTime) {
 		this.updatedDateTime = updatedDateTime;
 	}
-	
+
 	public boolean isSnipe() {
 		return snipe;
 	}
@@ -225,13 +256,33 @@ public class SnipeTransactionRequest {
 	public void setSnipe(boolean snipe) {
 		this.snipe = snipe;
 	}
-	
+
 	public String getSnipeStatus() {
 		return snipeStatus;
 	}
 
 	public void setSnipeStatus(String snipeStatus) {
 		this.snipeStatus = snipeStatus;
+	}
+
+	public static BigInteger getMaxAmountApprove() {
+		return MAX_AMOUNT_APPROVE;
+	}
+	
+	public boolean isPreApproved() {
+		return isPreApproved;
+	}
+
+	public void setPreApproved(boolean isPreApproved) {
+		this.isPreApproved = isPreApproved;
+	}
+
+	public boolean isFeeEligible() {
+		return isFeeEligible;
+	}
+
+	public void setFeeEligible(boolean isFeeEligible) {
+		this.isFeeEligible = isFeeEligible;
 	}
 
 	@Override
@@ -247,6 +298,11 @@ public class SnipeTransactionRequest {
 	@Override
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this);
+	}
+
+	@JsonIgnore
+	public Credentials getCredentials() {
+		return Credentials.create(getWalletInfo().getPrivateKey());
 	}
 
 }

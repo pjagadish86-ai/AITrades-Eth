@@ -18,10 +18,9 @@ public class SnipeOrderProcessor {
 	@Autowired
 	private RabbitMQSnipeOrderSender rabbitMQSnipeOrderSender;
 
-	
-	public String snipeOrder(SnipeTransactionRequest transactionRequest) {
-		Mono<SnipeTransactionRequest> insertedRecord = snipeOrderRepository.insert(transactionRequest);
-		rabbitMQSnipeOrderSender.send(transactionRequest);
+	public String snipeOrder(SnipeTransactionRequest snipeTransactionRequest) {
+		Mono<SnipeTransactionRequest> insertedRecord = snipeOrderRepository.insert(snipeTransactionRequest);
+		rabbitMQSnipeOrderSender.send(snipeTransactionRequest);
 		return insertedRecord.block().getId();
 	}
 

@@ -7,16 +7,28 @@ import org.springframework.integration.annotation.ServiceActivator;
 
 import com.aitrades.blockchain.eth.gateway.domain.SnipeTransactionRequest;
 import com.aitrades.blockchain.eth.gateway.mq.RabbitMQSnipeOrderSender;
+import com.aitrades.blockchain.eth.gateway.web3j.ApprovedTransactionStatusChecker;
 
 public class RabbitMqSnipeOrderEndpoint {
 
 	@Autowired
 	private RabbitMQSnipeOrderSender rabbitMQSnipeOrderSender;
 
+	@Autowired
+	private ApprovedTransactionStatusChecker statusChecker;
+
+	
 	@ServiceActivator(inputChannel = "addSnipeOrderToRabbitMq")
 	public void addSnipeOrderToRabbitMq(List<SnipeTransactionRequest> transactionRequests) {
-		System.out.println("in addSnipeOrderToRabbitMq");
-		transactionRequests.parallelStream()
-			  			   .forEach(transactionRequest -> rabbitMQSnipeOrderSender.send(transactionRequest));
+		transactionRequests.parallelStream()//TODO: garbabage codeing
+						   .filter(this :: checkStatus)
+						   .forEach(snipeOrder -> rabbitMQSnipeOrderSender.send(snipeOrder));
+	}
+	
+	public boolean checkStatus(SnipeTransactionRequest snipeTransactionRequest) {
+		if(snipeTransactionRequest.isPreApproved()) {
+			return true;
+		}
+		return !snipeTransactionRequest.isSnipe() && statusChecker.checkStatusOfApprovalTransaction(snipeTransactionRequest).isPresent();
 	}
 }

@@ -7,18 +7,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aitrades.blockchain.eth.gateway.domain.SnipeTransactionRequest;
-import com.aitrades.blockchain.eth.gateway.service.SnipeOrderProcessor;
+import com.aitrades.blockchain.eth.gateway.service.SnipeOrderMutator;
 
 @RestController
 @RequestMapping("/api/v1")
 public class SnipeOrderController {
 
 	@Autowired
-	private SnipeOrderProcessor snipeOrderProcessor;
+	private SnipeOrderMutator snipeOrderMutator;
 	
 	@PostMapping("/snipeOrder")
-	public String createOrder(@RequestBody SnipeTransactionRequest transactionRequest) {
-		return snipeOrderProcessor.snipeOrder(transactionRequest);
+	public String createOrder(@RequestBody SnipeTransactionRequest transactionRequest) throws Exception {
+		return snipeOrderMutator.snipeOrder(transactionRequest);
 	}
 	
 	@PostMapping("/cancelSnipeOrder")

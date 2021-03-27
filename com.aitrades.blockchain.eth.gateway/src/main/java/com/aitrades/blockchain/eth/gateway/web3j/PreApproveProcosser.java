@@ -1,0 +1,76 @@
+package com.aitrades.blockchain.eth.gateway.web3j;
+
+import java.math.BigInteger;
+import java.util.Collections;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+import org.web3j.abi.FunctionEncoder;
+import org.web3j.abi.datatypes.Address;
+import org.web3j.abi.datatypes.Function;
+import org.web3j.abi.datatypes.generated.Uint256;
+import org.web3j.crypto.Credentials;
+import org.web3j.crypto.RawTransaction;
+import org.web3j.crypto.TransactionEncoder;
+import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
+import org.web3j.protocol.core.methods.response.EthSendTransaction;
+import org.web3j.utils.Numeric;
+
+import com.aitrades.blockchain.eth.gateway.Web3jServiceClient;
+import com.aitrades.blockchain.eth.gateway.domain.GasModeEnum;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
+
+import io.reactivex.schedulers.Schedulers;
+
+@Service
+public class PreApproveProcosser {
+
+	public static final String UNISWAP = "UNISWAP";
+	public static final String FUNC_APPROVE = "approve";
+	public static final String UNISWAP_FACTORY_ADDRESS = "0x5c69bee701ef814a2b6a3edd4b1652cb9cc5aa6f";
+	public static final String UNISWAP_ROUTER_ADDRESS = "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D";
+	public static final Map<String, String> ROUTER_MAP = ImmutableMap.of(UNISWAP, UNISWAP_ROUTER_ADDRESS);
+	
+    public static BigInteger MAX_UINT256 = new BigInteger("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", 16);
+
+	@Resource(name = "web3jServiceClient")
+	private Web3jServiceClient web3jServiceClient;
+	
+	public String approve(Credentials credentials, String contractAddress, StrategyGasProvider customGasProvider,
+			  			  GasModeEnum gasModeEnum) throws Exception {
+		final Function approveFunction = new Function(FUNC_APPROVE,
+												  Lists.newArrayList(new Address(UNISWAP_ROUTER_ADDRESS), new Uint256(MAX_UINT256)),
+												  Collections.emptyList());
+		
+		String data = FunctionEncoder.encode(approveFunction);
+		
+		EthGetTransactionCount ethGetTransactionCountFlowable = web3jServiceClient.getWeb3j()
+																			  .ethGetTransactionCount(credentials.getAddress(), DefaultBlockParameterName.LATEST)
+																			  .flowable()
+																			  .subscribeOn(Schedulers.io())
+																			  .blockingSingle();
+		
+		RawTransaction rawTransaction = RawTransaction.createTransaction(ethGetTransactionCountFlowable.getTransactionCount(), 
+																	 customGasProvider.getGasPrice(gasModeEnum),
+																	 customGasProvider.getGasLimit(), 
+																	 contractAddress, 
+																	 BigInteger.ZERO, 
+																	 data);
+		
+		byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
+		
+		EthSendTransaction ethSendTransaction = web3jServiceClient.getWeb3j()
+														      .ethSendRawTransaction(Numeric.toHexString(signedMessage))
+														      .flowable()
+														      .blockingSingle();
+		
+		if(ethSendTransaction.hasError()) {
+			throw new Exception(ethSendTransaction.getError().getMessage());
+			}
+		return ethSendTransaction.getTransactionHash();
+	}
+}
