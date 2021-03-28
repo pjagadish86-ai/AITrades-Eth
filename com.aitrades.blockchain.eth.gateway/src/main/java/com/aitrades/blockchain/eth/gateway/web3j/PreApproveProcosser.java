@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.web3j.abi.FunctionEncoder;
@@ -31,6 +32,7 @@ import io.reactivex.schedulers.Schedulers;
 @Service
 public class PreApproveProcosser {
 
+	private static final String PANCAKE = "PANCAKE";
 	public static final String UNISWAP = "UNISWAP";
 	public static final String FUNC_APPROVE = "approve";
 	public static final String UNISWAP_FACTORY_ADDRESS = "0x5c69bee701ef814a2b6a3edd4b1652cb9cc5aa6f";
@@ -56,12 +58,21 @@ public class PreApproveProcosser {
 																			  .subscribeOn(Schedulers.io())
 																			  .blockingSingle();
 		
+		BigInteger gasLimit = null;
+		BigInteger gasPrice = null;
+		if(StringUtils.equalsIgnoreCase(route, PANCAKE)) {
+			gasPrice = customGasProvider.getGasPricePancake(gasModeEnum);
+			gasLimit = customGasProvider.getGasLimitOfPancake(true);
+		}else {
+			gasPrice =  customGasProvider.getGasPrice(gasModeEnum);
+			gasLimit =	 customGasProvider.getGasLimit(route, true);
+		}
 		RawTransaction rawTransaction = RawTransaction.createTransaction(ethGetTransactionCountFlowable.getTransactionCount(), 
-																	 customGasProvider.getGasPrice(gasModeEnum),
-																	 customGasProvider.getGasLimit(route), 
-																	 contractAddress, 
-																	 BigInteger.ZERO, 
-																	 data);
+																		 gasPrice,
+																	     gasLimit, 
+																	     contractAddress, 
+																	     BigInteger.ZERO, 
+																	     data);
 		
 		byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
 		

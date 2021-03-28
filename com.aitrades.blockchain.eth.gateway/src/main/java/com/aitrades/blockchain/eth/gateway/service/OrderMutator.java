@@ -28,7 +28,7 @@ public class OrderMutator {
 	private OrderPreprosorChecks orderPreposerCheckerAndUpdater;
 	
 	public String createOrder(Order order) throws Exception {
-		if(StringUtils.equalsIgnoreCase(order.getOrderEntity().getOrderSide(), OrderSide.BUY.name())) {
+		if(order.getApprovedHash() == null && StringUtils.equalsIgnoreCase(order.getOrderEntity().getOrderSide(), OrderSide.BUY.name())) {
 			String approvedHash = approveAndSaveOrder(order);
 			if (StringUtils.isNotBlank(approvedHash)) {
 				order.setApprovedHash(approvedHash);
@@ -40,8 +40,10 @@ public class OrderMutator {
 		PairData pairData  = orderPreposerCheckerAndUpdater.getPairData(order);
 		if(pairData != null) {
 			order.setPairData(pairData);
+			return orderProcessor.createOrder(order);
 		}
-		return orderProcessor.createOrder(order);
+		throw new Exception("PAIR NOT FOUND");
+	//	return orderProcessor.createOrder(order);
 	}
 	
 	public String approveAndSaveOrder(Order order) throws Exception {

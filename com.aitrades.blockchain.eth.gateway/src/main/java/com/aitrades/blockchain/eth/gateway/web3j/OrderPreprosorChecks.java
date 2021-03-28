@@ -11,6 +11,7 @@ import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import com.aitrades.blockchain.eth.gateway.domain.Order;
 import com.aitrades.blockchain.eth.gateway.domain.PairData;
 import com.aitrades.blockchain.eth.gateway.domain.Ticker;
+import com.aitrades.blockchain.eth.gateway.domain.TradeConstants;
 import com.aitrades.blockchain.eth.gateway.service.Web3jServiceClientFactory;
 
 import io.reactivex.schedulers.Schedulers;
@@ -39,13 +40,26 @@ public class OrderPreprosorChecks {
 		@SuppressWarnings("rawtypes")
 		Optional<Type> pairAddress = Optional.empty();
 		try {
-			pairAddress = ethereumDexContractPairData.getPair(order.getFrom().getTicker().getAddress(), 
-													          order.getTo().getTicker().getAddress(), 
+			pairAddress = ethereumDexContractPairData.getPair(order.getOrderEntity().getOrderSide().equalsIgnoreCase("BUY") ? order.getTo().getTicker().getAddress() : order.getFrom().getTicker().getAddress(), 
+													          TradeConstants.WETH_MAP.get(order.getRoute()), 
 													          order.getRoute().toUpperCase())
 													  .parallelStream()
 													  .findFirst();
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		if (pairAddress.isPresent()
+				&& StringUtils.startsWithIgnoreCase((String) pairAddress.get().getValue(), "0x000000")) {
+			try {
+				pairAddress = ethereumDexContractPairData.getPair(order.getOrderEntity().getOrderSide().equalsIgnoreCase("BUY") ? order.getTo().getTicker().getAddress() : order.getFrom().getTicker().getAddress(), 
+														          TradeConstants.ETH, 
+														          order.getRoute().toUpperCase())
+														  .parallelStream()
+														  .findFirst();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		if (pairAddress.isPresent()
 				&& !StringUtils.startsWithIgnoreCase((String) pairAddress.get().getValue(), "0x000000")) {
