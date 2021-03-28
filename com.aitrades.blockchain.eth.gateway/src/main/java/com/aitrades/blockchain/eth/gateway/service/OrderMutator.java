@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.aitrades.blockchain.eth.gateway.domain.GasModeEnum;
 import com.aitrades.blockchain.eth.gateway.domain.Order;
+import com.aitrades.blockchain.eth.gateway.domain.OrderSide;
 import com.aitrades.blockchain.eth.gateway.web3j.PreApproveProcosser;
 import com.aitrades.blockchain.eth.gateway.web3j.StrategyGasProvider;
 
@@ -22,16 +23,18 @@ public class OrderMutator {
 	private StrategyGasProvider strategyGasProvider;
 	
 	public String createOrder(Order order) throws Exception {
-		String approvedHash = approveAndSaveSnipeOrder(order);
-		if(StringUtils.isNotBlank(approvedHash)) {
-			order.setApprovedHash(approvedHash);
-		}else {
-			throw new Exception("Unable to approve transaction please retry again !!!");
-		}	
+		if(StringUtils.equalsIgnoreCase(order.getOrderEntity().getOrderSide(), OrderSide.BUY.name())) {
+			String approvedHash = approveAndSaveOrder(order);
+			if (StringUtils.isNotBlank(approvedHash)) {
+				order.setApprovedHash(approvedHash);
+			} else {
+				throw new Exception("Unable to approve transaction please retry again !!!");
+			} 
+		}
 		return orderProcessor.createOrder(order);
 	}
 	
-	public String approveAndSaveSnipeOrder(Order order) throws Exception {
+	public String approveAndSaveOrder(Order order) throws Exception {
 		return preApproveProcosser.approve(order.getCredentials(), 
 										   order.getTo().getTicker().getAddress(), 
 										   strategyGasProvider, 

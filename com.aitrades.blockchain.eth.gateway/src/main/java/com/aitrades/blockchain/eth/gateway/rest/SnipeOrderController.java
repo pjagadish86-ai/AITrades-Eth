@@ -6,11 +6,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.aitrades.blockchain.eth.gateway.common.UUIDGenerator;
 import com.aitrades.blockchain.eth.gateway.domain.SnipeTransactionRequest;
 import com.aitrades.blockchain.eth.gateway.service.SnipeOrderMutator;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/snipe/api/v1")
 public class SnipeOrderController {
 
 	@Autowired
@@ -18,6 +19,7 @@ public class SnipeOrderController {
 	
 	@PostMapping("/snipeOrder")
 	public String createOrder(@RequestBody SnipeTransactionRequest transactionRequest) throws Exception {
+		transactionRequest.setId(UUIDGenerator.nextHex(UUIDGenerator.TYPE1));
 		return snipeOrderMutator.snipeOrder(transactionRequest);
 	}
 	
