@@ -8,7 +8,7 @@ import org.springframework.integration.annotation.ServiceActivator;
 
 import com.aitrades.blockchain.eth.gateway.domain.SnipeTransactionRequest;
 import com.aitrades.blockchain.eth.gateway.mq.RabbitMQSnipeOrderSender;
-import com.aitrades.blockchain.eth.gateway.web3j.ApprovedTransactionStatusChecker;
+import com.aitrades.blockchain.eth.gateway.web3j.OrderPreprosorChecks;
 
 public class RabbitMqSnipeOrderEndpoint {
 
@@ -16,7 +16,7 @@ public class RabbitMqSnipeOrderEndpoint {
 	private RabbitMQSnipeOrderSender rabbitMQSnipeOrderSender;
 
 	@Autowired
-	private ApprovedTransactionStatusChecker statusChecker;
+	private OrderPreprosorChecks statusChecker;
 
 	
 	@ServiceActivator(inputChannel = "addSnipeOrderToRabbitMq")

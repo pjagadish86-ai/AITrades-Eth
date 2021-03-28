@@ -1,6 +1,5 @@
 package com.aitrades.blockchain.eth.gateway.web3j;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Map;
 import java.util.concurrent.Executors;
@@ -16,7 +15,6 @@ import org.web3j.utils.Convert;
 
 import com.aitrades.blockchain.eth.gateway.Web3jServiceClient;
 import com.aitrades.blockchain.eth.gateway.domain.GasModeEnum;
-import com.fasterxml.jackson.databind.ObjectReader;
 
 import reactor.core.scheduler.Schedulers;
 

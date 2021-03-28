@@ -15,6 +15,7 @@ public class PairData {
 	public void setPairAddress(Ticker pairAddress) {
 		this.pairAddress = pairAddress;
 	}
+	
 
 	@Override
 	public String toString() {
