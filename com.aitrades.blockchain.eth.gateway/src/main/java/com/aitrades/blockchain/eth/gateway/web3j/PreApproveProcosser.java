@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.web3j.abi.FunctionEncoder;
 import org.web3j.abi.datatypes.Address;
@@ -21,6 +22,7 @@ import org.web3j.utils.Numeric;
 
 import com.aitrades.blockchain.eth.gateway.Web3jServiceClient;
 import com.aitrades.blockchain.eth.gateway.domain.GasModeEnum;
+import com.aitrades.blockchain.eth.gateway.service.Web3jServiceClientFactory;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 
@@ -37,10 +39,10 @@ public class PreApproveProcosser {
 	
     public static BigInteger MAX_UINT256 = new BigInteger("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", 16);
 
-	@Resource(name = "web3jServiceClient")
-	private Web3jServiceClient web3jServiceClient;
+    @Autowired
+	public Web3jServiceClientFactory  web3jServiceClientFactory;
 	
-	public String approve(Credentials credentials, String contractAddress, StrategyGasProvider customGasProvider,
+	public String approve(String route, Credentials credentials, String contractAddress, StrategyGasProvider customGasProvider,
 			  			  GasModeEnum gasModeEnum) throws Exception {
 		final Function approveFunction = new Function(FUNC_APPROVE,
 												  Lists.newArrayList(new Address(UNISWAP_ROUTER_ADDRESS), new Uint256(MAX_UINT256)),
@@ -48,7 +50,7 @@ public class PreApproveProcosser {
 		
 		String data = FunctionEncoder.encode(approveFunction);
 		
-		EthGetTransactionCount ethGetTransactionCountFlowable = web3jServiceClient.getWeb3j()
+		EthGetTransactionCount ethGetTransactionCountFlowable = web3jServiceClientFactory.getWeb3jMap().get(route).getWeb3j()
 																			  .ethGetTransactionCount(credentials.getAddress(), DefaultBlockParameterName.LATEST)
 																			  .flowable()
 																			  .subscribeOn(Schedulers.io())
@@ -56,14 +58,14 @@ public class PreApproveProcosser {
 		
 		RawTransaction rawTransaction = RawTransaction.createTransaction(ethGetTransactionCountFlowable.getTransactionCount(), 
 																	 customGasProvider.getGasPrice(gasModeEnum),
-																	 customGasProvider.getGasLimit(), 
+																	 customGasProvider.getGasLimit(route), 
 																	 contractAddress, 
 																	 BigInteger.ZERO, 
 																	 data);
 		
 		byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
 		
-		EthSendTransaction ethSendTransaction = web3jServiceClient.getWeb3j()
+		EthSendTransaction ethSendTransaction = web3jServiceClientFactory.getWeb3jMap().get(route).getWeb3j()
 														      .ethSendRawTransaction(Numeric.toHexString(signedMessage))
 														      .flowable()
 														      .blockingSingle();

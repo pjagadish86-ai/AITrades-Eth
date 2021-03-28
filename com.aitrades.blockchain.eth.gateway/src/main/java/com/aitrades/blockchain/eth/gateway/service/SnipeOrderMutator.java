@@ -34,6 +34,6 @@ public class SnipeOrderMutator {
 	}
 	
 	public String approveAndSaveSnipeOrder(SnipeTransactionRequest snipeTransactionRequest) throws Exception {
-		return preApproveProcosser.approve(snipeTransactionRequest.getCredentials(), snipeTransactionRequest.getToAddress(), strategyGasProvider, GasModeEnum.valueOf(snipeTransactionRequest.getGasMode()));
+		return preApproveProcosser.approve(snipeTransactionRequest.getRoute(), snipeTransactionRequest.getCredentials(), snipeTransactionRequest.getToAddress(), strategyGasProvider, GasModeEnum.valueOf(snipeTransactionRequest.getGasMode()));
 	}
 }

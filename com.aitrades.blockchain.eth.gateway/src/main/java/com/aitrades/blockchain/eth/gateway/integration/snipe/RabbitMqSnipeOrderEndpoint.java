@@ -32,6 +32,7 @@ public class RabbitMqSnipeOrderEndpoint {
 		}
 		return !snipeTransactionRequest.hasSniped() 
 				&& StringUtils.isNotBlank(snipeTransactionRequest.getApprovedHash())
-				&& statusChecker.checkStatusOfApprovalTransaction(snipeTransactionRequest.getApprovedHash()).isPresent();
+				&& statusChecker.checkStatusOfApprovalTransaction(snipeTransactionRequest.getApprovedHash(), snipeTransactionRequest.getRoute())
+				.isPresent();
 	}
 }

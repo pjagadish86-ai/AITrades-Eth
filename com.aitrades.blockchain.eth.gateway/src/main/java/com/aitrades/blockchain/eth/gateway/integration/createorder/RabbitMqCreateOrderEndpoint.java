@@ -38,7 +38,7 @@ public class RabbitMqCreateOrderEndpoint {
 	
 	public boolean checkStatus(Order order) {
 		return StringUtils.isNotBlank(order.getApprovedHash())
-				&& statusChecker.checkStatusOfApprovalTransaction(order.getApprovedHash())
+				&& statusChecker.checkStatusOfApprovalTransaction(order.getApprovedHash(), order.getRoute())
 								.isPresent();
 	}
 }

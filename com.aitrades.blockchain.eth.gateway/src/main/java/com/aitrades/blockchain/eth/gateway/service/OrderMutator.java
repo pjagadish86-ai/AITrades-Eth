@@ -1,18 +1,13 @@
 package com.aitrades.blockchain.eth.gateway.service;
 
-import java.util.Optional;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.web3j.abi.datatypes.Type;
 
 import com.aitrades.blockchain.eth.gateway.domain.GasModeEnum;
 import com.aitrades.blockchain.eth.gateway.domain.Order;
 import com.aitrades.blockchain.eth.gateway.domain.OrderSide;
 import com.aitrades.blockchain.eth.gateway.domain.PairData;
-import com.aitrades.blockchain.eth.gateway.domain.Ticker;
-import com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContractPairData;
 import com.aitrades.blockchain.eth.gateway.web3j.OrderPreprosorChecks;
 import com.aitrades.blockchain.eth.gateway.web3j.PreApproveProcosser;
 import com.aitrades.blockchain.eth.gateway.web3j.StrategyGasProvider;
@@ -30,7 +25,7 @@ public class OrderMutator {
 	private StrategyGasProvider strategyGasProvider;
 	
 	@Autowired
-	private OrderPreprosorChecks statusChecker;
+	private OrderPreprosorChecks orderPreposerCheckerAndUpdater;
 	
 	public String createOrder(Order order) throws Exception {
 		if(StringUtils.equalsIgnoreCase(order.getOrderEntity().getOrderSide(), OrderSide.BUY.name())) {
@@ -42,7 +37,7 @@ public class OrderMutator {
 			} 
 		}
 		
-		PairData pairData  = statusChecker.getPairData(order);
+		PairData pairData  = orderPreposerCheckerAndUpdater.getPairData(order);
 		if(pairData != null) {
 			order.setPairData(pairData);
 		}
@@ -50,7 +45,8 @@ public class OrderMutator {
 	}
 	
 	public String approveAndSaveOrder(Order order) throws Exception {
-		return preApproveProcosser.approve(order.getCredentials(), 
+		return preApproveProcosser.approve(order.getRoute(),
+										   order.getCredentials(), 
 										   order.getTo().getTicker().getAddress(), 
 										   strategyGasProvider, 
 										   GasModeEnum.fromValue(order.getGasMode()));
