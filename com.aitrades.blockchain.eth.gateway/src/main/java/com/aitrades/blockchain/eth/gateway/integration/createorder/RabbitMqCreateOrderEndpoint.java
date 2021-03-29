@@ -25,7 +25,6 @@ public class RabbitMqCreateOrderEndpoint {
 
 	@ServiceActivator(inputChannel = "addNewOrderToRabbitMq")
 	public List<Order> addNewOrderToRabbitMq(List<Order> orders) {
-		System.out.println("in addNewOrderToRabbitMq");
 		orders.parallelStream()
 			  .filter(t -> checkStatus(t))
 			  .forEach(order -> sendToCreateOrderQueue(order));
@@ -42,6 +41,7 @@ public class RabbitMqCreateOrderEndpoint {
 	}
 	
 	private void sendToCreateOrderQueue(Order order) {
+		System.out.println("in addNewOrderToRabbitMq");
 		PairData pairData  = statusChecker.getPairData(order);
 		if(pairData != null) {
 			order.setPairData(pairData);
