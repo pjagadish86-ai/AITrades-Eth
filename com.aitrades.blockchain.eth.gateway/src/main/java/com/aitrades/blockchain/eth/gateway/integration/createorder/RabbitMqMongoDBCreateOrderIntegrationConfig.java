@@ -49,7 +49,7 @@ public class RabbitMqMongoDBCreateOrderIntegrationConfig {
 	
 	@Bean(name = PollerMetadata.DEFAULT_POLLER)
 	public PollerMetadata poller() {
-		PollerMetadata poll = Pollers.fixedDelay(120, TimeUnit.SECONDS).get();
+		PollerMetadata poll = Pollers.fixedDelay(10, TimeUnit.SECONDS).get();
 		poll.setTaskExecutor(executor());
 		// poll.setAdviceChain(transactionInterceptor());
 		return poll;

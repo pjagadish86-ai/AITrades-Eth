@@ -41,7 +41,7 @@ public class ApprovedTransactionProcessor {
 				Optional<TransactionReceipt> isApprovedSuccess  = orderPreprosorChecks.checkStatusOfApprovalTransaction(approveTransaction.getApprovedHash(), order.getRoute());
 				if(isApprovedSuccess.isPresent()) {
 					approveTransaction.setStatus("0x1");
-					approveTransactionRepository.insert(approveTransaction);
+					approveTransactionRepository.update(approveTransaction);
 				}
 			}else {
 				sendSniperOrderToProcess = true;
@@ -68,7 +68,7 @@ public class ApprovedTransactionProcessor {
 				Optional<TransactionReceipt> isApprovedSuccess  = orderPreprosorChecks.checkStatusOfApprovalTransaction(approveTransaction.getApprovedHash(), snipeTransactionRequest.getRoute());
 				if(isApprovedSuccess.isPresent()) {
 					approveTransaction.setStatus("0x1");
-					approveTransactionRepository.insert(approveTransaction);
+					approveTransactionRepository.update(approveTransaction);
 				}
 			}else {
 				sendSniperOrderToProcess = true;

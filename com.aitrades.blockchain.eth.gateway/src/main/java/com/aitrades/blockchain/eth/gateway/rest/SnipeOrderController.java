@@ -19,7 +19,6 @@ public class SnipeOrderController {
 	
 	@PostMapping("/snipeOrder")
 	public String createOrder(@RequestBody SnipeTransactionRequest transactionRequest) throws Exception {
-		transactionRequest.setId(UUIDGenerator.nextHex(UUIDGenerator.TYPE1));
 		return snipeOrderMutator.snipeOrder(transactionRequest);
 	}
 	

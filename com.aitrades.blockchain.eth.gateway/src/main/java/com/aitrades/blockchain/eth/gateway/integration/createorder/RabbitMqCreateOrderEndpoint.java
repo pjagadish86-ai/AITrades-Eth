@@ -27,27 +27,25 @@ public class RabbitMqCreateOrderEndpoint {
 	public List<Order> addNewOrderToRabbitMq(List<Order> orders) {
 		System.out.println("in addNewOrderToRabbitMq");
 		orders.parallelStream()
-			  .filter(t -> {
-				try {
-					return checkStatus(t);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				return false;
-			})
+			  .filter(t -> checkStatus(t))
 			  .forEach(order -> sendToCreateOrderQueue(order));
 		return orders;
 	}
 
+	private boolean checkStatus(Order order) {
+		try {
+			return approvedTransactionProcessor.checkAndProcessBuyApproveTransaction(order);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 	private void sendToCreateOrderQueue(Order order) {
 		PairData pairData  = statusChecker.getPairData(order);
 		if(pairData != null) {
 			order.setPairData(pairData);
 			rabbitMQCreateOrderSender.send(order);
 		}
-	}
-	
-	public boolean checkStatus(Order order) throws Exception {
-		return approvedTransactionProcessor.checkAndProcessBuyApproveTransaction(order);
 	}
 }

@@ -49,7 +49,7 @@ public class RabbitMqMongoDBSnipeOrderIntegrationConfig {
 	
 	@Bean(name = "snipePoller")
 	public PollerMetadata snipePoller() {
-		PollerMetadata poll = Pollers.fixedDelay(60, TimeUnit.SECONDS).get();
+		PollerMetadata poll = Pollers.fixedDelay(5, TimeUnit.SECONDS).get();
 		poll.setTaskExecutor(snipeExecutor());
 		// poll.setAdviceChain(transactionInterceptor());
 		return poll;
