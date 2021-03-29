@@ -7,6 +7,7 @@ import org.springframework.integration.annotation.ServiceActivator;
 
 import com.aitrades.blockchain.eth.gateway.domain.SnipeTransactionRequest;
 import com.aitrades.blockchain.eth.gateway.mq.RabbitMQSnipeOrderSender;
+import com.aitrades.blockchain.eth.gateway.repository.SnipeOrderRepository;
 import com.aitrades.blockchain.eth.gateway.service.ApprovedTransactionProcessor;
 
 public class SnipeOrderGatewayEndpoint {
@@ -17,14 +18,16 @@ public class SnipeOrderGatewayEndpoint {
 	@Autowired
 	private ApprovedTransactionProcessor approvedTransactionProcessor;
 	
+	@Autowired
+	public SnipeOrderRepository snipeOrderRepository;
+	
 	@ServiceActivator(inputChannel = "addSnipeOrderToRabbitMq")
 	public void addSnipeOrderToRabbitMq(List<SnipeTransactionRequest> transactionRequests) throws Exception {
-		throw new Exception("snipe");
-//		for(SnipeTransactionRequest snipeTransactionRequest : transactionRequests) {
-//			if(checkStatus(snipeTransactionRequest)) {
-//				sendOrderToSnipe(snipeTransactionRequest);
-//			}
-//		}
+		for(SnipeTransactionRequest snipeTransactionRequest : transactionRequests) {
+			if(checkStatus(snipeTransactionRequest)) {
+				sendOrderToSnipe(snipeTransactionRequest);
+			}
+		}
 	}
 
 	private void sendOrderToSnipe(SnipeTransactionRequest snipeOrder) {
@@ -33,7 +36,11 @@ public class SnipeOrderGatewayEndpoint {
 	
 	public boolean checkStatus(SnipeTransactionRequest snipeTransactionRequest) {
 		try {
-			return approvedTransactionProcessor.checkAndProcessSnipeApproveTransaction(snipeTransactionRequest);
+			boolean hasApprovedStatusSuccess = approvedTransactionProcessor.checkAndProcessSnipeApproveTransaction(snipeTransactionRequest);
+			if(hasApprovedStatusSuccess) {
+				snipeOrderRepository.updateLock(snipeTransactionRequest);
+			}
+			return hasApprovedStatusSuccess;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

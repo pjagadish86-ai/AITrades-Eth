@@ -90,7 +90,7 @@ public class SnipeOrderIntegrationConfig {
 	@Bean
 	@Autowired
 	public MessageSource<Object> mongoSnipeInboundSource() throws Exception {// {'side' : 'buy'} // { qty: { $in: [ 5, 15 ] } } //  { $or: [ { 'status': 'A' } , { age: 50 } ] }
-		MongoDbMessageSource messageSource = new MongoDbMessageSource(snipeOrderMongoDbFactory(), new LiteralExpression("{'snipeStatus': 'WORKING'}"));
+		MongoDbMessageSource messageSource = new MongoDbMessageSource(snipeOrderMongoDbFactory(), new LiteralExpression("{'snipeStatus': 'WORKING' , 'read': 'AVAL'}"));
 		messageSource.setEntityClass(SnipeTransactionRequest.class);
 		messageSource.setCollectionNameExpression(new LiteralExpression("snipeTransactionRequest"));
 		return messageSource;
