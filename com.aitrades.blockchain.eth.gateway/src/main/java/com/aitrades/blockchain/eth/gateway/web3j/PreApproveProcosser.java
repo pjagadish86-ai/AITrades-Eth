@@ -67,6 +67,10 @@ public class PreApproveProcosser {
 			gasPrice =  customGasProvider.getGasPrice(gasModeEnum);
 			gasLimit =	 customGasProvider.getGasLimit(route, true);
 		}
+		if(StringUtils.equalsIgnoreCase("local", "local")) {
+			gasPrice =  customGasProvider.getGasPrice();
+			gasLimit =	 customGasProvider.getGasLimit();
+		}
 		RawTransaction rawTransaction = RawTransaction.createTransaction(ethGetTransactionCountFlowable.getTransactionCount(), 
 																		 gasPrice,
 																	     gasLimit, 

@@ -99,13 +99,12 @@ public class StrategyGasProvider implements ContractGasProvider{
 
 	@Override
 	public BigInteger getGasPrice() {
-		return null;
+		return new BigInteger("25");
 	}
 
 	@Override
 	public BigInteger getGasLimit() {
-		// TODO Auto-generated method stub
-		return null;
+		return new BigInteger("146146");
 	}
 
 }

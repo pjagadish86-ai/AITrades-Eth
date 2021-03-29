@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.aitrades.blockchain.eth.gateway.domain.SnipeTransactionRequest;
-import com.aitrades.blockchain.eth.gateway.mq.RabbitMQSnipeOrderSender;
 import com.aitrades.blockchain.eth.gateway.repository.SnipeOrderRepository;
 
 import reactor.core.publisher.Mono;
@@ -15,12 +14,8 @@ public class SnipeOrderProcessor {
 	@Autowired
 	public SnipeOrderRepository snipeOrderRepository;
 	
-	@Autowired
-	private RabbitMQSnipeOrderSender rabbitMQSnipeOrderSender;
-
 	public String snipeOrder(SnipeTransactionRequest snipeTransactionRequest) {
 		Mono<SnipeTransactionRequest> insertedRecord = snipeOrderRepository.insert(snipeTransactionRequest);
-		rabbitMQSnipeOrderSender.send(snipeTransactionRequest);
 		return insertedRecord.block().getId();
 	}
 
