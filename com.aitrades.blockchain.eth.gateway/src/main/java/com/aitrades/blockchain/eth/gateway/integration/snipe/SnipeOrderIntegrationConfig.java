@@ -32,7 +32,7 @@ import com.aitrades.blockchain.eth.gateway.domain.SnipeTransactionRequest;
 @ComponentScan("com.aitrades.blockchain.eth.gateway.integration")
 @IntegrationComponentScan("com.aitrades.blockchain.eth.gateway.integration")
 @EnableIntegration
-public class RabbitMqMongoDBSnipeOrderIntegrationConfig {
+public class SnipeOrderIntegrationConfig {
 	
 	@Resource(name="snipeOrderBinding")
 	public Binding snipeOrderBinding;
@@ -49,7 +49,7 @@ public class RabbitMqMongoDBSnipeOrderIntegrationConfig {
 	
 	@Bean(name = "snipePoller")
 	public PollerMetadata snipePoller() {
-		PollerMetadata poll = Pollers.fixedDelay(5, TimeUnit.SECONDS).get();
+		PollerMetadata poll = Pollers.fixedDelay(10, TimeUnit.SECONDS).get();
 		poll.setTaskExecutor(snipeExecutor());
 		// poll.setAdviceChain(transactionInterceptor());
 		return poll;
@@ -82,8 +82,8 @@ public class RabbitMqMongoDBSnipeOrderIntegrationConfig {
     }
 	
 	@Bean(name="rabbitMqsnipeOrderEndpoint")
-	public RabbitMqSnipeOrderEndpoint rabbitMqsnipeOrderEndpoint() {
-		return new RabbitMqSnipeOrderEndpoint();
+	public SnipeOrderGatewayEndpoint rabbitMqsnipeOrderEndpoint() {
+		return new SnipeOrderGatewayEndpoint();
 	}
 
 	//TODO: use reactive programming and mongodb driver implementation to kick of any inserts and update.

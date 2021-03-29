@@ -9,11 +9,13 @@ import com.aitrades.blockchain.eth.gateway.domain.Order;
 @Service
 public class OrderMutator {
 	
+	private static final String AVAL = "AVAL";
 	@Autowired
 	private OrderProcessor orderProcessor;
 
 	public String createOrder(Order order) throws Exception {
 		order.setId(UUIDGenerator.nextHex(UUIDGenerator.TYPE1));
+		order.setRead(AVAL);
 		return orderProcessor.createOrder(order);
 	}
 	

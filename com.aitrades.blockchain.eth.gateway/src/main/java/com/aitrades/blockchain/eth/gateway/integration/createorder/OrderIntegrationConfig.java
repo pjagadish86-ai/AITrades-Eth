@@ -9,6 +9,7 @@ import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +18,7 @@ import org.springframework.core.task.TaskExecutor;
 import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
 import org.springframework.expression.common.LiteralExpression;
 import org.springframework.integration.annotation.IntegrationComponentScan;
+import org.springframework.integration.channel.PublishSubscribeChannel;
 import org.springframework.integration.config.EnableIntegration;
 import org.springframework.integration.context.IntegrationContextUtils;
 import org.springframework.integration.core.MessageSource;
@@ -33,7 +35,7 @@ import com.aitrades.blockchain.eth.gateway.domain.Order;
 @ComponentScan("com.aitrades.blockchain.eth.gateway.integration")
 @IntegrationComponentScan("com.aitrades.blockchain.eth.gateway.integration")
 @EnableIntegration
-public class RabbitMqMongoDBCreateOrderIntegrationConfig {
+public class OrderIntegrationConfig {
 	
 	@Resource(name="createOrderBinding")
 	public Binding createOrderBinding;
@@ -75,10 +77,25 @@ public class RabbitMqMongoDBCreateOrderIntegrationConfig {
 	}
 	
 	@Bean(name="rabbitMqCreateOrderEndpoint")
-	public RabbitMqCreateOrderEndpoint rabbitMqCreateOrderEndpoint() {
-		return new RabbitMqCreateOrderEndpoint();
+	public OrderGatewayEndpoint rabbitMqCreateOrderEndpoint() {
+		return new OrderGatewayEndpoint();
 	}
 
+	@Bean(name="createOrderErrorHandler")
+	public GlobalErrorHandler createOrderErrorHandler() {
+		return new GlobalErrorHandler();
+	}
+
+	@Autowired
+	@Qualifier("errorChannel")
+	private PublishSubscribeChannel errorChannel;
+	
+	@Bean
+	public IntegrationFlow errorHandlingFlow() {
+		return IntegrationFlows.from(errorChannel)
+				.handle("createOrderErrorHandler", "errorFlow")
+				.get();
+	}
 
 	@Bean(name ="orderMongoDbFactory")
 	@Primary
@@ -90,8 +107,8 @@ public class RabbitMqMongoDBCreateOrderIntegrationConfig {
 	//TODO: use reactive programming and mongodb driver implementation to kick of any inserts and update.
 	@Bean
 	@Autowired
-	public MessageSource<Object> mongoInboundSource() throws Exception {// {'side' : 'buy'} // { qty: { $in: [ 5, 15 ] } } //  { $or: [ { 'status': 'A' } , { age: 50 } ] }
-		MongoDbMessageSource messageSource = new MongoDbMessageSource(orderMongoDbFactory(), new LiteralExpression("{'orderCode' : { $in: [83, 84] }}"));
+	public MessageSource<Object> mongoInboundSource() throws Exception {// {'side' : 'buy'} // { qty: { $in: [ 5, 15 ] } } //  { $or: [ { 'status': 'A' } , { age: 50 } ] } {'orderCode' : { $in: [83, 84] }, 'read': 'AVAL'}  "{'orderCode' : { $in: [83, 84] }}"  
+		MongoDbMessageSource messageSource = new MongoDbMessageSource(orderMongoDbFactory(), new LiteralExpression("{'orderCode' : { $in: [83, 84] }, 'read': 'AVAL'}"));
 		messageSource.setEntityClass(Order.class);
 		messageSource.setCollectionNameExpression(new LiteralExpression("order"));
 		return messageSource;

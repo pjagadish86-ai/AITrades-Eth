@@ -14,6 +14,7 @@ public class SnipeOrderMutator {
 
 	public String snipeOrder(SnipeTransactionRequest snipeTransactionRequest) throws Exception {
 		snipeTransactionRequest.setId(UUIDGenerator.nextHex(UUIDGenerator.TYPE1));
+		snipeTransactionRequest.setRead("AVAL");
 		return snipeOrderProcessor.snipeOrder(snipeTransactionRequest);
 	}
 	

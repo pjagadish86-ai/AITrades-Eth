@@ -19,6 +19,10 @@ import com.aitrades.blockchain.eth.gateway.web3j.StrategyGasProvider;
 @Service
 public class ApprovedTransactionProcessor {
 
+	private static final String SNIPE = "SNIPE";
+
+	private static final String BUY = "BUY";
+
 	private static final String TILDA = "~";
 
 	@Autowired
@@ -35,7 +39,10 @@ public class ApprovedTransactionProcessor {
 	
 	public boolean checkAndProcessBuyApproveTransaction(Order order) throws Exception {
 		boolean sendSniperOrderToProcess = false;
-		ApproveTransaction approveTransaction = approveTransactionRepository.find(order.getWalletInfo().getPublicKey().toLowerCase() + TILDA + order.getRoute() +TILDA + order.getTo().getTicker().getAddress().toLowerCase()); // id should -> publickey ~ router ~ contractaddresss
+		
+		String address  = order.getOrderEntity().getOrderSide().equalsIgnoreCase(BUY) ? order.getTo().getTicker().getAddress() : order.getFrom().getTicker().getAddress();
+				
+		ApproveTransaction approveTransaction = approveTransactionRepository.find(order.getWalletInfo().getPublicKey().toLowerCase() + TILDA + order.getRoute() +TILDA + address.toLowerCase()); // id should -> publickey ~ router ~ contractaddresss
 		if(approveTransaction != null && approveTransaction.getApprovedHash() != null) {
 			if(StringUtils.isBlank(approveTransaction.getStatus())) {
 				Optional<TransactionReceipt> isApprovedSuccess  = orderPreprosorChecks.checkStatusOfApprovalTransaction(approveTransaction.getApprovedHash(), order.getRoute());
@@ -50,7 +57,7 @@ public class ApprovedTransactionProcessor {
 			String hash  = preApproveProcosser.approve(order.getRoute(), order.getCredentials(), order.getTo().getTicker().getAddress(), strategyGasProvider, GasModeEnum.fromValue(order.getGasMode()));
 			if(StringUtils.isNotBlank( hash)) {
 				ApproveTransaction approveTrnx = new ApproveTransaction();
-				approveTrnx.setId(order.getWalletInfo().getPublicKey().toLowerCase() + TILDA + order.getRoute() +TILDA +  order.getTo().getTicker().getAddress().toLowerCase());
+				approveTrnx.setId(order.getWalletInfo().getPublicKey().toLowerCase() + TILDA + order.getRoute() +TILDA +  address.toLowerCase());
 				approveTrnx.setContractAddressInteracted( order.getTo().getTicker().getAddress());
 				approveTrnx.setPublicKey(order.getWalletInfo().getPublicKey());
 				approveTrnx.setApprovedHash(hash);
@@ -62,6 +69,8 @@ public class ApprovedTransactionProcessor {
 	
 	public boolean checkAndProcessSnipeApproveTransaction(SnipeTransactionRequest snipeTransactionRequest) throws Exception {
 		boolean sendSniperOrderToProcess = false;
+		String address  = snipeTransactionRequest.getOrderSide().equalsIgnoreCase(BUY) ? snipeTransactionRequest.getToAddress() :snipeTransactionRequest.getFromAddress();
+		
 		ApproveTransaction approveTransaction = approveTransactionRepository.find(snipeTransactionRequest.getWalletInfo().getPublicKey().toLowerCase() + TILDA + snipeTransactionRequest.getRoute() +TILDA + snipeTransactionRequest.getToAddress().toLowerCase()); // id should -> publickey ~ router ~ contractaddresss
 		if(approveTransaction != null && approveTransaction.getApprovedHash() != null) {
 			if(StringUtils.isBlank(approveTransaction.getStatus())) {

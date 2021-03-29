@@ -9,7 +9,7 @@ import com.aitrades.blockchain.eth.gateway.domain.SnipeTransactionRequest;
 import com.aitrades.blockchain.eth.gateway.mq.RabbitMQSnipeOrderSender;
 import com.aitrades.blockchain.eth.gateway.service.ApprovedTransactionProcessor;
 
-public class RabbitMqSnipeOrderEndpoint {
+public class SnipeOrderGatewayEndpoint {
 
 	@Autowired
 	private RabbitMQSnipeOrderSender rabbitMQSnipeOrderSender;
@@ -18,10 +18,17 @@ public class RabbitMqSnipeOrderEndpoint {
 	private ApprovedTransactionProcessor approvedTransactionProcessor;
 	
 	@ServiceActivator(inputChannel = "addSnipeOrderToRabbitMq")
-	public void addSnipeOrderToRabbitMq(List<SnipeTransactionRequest> transactionRequests) {
-		transactionRequests.parallelStream()//TODO: garbabage codeing
-						   .filter(t -> checkStatus(t))
-						   .forEach(snipeOrder -> rabbitMQSnipeOrderSender.send(snipeOrder));
+	public void addSnipeOrderToRabbitMq(List<SnipeTransactionRequest> transactionRequests) throws Exception {
+		throw new Exception("snipe");
+//		for(SnipeTransactionRequest snipeTransactionRequest : transactionRequests) {
+//			if(checkStatus(snipeTransactionRequest)) {
+//				sendOrderToSnipe(snipeTransactionRequest);
+//			}
+//		}
+	}
+
+	private void sendOrderToSnipe(SnipeTransactionRequest snipeOrder) {
+		rabbitMQSnipeOrderSender.send(snipeOrder);
 	}
 	
 	public boolean checkStatus(SnipeTransactionRequest snipeTransactionRequest) {

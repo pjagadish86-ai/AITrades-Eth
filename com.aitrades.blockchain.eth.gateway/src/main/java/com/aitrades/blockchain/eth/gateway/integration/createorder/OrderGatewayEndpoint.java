@@ -8,10 +8,11 @@ import org.springframework.integration.annotation.ServiceActivator;
 import com.aitrades.blockchain.eth.gateway.domain.Order;
 import com.aitrades.blockchain.eth.gateway.domain.PairData;
 import com.aitrades.blockchain.eth.gateway.mq.RabbitMQCreateOrderSender;
+import com.aitrades.blockchain.eth.gateway.repository.OrderRepository;
 import com.aitrades.blockchain.eth.gateway.service.ApprovedTransactionProcessor;
 import com.aitrades.blockchain.eth.gateway.web3j.OrderPreprosorChecks;
 
-public class RabbitMqCreateOrderEndpoint {
+public class OrderGatewayEndpoint {
 
 	@Autowired
 	private RabbitMQCreateOrderSender rabbitMQCreateOrderSender;
@@ -21,23 +22,30 @@ public class RabbitMqCreateOrderEndpoint {
 	
 	@Autowired
 	private ApprovedTransactionProcessor approvedTransactionProcessor;
-
+	
+	@Autowired
+	public OrderRepository orderRepository;
 
 	@ServiceActivator(inputChannel = "addNewOrderToRabbitMq")
-	public List<Order> addNewOrderToRabbitMq(List<Order> orders) {
-		orders.parallelStream()
-			  .filter(t -> checkStatus(t))
-			  .forEach(order -> sendToCreateOrderQueue(order));
+	public List<Order> addNewOrderToRabbitMq(List<Order> orders) throws Exception {
+		for(Order order : orders) {
+			if(checkStatusAndLockMessage(order)) {
+				sendToCreateOrderQueue(order);
+			}
+		}
 		return orders;
 	}
 
-	private boolean checkStatus(Order order) {
+	private boolean checkStatusAndLockMessage(Order order) throws Exception {
 		try {
-			return approvedTransactionProcessor.checkAndProcessBuyApproveTransaction(order);
+			boolean hasApprovedStatusSuccess = approvedTransactionProcessor.checkAndProcessBuyApproveTransaction(order);
+			if(hasApprovedStatusSuccess) {
+				orderRepository.updateLock(order);
+			}
+			return hasApprovedStatusSuccess;
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw e;
 		}
-		return false;
 	}
 	
 	private void sendToCreateOrderQueue(Order order) {
