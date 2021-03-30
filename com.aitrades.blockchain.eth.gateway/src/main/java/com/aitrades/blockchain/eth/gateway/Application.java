@@ -22,6 +22,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.websocket.WebSocketClient;
 import org.web3j.protocol.websocket.WebSocketService;
+import org.web3j.tx.response.NoOpProcessor;
+import org.web3j.tx.response.PollingTransactionReceiptProcessor;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.reactivestreams.client.MongoClient;
@@ -36,6 +38,8 @@ import reactor.netty.http.client.HttpClient;
 @EnableAsync
 @EnableMongoRepositories(basePackages = { "com.aitrades.blockchain.eth.gateway.repository" })
 public class Application {
+
+	private static final int _40 = 40;
 
 	private static final String ENDPOINT_WSS = "wss://eth-ropsten.ws.alchemyapi.io/v2/rbcu5rCKQjynzoU_TTGtTvamSnagl9BU";
 	
@@ -76,6 +80,18 @@ public class Application {
         }
     }
     
+	@Bean(name= "pollingTransactionReceiptProcessor")
+	public PollingTransactionReceiptProcessor pollingTransactionReceiptProcessor() {
+		return new PollingTransactionReceiptProcessor(web3J(), 4000, _40);
+	}
+	
+	
+	@Bean(name= "noOpProcessor")
+	public NoOpProcessor noOpProcessor() {
+		return new NoOpProcessor(web3J());
+	}
+	
+	
 	@Bean(name = "web3jServiceClient")
 	public Web3jServiceClient web3jServiceClient(@Qualifier("web3jClient") final Web3j web3j,
 												 final ObjectMapper objectMapper) {
