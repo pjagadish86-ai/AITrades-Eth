@@ -50,7 +50,7 @@ public class SnipeOrderIntegrationConfig {
 	@Bean(name = "snipePoller")
 	public PollerMetadata snipePoller() {
 		PollerMetadata poll = Pollers.fixedDelay(10, TimeUnit.SECONDS).get();
-		poll.setTaskExecutor(snipeExecutor());
+		//poll.setTaskExecutor(snipeExecutor());
 		// poll.setAdviceChain(transactionInterceptor());
 		return poll;
 	}
@@ -88,9 +88,9 @@ public class SnipeOrderIntegrationConfig {
 
 	//TODO: use reactive programming and mongodb driver implementation to kick of any inserts and update.
 	@Bean
-	@Autowired
-	public MessageSource<Object> mongoSnipeInboundSource() throws Exception {// {'side' : 'buy'} // { qty: { $in: [ 5, 15 ] } } //  { $or: [ { 'status': 'A' } , { age: 50 } ] }
-		MongoDbMessageSource messageSource = new MongoDbMessageSource(snipeOrderMongoDbFactory(), new LiteralExpression("{'snipeStatus': 'WORKING' , 'read': 'AVAL'}"));
+	@Autowired //{'snipeStatus': 'WORKING' , 'read': 'AVAL'}"
+	public MessageSource<Object> mongoSnipeInboundSource() throws Exception {// {'side' : 'buy'} // { qty: { $in: [ 5, 15 ] } } //  { $or: [ { 'status': 'A' } , { age: 50 } ] }  { $and: [ {'snipeStatus':'WORKING'}, { 'read':'AVAL'} ] }
+		MongoDbMessageSource messageSource = new MongoDbMessageSource(snipeOrderMongoDbFactory(), new LiteralExpression("{ $and: [ {'snipeStatus':'WORKING'}, { 'read':'AVAL'} ] }"));
 		messageSource.setEntityClass(SnipeTransactionRequest.class);
 		messageSource.setCollectionNameExpression(new LiteralExpression("snipeTransactionRequest"));
 		return messageSource;

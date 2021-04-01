@@ -22,6 +22,13 @@ public class SnipeOrderRepository {
 		return snipeOrderReactiveMongoTemplate.insert(transactionRequest);
 	}
 	
+	
+	public SnipeTransactionRequest find(SnipeTransactionRequest transactionRequest) {
+		Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(transactionRequest.getId()));
+		return snipeOrderReactiveMongoTemplate.findOne(query, SnipeTransactionRequest.class).block();
+	}
+	
 	public void updateLock(SnipeTransactionRequest snipeTransactionRequest) {
 		Query query = new Query();
         query.addCriteria(Criteria.where("id").is(snipeTransactionRequest.getId()));
