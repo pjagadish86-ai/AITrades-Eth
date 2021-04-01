@@ -9,7 +9,6 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.springframework.data.annotation.Id;
 import org.web3j.crypto.Credentials;
-import org.web3j.utils.Convert;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -48,6 +47,8 @@ public class SnipeTransactionRequest {
 	private String gasMode;
 	
 	private BigDecimal slipage;
+	
+	private Double slipageInDouble;
 	
 	private long deadLine;
 	
@@ -114,7 +115,7 @@ public class SnipeTransactionRequest {
 	}
 
 	public BigInteger getInputTokenValueAmountAsBigInteger() {
-		return  Convert.toWei(getInputTokenValueAmountAsBigDecimal(), Convert.Unit.ETHER).toBigInteger();
+		return inputTokenValueAmountAsBigInteger;
 	}
 
 	public void setInputTokenValueAmountAsBigInteger(BigInteger inputTokenValueAmountAsBigInteger) {
@@ -217,11 +218,6 @@ public class SnipeTransactionRequest {
 		this.hasApproved = hasApproved;
 	}
 
-	@JsonIgnore
-	public BigDecimal slipageInBips() {
-		return (getSlipage().multiply(new BigDecimal(100))).divide(new BigDecimal(10000));
-	}
-
 	public long getDeadLine() {
 		if(this.deadLine <= 0) {
 			this.deadLine = 300l;
@@ -312,6 +308,14 @@ public class SnipeTransactionRequest {
 
 	public void setRead(String read) {
 		this.read = read;
+	}
+	
+	public Double getSlipageInDouble() {
+		return slipageInDouble;
+	}
+
+	public void setSlipageInDouble(Double slipageInDouble) {
+		this.slipageInDouble = slipageInDouble;
 	}
 
 	@Override

@@ -1,9 +1,6 @@
 package com.aitrades.blockchain.eth.gateway.web3j;
 
-import java.io.IOException;
 import java.math.BigInteger;
-import java.time.Duration;
-import java.time.Instant;
 import java.util.Collections;
 import java.util.Map;
 
@@ -30,6 +27,7 @@ import com.google.common.collect.Lists;
 @Service
 public class PreApproveProcosser {
 
+	private static final String CUSTOM = "CUSTOM";
 	public static final String PANCAKE = "PANCAKE";
 	public static final String UNISWAP = "UNISWAP";
 	public static final String SUSHI = "SUSHI";
@@ -69,12 +67,12 @@ public class PreApproveProcosser {
 	private NoOpProcessor noOpProcessor;
 	
 	public String approve(String route, Credentials credentials, String contractAddress, StrategyGasProvider customGasProvider,
-			  			  GasModeEnum gasModeEnum) throws Exception {
+			  			  GasModeEnum gasModeEnum, BigInteger gasPrice) throws Exception {
 		FastRawTransactionManager fastRawTxMgr = new FastRawTransactionManager(web3jServiceClientFactory.getWeb3jMap().get(route).getWeb3j(), 
 																			   credentials,
 																			   noOpProcessor);
 		
-		EthSendTransaction ethSendTransaction = extracted(route, contractAddress, customGasProvider, gasModeEnum, fastRawTxMgr);
+		EthSendTransaction ethSendTransaction = aprrov(route, contractAddress, customGasProvider, gasModeEnum, fastRawTxMgr, gasPrice);
 		if(ethSendTransaction.hasError()) {
 			throw new Exception(ethSendTransaction.getError().getMessage());
 		}
@@ -82,10 +80,10 @@ public class PreApproveProcosser {
 	}
 
 	@Async
-	private EthSendTransaction extracted(String route, String contractAddress, StrategyGasProvider customGasProvider,
-										 GasModeEnum gasModeEnum, FastRawTransactionManager fastRawTxMgr) throws Exception {
-		return fastRawTxMgr.sendTransaction(customGasProvider.getGasPrice(gasModeEnum), 
-											customGasProvider.getGasLimit(), 
+	private EthSendTransaction aprrov(String route, String contractAddress, StrategyGasProvider customGasProvider,
+										 GasModeEnum gasModeEnum, FastRawTransactionManager fastRawTxMgr, BigInteger gasPrice) throws Exception {
+		return fastRawTxMgr.sendTransaction(gasModeEnum.name().equalsIgnoreCase(CUSTOM) ? gasPrice : customGasProvider.getGasPrice(gasModeEnum), 
+											customGasProvider.getGasLimit(route, true), 
 											contractAddress, 
 											FUNCTION_ENCODE_ROUTE_MAP.get(route), 
 											BigInteger.ZERO);

@@ -13,12 +13,22 @@ public class Slipage {
 	private String slipagePercent;
 	private BigInteger slipagePercentAsBigInteger;
 	private BigInteger slipageInBips;
+	private double slipageInBipsInDouble;
 	private BigDecimal slipapagePercentAsBigDecimal;
 	
 	private List<AdditionalProperty> addionalProperties;
 
 	public String getSlipagePercent() {
 		return slipagePercent;
+	}
+	
+	public double getSlipageInBipsInDouble() {
+		return slipageInBipsInDouble;
+	}
+
+
+	public void setSlipageInBipsInDouble(double slipageInBipsInDouble) {
+		this.slipageInBipsInDouble = slipageInBipsInDouble;
 	}
 
 	public void setSlipagePercent(String slipagePercent) {

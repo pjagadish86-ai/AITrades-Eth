@@ -14,9 +14,11 @@ public class OrderMutator {
 	private OrderProcessor orderProcessor;
 
 	public String createOrder(Order order) throws Exception {
-		order.setId(UUIDGenerator.nextHex(UUIDGenerator.TYPE1));
+		String id = UUIDGenerator.nextHex(UUIDGenerator.TYPE1);
+		order.setId(id);
 		order.setRead(AVAL);
-		return orderProcessor.createOrder(order);
+		orderProcessor.createOrder(order);
+		return id;
 	}
 	
 }

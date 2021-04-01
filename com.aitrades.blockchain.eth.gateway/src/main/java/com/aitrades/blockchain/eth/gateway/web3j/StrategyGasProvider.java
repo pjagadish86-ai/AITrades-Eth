@@ -11,7 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.web3j.protocol.core.DefaultBlockParameterName;
-import org.web3j.tx.gas.ContractGasProvider;
 import org.web3j.utils.Convert;
 
 import com.aitrades.blockchain.eth.gateway.domain.GasModeEnum;
@@ -21,10 +20,9 @@ import reactor.core.scheduler.Schedulers;
 
 @Component
 //TODO: Gas should be populated in PairCreated Channel and assign it into snipeRequestObject, so this way we can avoid further or do just make a call?
-public class StrategyGasProvider implements ContractGasProvider{
+public class StrategyGasProvider{
 
 	private static final String PANCAKE = "PANCAKE";
-
 	private static final String GAS_PRICE_ORACLE ="/gasPriceOracle";
 
 	@Resource(name="gasWebClient")
@@ -33,8 +31,8 @@ public class StrategyGasProvider implements ContractGasProvider{
 	@Autowired
 	public Web3jServiceClientFactory  web3jServiceClientFactory;
 	
-	public static final BigInteger GAS_PRICE = BigInteger.valueOf(220000000000L); // Gas Price (GWEI) 1
-	private static final BigInteger GAS_LIMIT = BigInteger.valueOf(467296);// Gas Limit (Units) 167296
+	public static final BigInteger GAS_LIMIT = BigInteger.valueOf(9_000_000);
+    public static final BigInteger GAS_PRICE = BigInteger.valueOf(4_100_000_000L);
 	    
 	@SuppressWarnings("unchecked")
 	public BigInteger getGasPrice(GasModeEnum gasModeEnum) throws Exception{
@@ -85,26 +83,6 @@ public class StrategyGasProvider implements ContractGasProvider{
 						 .getBlock()
 						 .getGasLimit()
 		: GAS_LIMIT;
-	}
-
-	@Override
-	public BigInteger getGasPrice(String route) {
-		return getGasLimit(route);
-	}
-
-	@Override
-	public BigInteger getGasLimit(String contractFunc) {
-		return null;
-	}
-
-	@Override
-	public BigInteger getGasPrice() {
-		return new BigInteger("95");
-	}
-
-	@Override
-	public BigInteger getGasLimit() {
-		return new BigInteger("146146");
 	}
 
 }
