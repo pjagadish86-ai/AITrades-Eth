@@ -74,6 +74,8 @@ public class SnipeTransactionRequest {
 	
 	private String read;
 	
+	private String retryEnabled;
+	
 	public String getId() {
 		return id;
 	}
@@ -318,20 +320,37 @@ public class SnipeTransactionRequest {
 		this.slipageInDouble = slipageInDouble;
 	}
 
+
+	public String getRetryEnabled() {
+		return retryEnabled;
+	}
+
+	public void setRetryEnabled(String retryEnabled) {
+		this.retryEnabled = retryEnabled;
+	}
+
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		return EqualsBuilder.reflectionEquals(this, obj);
-	}
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Order)) {
+            return false;
+        }
+        SnipeTransactionRequest snipeTransactionRequest = (SnipeTransactionRequest) obj;
+        return new EqualsBuilder()
+                .append(getId(), snipeTransactionRequest.getId())
+                .isEquals();
+    }
 
-	@Override
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this);
-	}
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder()
+                .append(getId())
+                .toHashCode();
+    }
 
 	@JsonIgnore
 	public Credentials getCredentials() {

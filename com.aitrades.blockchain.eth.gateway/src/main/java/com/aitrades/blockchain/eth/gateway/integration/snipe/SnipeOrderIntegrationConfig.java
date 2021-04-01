@@ -12,7 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.task.TaskExecutor;
+import org.springframework.data.mongodb.MongoDatabaseFactory;
+import org.springframework.data.mongodb.MongoTransactionManager;
+import org.springframework.data.mongodb.ReactiveMongoDatabaseFactory;
+import org.springframework.data.mongodb.ReactiveMongoTransactionManager;
 import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
 import org.springframework.expression.common.LiteralExpression;
 import org.springframework.integration.annotation.IntegrationComponentScan;
@@ -25,6 +30,7 @@ import org.springframework.integration.dsl.Pollers;
 import org.springframework.integration.mongodb.inbound.MongoDbMessageSource;
 import org.springframework.integration.scheduling.PollerMetadata;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.transaction.PlatformTransactionManager;
 
 import com.aitrades.blockchain.eth.gateway.domain.SnipeTransactionRequest;
 
@@ -49,7 +55,7 @@ public class SnipeOrderIntegrationConfig {
 	
 	@Bean(name = "snipePoller")
 	public PollerMetadata snipePoller() {
-		PollerMetadata poll = Pollers.fixedDelay(10, TimeUnit.SECONDS).get();
+		PollerMetadata poll = Pollers.fixedDelay(1, TimeUnit.MINUTES).get();
 		//poll.setTaskExecutor(snipeExecutor());
 		// poll.setAdviceChain(transactionInterceptor());
 		return poll;
@@ -85,7 +91,7 @@ public class SnipeOrderIntegrationConfig {
 	public SnipeOrderGatewayEndpoint rabbitMqsnipeOrderEndpoint() {
 		return new SnipeOrderGatewayEndpoint();
 	}
-
+	
 	//TODO: use reactive programming and mongodb driver implementation to kick of any inserts and update.
 	@Bean
 	@Autowired //{'snipeStatus': 'WORKING' , 'read': 'AVAL'}"

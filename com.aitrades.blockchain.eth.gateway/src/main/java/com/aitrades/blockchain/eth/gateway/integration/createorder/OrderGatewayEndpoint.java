@@ -1,5 +1,7 @@
 package com.aitrades.blockchain.eth.gateway.integration.createorder;
 
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.integration.annotation.ServiceActivator;
 
 import com.aitrades.blockchain.eth.gateway.domain.Order;
 import com.aitrades.blockchain.eth.gateway.domain.PairData;
+import com.aitrades.blockchain.eth.gateway.domain.SnipeTransactionRequest;
 import com.aitrades.blockchain.eth.gateway.mq.RabbitMQCreateOrderSender;
 import com.aitrades.blockchain.eth.gateway.repository.OrderRepository;
 import com.aitrades.blockchain.eth.gateway.service.ApprovedTransactionProcessor;
@@ -28,9 +31,11 @@ public class OrderGatewayEndpoint {
 
 	@ServiceActivator(inputChannel = "addNewOrderToRabbitMq")
 	public List<Order> addNewOrderToRabbitMq(List<Order> orders) throws Exception {
-		for(Order order : orders) {
+		List<Order> uniqueOrders = new ArrayList<Order>(new LinkedHashSet<>(orders));
+		for(Order order : uniqueOrders) {
 			if(checkStatusAndLockMessage(order)) {
-				sendToCreateOrderQueue(order);
+				sendGetPairData(order);
+				sendToQueueAndUpdateLock(order);
 			}
 		}
 		return orders;
@@ -38,22 +43,22 @@ public class OrderGatewayEndpoint {
 
 	private boolean checkStatusAndLockMessage(Order order) throws Exception {
 		try {
-			boolean hasApprovedStatusSuccess = approvedTransactionProcessor.checkAndProcessBuyApproveTransaction(order);
-			if(hasApprovedStatusSuccess) {
-				orderRepository.updateLock(order);
-			}
-			return hasApprovedStatusSuccess;
+			return approvedTransactionProcessor.checkAndProcessBuyApproveTransaction(order);
 		} catch (Exception e) {
 			throw e;
 		}
 	}
 	
-	private void sendToCreateOrderQueue(Order order) {
-		System.out.println("in addNewOrderToRabbitMq");
+	private void sendGetPairData(Order order) {
 		PairData pairData  = statusChecker.getPairData(order);
 		if(pairData != null) {
 			order.setPairData(pairData);
-			rabbitMQCreateOrderSender.send(order);
 		}
+	}
+	
+	private synchronized void sendToQueueAndUpdateLock(Order order) {
+		orderRepository.updateLock(order);
+		rabbitMQCreateOrderSender.send(order);
+		
 	}
 }

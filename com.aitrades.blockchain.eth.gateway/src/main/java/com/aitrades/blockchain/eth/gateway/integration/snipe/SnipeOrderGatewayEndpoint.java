@@ -1,5 +1,7 @@
 package com.aitrades.blockchain.eth.gateway.integration.snipe;
 
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,24 +25,22 @@ public class SnipeOrderGatewayEndpoint {
 	
 	@ServiceActivator(inputChannel = "addSnipeOrderToRabbitMq")
 	public void addSnipeOrderToRabbitMq(List<SnipeTransactionRequest> transactionRequests) throws Exception {
-		for(SnipeTransactionRequest snipeTransactionRequest : transactionRequests) {
+		List<SnipeTransactionRequest> uniqueSnipeOrders = new ArrayList<SnipeTransactionRequest>(new LinkedHashSet<>(transactionRequests));
+		for(SnipeTransactionRequest snipeTransactionRequest : uniqueSnipeOrders) {
 			if(checkStatus(snipeTransactionRequest)) {
 				sendOrderToSnipe(snipeTransactionRequest);
 			}
 		}
 	}
 
-	private void sendOrderToSnipe(SnipeTransactionRequest snipeOrder) {
+	private synchronized void  sendOrderToSnipe(SnipeTransactionRequest snipeOrder) {
+		snipeOrderRepository.saveWithUpdateLock(snipeOrder);
 		rabbitMQSnipeOrderSender.send(snipeOrder);
 	}
 	
 	public boolean checkStatus(SnipeTransactionRequest snipeTransactionRequest) {
 		try {
-			boolean hasApprovedStatusSuccess = approvedTransactionProcessor.checkAndProcessSnipeApproveTransaction(snipeTransactionRequest);
-			if(hasApprovedStatusSuccess) {
-				snipeOrderRepository.updateLock(snipeTransactionRequest);
-			}
-			return hasApprovedStatusSuccess;
+			return approvedTransactionProcessor.checkAndProcessSnipeApproveTransaction(snipeTransactionRequest);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

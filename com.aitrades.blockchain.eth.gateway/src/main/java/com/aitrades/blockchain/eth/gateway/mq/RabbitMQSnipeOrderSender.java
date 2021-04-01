@@ -15,6 +15,6 @@ public class RabbitMQSnipeOrderSender {
 	
 	public void send(SnipeTransactionRequest transactionRequest) {
 		snipeOrderRabbitTemplate.convertAndSend(transactionRequest);
-		System.out.println("Send snipe msg = " + transactionRequest);
+		System.out.println("Snipe Message Sen" + transactionRequest);
 	}
 }

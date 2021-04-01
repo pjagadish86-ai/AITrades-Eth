@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import com.aitrades.blockchain.eth.gateway.domain.SnipeTransactionRequest;
+import com.mongodb.client.result.UpdateResult;
 
 import reactor.core.publisher.Mono;
 
@@ -34,7 +35,18 @@ public class SnipeOrderRepository {
         query.addCriteria(Criteria.where("id").is(snipeTransactionRequest.getId()));
         Update update = new Update();
         update.set("read", "LOCK");
-        snipeOrderReactiveMongoTemplate.updateFirst(query, update, SnipeTransactionRequest.class).block();
+        UpdateResult updateResult = snipeOrderReactiveMongoTemplate.updateFirst(query, update, SnipeTransactionRequest.class).block();
+        if(updateResult.getMatchedCount() == 0) {
+			System.out.println("not updated");
+		}else {
+			System.out.println("updated");
+		}
+	}
+	
+	public void saveWithUpdateLock(SnipeTransactionRequest transactionRequest) {
+		transactionRequest.setRead("LOCK");
+		transactionRequest.setRetryEnabled("NO");
+		snipeOrderReactiveMongoTemplate.save(transactionRequest).block();
 	}
 	
 	public void updateAvail(SnipeTransactionRequest snipeTransactionRequest) {

@@ -142,14 +142,25 @@ public class Order {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		return EqualsBuilder.reflectionEquals(this, obj);
-	}
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Order)) {
+            return false;
+        }
+        Order order = (Order) obj;
+        return new EqualsBuilder()
+                .append(getId(), order.getId())
+                .isEquals();
+    }
 
-	@Override
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this);
-	}
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder()
+                .append(getId())
+                .toHashCode();
+    }
+    
+    
+    
 	@JsonIgnore
 	public Credentials getCredentials() {
 		return Credentials.create(getWalletInfo().getPrivateKey());

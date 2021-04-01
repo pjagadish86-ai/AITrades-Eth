@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.mongodb.ReactiveMongoDatabaseFactory;
+import org.springframework.data.mongodb.ReactiveMongoTransactionManager;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -71,6 +73,11 @@ public class Application {
 		}
 		return webSocketService;
 	}
+	
+	 @Bean
+	 ReactiveMongoTransactionManager transactionManager(ReactiveMongoDatabaseFactory dbFactory) {
+	     return new ReactiveMongoTransactionManager(dbFactory);
+	 }
     
 	private static URI parseURI(String serverUrl) {
         try {
