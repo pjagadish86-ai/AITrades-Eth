@@ -9,7 +9,6 @@ import org.springframework.integration.annotation.ServiceActivator;
 
 import com.aitrades.blockchain.eth.gateway.domain.Order;
 import com.aitrades.blockchain.eth.gateway.domain.PairData;
-import com.aitrades.blockchain.eth.gateway.domain.SnipeTransactionRequest;
 import com.aitrades.blockchain.eth.gateway.mq.RabbitMQCreateOrderSender;
 import com.aitrades.blockchain.eth.gateway.repository.OrderRepository;
 import com.aitrades.blockchain.eth.gateway.service.ApprovedTransactionProcessor;
