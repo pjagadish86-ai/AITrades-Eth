@@ -67,6 +67,7 @@ public class OrderPreprosorChecks {
 			Ticker ticker = new Ticker();
 			ticker.setAddress((String) pairAddress.get().getValue());
 			pairData.setPairAddress(ticker);
+			System.out.println("PAIR DATA-"+(String) pairAddress.get().getValue());
 			return pairData;
 		}
 		return null;
