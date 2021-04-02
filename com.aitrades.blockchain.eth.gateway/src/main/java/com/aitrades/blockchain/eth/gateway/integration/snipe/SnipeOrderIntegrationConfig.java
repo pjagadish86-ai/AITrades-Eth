@@ -55,7 +55,7 @@ public class SnipeOrderIntegrationConfig {
 	
 	@Bean(name = "snipePoller")
 	public PollerMetadata snipePoller() {
-		PollerMetadata poll = Pollers.fixedDelay(1, TimeUnit.MINUTES).get();
+		PollerMetadata poll = Pollers.fixedDelay(20, TimeUnit.SECONDS).get();
 		//poll.setTaskExecutor(snipeExecutor());
 		// poll.setAdviceChain(transactionInterceptor());
 		return poll;
