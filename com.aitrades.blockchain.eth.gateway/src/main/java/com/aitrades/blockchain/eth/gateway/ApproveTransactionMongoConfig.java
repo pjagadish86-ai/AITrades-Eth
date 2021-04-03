@@ -11,12 +11,14 @@ import com.mongodb.reactivestreams.client.MongoClient;
 @Configuration
 public class ApproveTransactionMongoConfig extends AbstractReactiveMongoConfiguration {
 	
+	private static final String APPROVE_TRANSACTION_MONGO = "approveTransactionMongo";
+	
 	@Autowired
 	public MongoClient mongoClient;
 	
 	@Override
 	protected String getDatabaseName() {
-		return "approveTransactionMongo";
+		return APPROVE_TRANSACTION_MONGO;
 	}
 
 	@Bean(name = "approveTransactionMongoTemplate")

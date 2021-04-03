@@ -20,7 +20,7 @@ public class Web3jServiceClientFactory {
 	@Resource(name = "web3jBscServiceClient")
 	private Web3jServiceClient web3jBscServiceClient;
 	
-	private final Map<String, Web3jServiceClient> WEB3J_MAP = new HashMap<String, Web3jServiceClient>();
+	private final Map<String, Web3jServiceClient> WEB3J_MAP = new HashMap<>();
 	
 	@PostConstruct
 	private void post() {

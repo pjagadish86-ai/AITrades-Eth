@@ -19,6 +19,10 @@ import io.reactivex.schedulers.Schedulers;
 @Component
 public class OrderPreprosorChecks {
 	
+	private static final String _0X0 = "0x0";
+	private static final String _0X000000 = "0x000000";
+	private static final String BUY = "BUY";
+
 	@Autowired
 	public Web3jServiceClientFactory  web3jServiceClientFactory;
 	
@@ -33,14 +37,14 @@ public class OrderPreprosorChecks {
 									    .subscribeOn(Schedulers.io())
 									    .blockingSingle()
 									    .getTransactionReceipt()
-									    .filter(e -> e.getStatus() != "0x0");
+									    .filter(e -> StringUtils.equalsIgnoreCase(e.getStatus(), _0X0));
 	};
 	
 	public PairData getPairData(Order order) {
 		@SuppressWarnings("rawtypes")
 		Optional<Type> pairAddress = Optional.empty();
 		try {
-			pairAddress = ethereumDexContractPairData.getPair(order.getOrderEntity().getOrderSide().equalsIgnoreCase("BUY") ? order.getTo().getTicker().getAddress() : order.getFrom().getTicker().getAddress(), 
+			pairAddress = ethereumDexContractPairData.getPair(order.getOrderEntity().getOrderSide().equalsIgnoreCase(BUY) ? order.getTo().getTicker().getAddress() : order.getFrom().getTicker().getAddress(), 
 													          TradeConstants.WETH_MAP.get(order.getRoute()), 
 													          order.getRoute().toUpperCase())
 													  .parallelStream()
@@ -49,25 +53,23 @@ public class OrderPreprosorChecks {
 			e.printStackTrace();
 		}
 		if (pairAddress.isPresent()
-				&& StringUtils.startsWithIgnoreCase((String) pairAddress.get().getValue(), "0x000000")) {
+				&& StringUtils.startsWithIgnoreCase((String) pairAddress.get().getValue(), _0X000000)) {
 			try {
-				pairAddress = ethereumDexContractPairData.getPair(order.getOrderEntity().getOrderSide().equalsIgnoreCase("BUY") ? order.getTo().getTicker().getAddress() : order.getFrom().getTicker().getAddress(), 
+				pairAddress = ethereumDexContractPairData.getPair(order.getOrderEntity().getOrderSide().equalsIgnoreCase(BUY) ? order.getTo().getTicker().getAddress() : order.getFrom().getTicker().getAddress(), 
 														          TradeConstants.ETH, 
 														          order.getRoute().toUpperCase())
 														  .parallelStream()
 														  .findFirst();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		if (pairAddress.isPresent()
-				&& !StringUtils.startsWithIgnoreCase((String) pairAddress.get().getValue(), "0x000000")) {
+				&& !StringUtils.startsWithIgnoreCase((String) pairAddress.get().getValue(), _0X000000)) {
 			PairData pairData = new PairData();
 			Ticker ticker = new Ticker();
 			ticker.setAddress((String) pairAddress.get().getValue());
 			pairData.setPairAddress(ticker);
-			System.out.println("PAIR DATA-"+(String) pairAddress.get().getValue());
 			return pairData;
 		}
 		return null;

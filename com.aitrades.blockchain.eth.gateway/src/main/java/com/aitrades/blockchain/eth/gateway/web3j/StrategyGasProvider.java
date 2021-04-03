@@ -71,7 +71,6 @@ public class StrategyGasProvider{
 			return Convert.toWei(gasPrice.toString(), Convert.Unit.GWEI).toBigInteger();
 		}
 		return GAS_PRICE;
-		//return Convert.toWei("95", Convert.Unit.GWEI).toBigInteger();
 	}
 	
 	public BigInteger getGasLimitOfPancake(boolean senstive) throws Exception{

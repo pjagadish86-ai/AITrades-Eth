@@ -8,11 +8,12 @@ import com.aitrades.blockchain.eth.gateway.domain.SnipeTransactionRequest;
 @Service
 public class SnipeOrderMutator {
 	
+	private static final String AVAL = "AVAL";
 	@Autowired
 	private SnipeOrderProcessor snipeOrderProcessor;
 
 	public String snipeOrder(SnipeTransactionRequest snipeTransactionRequest) throws Exception {
-		snipeTransactionRequest.setRead("AVAL");
+		snipeTransactionRequest.setRead(AVAL);
 		snipeOrderProcessor.snipeOrder(snipeTransactionRequest);
 		return snipeTransactionRequest.getId();
 	}

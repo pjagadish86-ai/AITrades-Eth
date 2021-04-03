@@ -25,7 +25,7 @@ public class SnipeOrderGatewayEndpoint {
 	
 	@ServiceActivator(inputChannel = "addSnipeOrderToRabbitMq")
 	public void addSnipeOrderToRabbitMq(List<SnipeTransactionRequest> transactionRequests) throws Exception {
-		List<SnipeTransactionRequest> uniqueSnipeOrders = new ArrayList<SnipeTransactionRequest>(new LinkedHashSet<>(transactionRequests));
+		List<SnipeTransactionRequest> uniqueSnipeOrders = new ArrayList<>(new LinkedHashSet<>(transactionRequests));
 		for(SnipeTransactionRequest snipeTransactionRequest : uniqueSnipeOrders) {
 			if(checkStatus(snipeTransactionRequest)) {
 				sendOrderToSnipe(snipeTransactionRequest);
@@ -33,17 +33,16 @@ public class SnipeOrderGatewayEndpoint {
 		}
 	}
 
-	private synchronized void  sendOrderToSnipe(SnipeTransactionRequest snipeOrder) {
+	private synchronized void  sendOrderToSnipe(SnipeTransactionRequest snipeOrder) throws Exception {
 		snipeOrderRepository.saveWithUpdateLock(snipeOrder);
 		rabbitMQSnipeOrderSender.send(snipeOrder);
 	}
 	
-	public boolean checkStatus(SnipeTransactionRequest snipeTransactionRequest) {
+	public boolean checkStatus(SnipeTransactionRequest snipeTransactionRequest) throws Exception {
 		try {
-			return true;// approvedTransactionProcessor.checkAndProcessSnipeApproveTransaction(snipeTransactionRequest);
+			return approvedTransactionProcessor.checkAndProcessSnipeApproveTransaction(snipeTransactionRequest);
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw e;
 		}
-		return false;
 	}
 }

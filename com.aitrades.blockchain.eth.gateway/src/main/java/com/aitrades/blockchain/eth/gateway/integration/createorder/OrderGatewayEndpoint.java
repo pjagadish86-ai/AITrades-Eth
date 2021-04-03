@@ -30,7 +30,7 @@ public class OrderGatewayEndpoint {
 
 	@ServiceActivator(inputChannel = "addNewOrderToRabbitMq")
 	public List<Order> addNewOrderToRabbitMq(List<Order> orders) throws Exception {
-		List<Order> uniqueOrders = new ArrayList<Order>(new LinkedHashSet<>(orders));
+		List<Order> uniqueOrders = new ArrayList<>(new LinkedHashSet<>(orders));
 		for(Order order : uniqueOrders) {
 			if(checkStatusAndLockMessage(order)) {
 				sendGetPairData(order);
@@ -42,7 +42,7 @@ public class OrderGatewayEndpoint {
 
 	private boolean checkStatusAndLockMessage(Order order) throws Exception {
 		try {
-			return true;//approvedTransactionProcessor.checkAndProcessBuyApproveTransaction(order);
+			return approvedTransactionProcessor.checkAndProcessBuyApproveTransaction(order);
 		} catch (Exception e) {
 			throw e;
 		}

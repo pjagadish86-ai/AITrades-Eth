@@ -45,7 +45,6 @@ public class RabbitMqCreateOrderPublisherConfig {
 							 .with(createOrderRoutingkey);
 	}
 
-	// TODO: asyncrabitamqp
 	@Bean(name = "createOrderRabbitTemplate")
 	public AmqpTemplate createOrderRabbitTemplate(ConnectionFactory connectionFactory) {
 		final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);

@@ -37,6 +37,12 @@ import com.aitrades.blockchain.eth.gateway.domain.Order;
 @EnableIntegration
 public class OrderIntegrationConfig {
 	
+	private static final String CREATE_ORDER_TASK_EXECUTOR_THREAD = "createOrder_task_executor_thread";
+
+	private static final String ORDER = "order";
+
+	private static final String ORDER_CODE_$IN_83_84_READ_AVAL = "{'orderCode' : { $in: [83, 84] }, 'read': 'AVAL'}";
+
 	@Resource(name="createOrderBinding")
 	public Binding createOrderBinding;
 	
@@ -51,10 +57,7 @@ public class OrderIntegrationConfig {
 	
 	@Bean(name = PollerMetadata.DEFAULT_POLLER)
 	public PollerMetadata poller() {
-		PollerMetadata poll = Pollers.fixedDelay(10, TimeUnit.SECONDS).get();
-		//poll.setTaskExecutor(executor());
-		// poll.setAdviceChain(transactionInterceptor());
-		return poll;
+		return Pollers.fixedDelay(10, TimeUnit.SECONDS).get();
 	}
 
 	@Bean
@@ -62,7 +65,7 @@ public class OrderIntegrationConfig {
 		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
 		executor.setCorePoolSize(4);
 		executor.setMaxPoolSize(4);
-		executor.setThreadNamePrefix("createOrder_task_executor_thread");
+		executor.setThreadNamePrefix(CREATE_ORDER_TASK_EXECUTOR_THREAD);
 		executor.initialize();
 		return executor;
 	}
@@ -101,16 +104,15 @@ public class OrderIntegrationConfig {
 	@Primary
 	@Autowired
 	public SimpleMongoClientDatabaseFactory orderMongoDbFactory() throws Exception {
-        return new SimpleMongoClientDatabaseFactory(com.mongodb.client.MongoClients.create(), "order");
+        return new SimpleMongoClientDatabaseFactory(com.mongodb.client.MongoClients.create(), ORDER);
     }
 	
-	//TODO: use reactive programming and mongodb driver implementation to kick of any inserts and update.
 	@Bean
 	@Autowired
 	public MessageSource<Object> mongoInboundSource() throws Exception {// {'side' : 'buy'} // { qty: { $in: [ 5, 15 ] } } //  { $or: [ { 'status': 'A' } , { age: 50 } ] } {'orderCode' : { $in: [83, 84] }, 'read': 'AVAL'}  "{'orderCode' : { $in: [83, 84] }}"  
-		MongoDbMessageSource messageSource = new MongoDbMessageSource(orderMongoDbFactory(), new LiteralExpression("{'orderCode' : { $in: [83, 84] }, 'read': 'AVAL'}"));
+		MongoDbMessageSource messageSource = new MongoDbMessageSource(orderMongoDbFactory(), new LiteralExpression(ORDER_CODE_$IN_83_84_READ_AVAL));
 		messageSource.setEntityClass(Order.class);
-		messageSource.setCollectionNameExpression(new LiteralExpression("order"));
+		messageSource.setCollectionNameExpression(new LiteralExpression(ORDER));
 		return messageSource;
 	}
 }

@@ -45,7 +45,6 @@ public class RabbitMqSnipeOrderPublisherConfig {
 							 .with(snipeOrderRoutingkey);
 	}
 
-	// TODO: asyncrabitamqp
 	@Bean(name = "snipeOrderRabbitTemplate")
 	public AmqpTemplate snipeOrderRabbitTemplate(ConnectionFactory connectionFactory) {
 		final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);

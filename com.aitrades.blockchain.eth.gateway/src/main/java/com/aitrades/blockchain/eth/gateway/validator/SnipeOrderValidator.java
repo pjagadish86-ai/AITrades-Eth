@@ -12,44 +12,50 @@ import com.aitrades.blockchain.eth.gateway.domain.SnipeTransactionRequest;
 @Component
 public class SnipeOrderValidator {
 	
+	private static final String INVALID_INPUT_AMOUNT = "Invalid Input Amount";
+	private static final String INVALID_GAS_GAS_PRICE_AMOUNT = "Invalid gas Gas Price Amount";
+	private static final String INVALID_GAS_MODE = "Invalid gas mode";
+	private static final String INVALID_SLIPAGE_AMOUNT = "Invalid Slipage Amount";
+	private static final String INVALID_TO_ADDRESS = "Invalid To Address";
+	private static final String INVALID_FROM_ADDRESS = "Invalid From Address";
 	private static final Set<String> GAS_MODES = Set.of("ULTRA", "FASTEST", "FAST", "STANDARD", "SAFELOW", "CUSTOM");
 
 	public RestExceptionMessage validateSnipeOrder(SnipeTransactionRequest snipeTransactionRequest) {
 		
 		if(StringUtils.isBlank(snipeTransactionRequest.getFromAddress())) {
-			return new RestExceptionMessage(snipeTransactionRequest.getId(), "Invalid From Address");
+			return new RestExceptionMessage(snipeTransactionRequest.getId(), INVALID_FROM_ADDRESS);
 		}
 		
 		if(StringUtils.isBlank(snipeTransactionRequest.getToAddress())) {
-			return new RestExceptionMessage(snipeTransactionRequest.getId(), "Invalid To Address");
+			return new RestExceptionMessage(snipeTransactionRequest.getId(), INVALID_TO_ADDRESS);
 		}
 		
 		if(snipeTransactionRequest.getInputTokenValueAmountAsBigInteger() == null 
 				|| snipeTransactionRequest.getInputTokenValueAmountAsBigInteger().compareTo(BigInteger.ZERO) <= 0
 				|| snipeTransactionRequest.getInputTokenValueAmountAsBigDecimal().compareTo(BigDecimal.ZERO) <= 0) {
-			return new RestExceptionMessage(snipeTransactionRequest.getId(), "Invalid Input Amount");
+			return new RestExceptionMessage(snipeTransactionRequest.getId(), INVALID_INPUT_AMOUNT);
 		}
 		
 		if(snipeTransactionRequest.getSlipage() == null 
 				|| snipeTransactionRequest.getSlipage().compareTo(BigDecimal.ZERO) <= 0) {
-			return new RestExceptionMessage(snipeTransactionRequest.getId(), "Invalid Slipage Amount");
+			return new RestExceptionMessage(snipeTransactionRequest.getId(), INVALID_SLIPAGE_AMOUNT);
 		}
 		
 		if(StringUtils.isEmpty(snipeTransactionRequest.getGasMode()) 
 				|| !GAS_MODES.contains(snipeTransactionRequest.getGasMode())) {
-			return new RestExceptionMessage(snipeTransactionRequest.getId(), "Invalid gas mode");
+			return new RestExceptionMessage(snipeTransactionRequest.getId(), INVALID_GAS_MODE);
 		}
 		
 		if(StringUtils.isNotBlank(snipeTransactionRequest.getGasMode()) 
 				&& (snipeTransactionRequest.getGasLimit() == null 
 					|| snipeTransactionRequest.getGasLimit().compareTo(BigInteger.ZERO) <= 0)) {
-			return new RestExceptionMessage(snipeTransactionRequest.getId(), "Invalid gas Gas Price Amount");
+			return new RestExceptionMessage(snipeTransactionRequest.getId(), INVALID_GAS_GAS_PRICE_AMOUNT);
 		}
 
 		if(StringUtils.isNotBlank(snipeTransactionRequest.getGasMode()) 
 				&& (snipeTransactionRequest.getGasPrice() == null 
 					|| snipeTransactionRequest.getGasPrice().compareTo(BigInteger.ZERO) <= 0)) {
-			return new RestExceptionMessage(snipeTransactionRequest.getId(), "Invalid gas Gas Price Amount");
+			return new RestExceptionMessage(snipeTransactionRequest.getId(), INVALID_GAS_GAS_PRICE_AMOUNT);
 		}
 		
 		return null;

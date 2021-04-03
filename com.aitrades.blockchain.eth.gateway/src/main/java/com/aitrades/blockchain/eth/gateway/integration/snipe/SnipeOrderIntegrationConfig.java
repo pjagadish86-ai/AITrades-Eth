@@ -12,12 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.core.task.TaskExecutor;
-import org.springframework.data.mongodb.MongoDatabaseFactory;
-import org.springframework.data.mongodb.MongoTransactionManager;
-import org.springframework.data.mongodb.ReactiveMongoDatabaseFactory;
-import org.springframework.data.mongodb.ReactiveMongoTransactionManager;
 import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
 import org.springframework.expression.common.LiteralExpression;
 import org.springframework.integration.annotation.IntegrationComponentScan;
@@ -30,7 +25,6 @@ import org.springframework.integration.dsl.Pollers;
 import org.springframework.integration.mongodb.inbound.MongoDbMessageSource;
 import org.springframework.integration.scheduling.PollerMetadata;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-import org.springframework.transaction.PlatformTransactionManager;
 
 import com.aitrades.blockchain.eth.gateway.domain.SnipeTransactionRequest;
 
@@ -40,6 +34,12 @@ import com.aitrades.blockchain.eth.gateway.domain.SnipeTransactionRequest;
 @EnableIntegration
 public class SnipeOrderIntegrationConfig {
 	
+	private static final String SNIPE_ORDER_TASK_EXECUTOR_THREAD = "snipeOrder_task_executor_thread";
+
+	private static final String SNIPE_TRANSACTION_REQUEST = "snipeTransactionRequest";
+
+	private static final String $AND_SNIPE_STATUS_WORKING_READ_AVAL = "{ $and: [ {'snipeStatus':'WORKING'}, { 'read':'AVAL'} ] }";
+
 	@Resource(name="snipeOrderBinding")
 	public Binding snipeOrderBinding;
 	
@@ -55,10 +55,7 @@ public class SnipeOrderIntegrationConfig {
 	
 	@Bean(name = "snipePoller")
 	public PollerMetadata snipePoller() {
-		PollerMetadata poll = Pollers.fixedDelay(10, TimeUnit.SECONDS).get();
-		//poll.setTaskExecutor(snipeExecutor());
-		// poll.setAdviceChain(transactionInterceptor());
-		return poll;
+		return Pollers.fixedDelay(10, TimeUnit.SECONDS).get();
 	}
 
 	@Bean
@@ -66,7 +63,7 @@ public class SnipeOrderIntegrationConfig {
 		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
 		executor.setCorePoolSize(4);
 		executor.setMaxPoolSize(4);
-		executor.setThreadNamePrefix("snipeOrder_task_executor_thread");
+		executor.setThreadNamePrefix(SNIPE_ORDER_TASK_EXECUTOR_THREAD);
 		executor.initialize();
 		return executor;
 	}
@@ -92,13 +89,12 @@ public class SnipeOrderIntegrationConfig {
 		return new SnipeOrderGatewayEndpoint();
 	}
 	
-	//TODO: use reactive programming and mongodb driver implementation to kick of any inserts and update.
 	@Bean
-	@Autowired //{'snipeStatus': 'WORKING' , 'read': 'AVAL'}"
-	public MessageSource<Object> mongoSnipeInboundSource() throws Exception {// {'side' : 'buy'} // { qty: { $in: [ 5, 15 ] } } //  { $or: [ { 'status': 'A' } , { age: 50 } ] }  { $and: [ {'snipeStatus':'WORKING'}, { 'read':'AVAL'} ] }
-		MongoDbMessageSource messageSource = new MongoDbMessageSource(snipeOrderMongoDbFactory(), new LiteralExpression("{ $and: [ {'snipeStatus':'WORKING'}, { 'read':'AVAL'} ] }"));
+	@Autowired
+	public MessageSource<Object> mongoSnipeInboundSource() throws Exception {
+		MongoDbMessageSource messageSource = new MongoDbMessageSource(snipeOrderMongoDbFactory(), new LiteralExpression($AND_SNIPE_STATUS_WORKING_READ_AVAL));
 		messageSource.setEntityClass(SnipeTransactionRequest.class);
-		messageSource.setCollectionNameExpression(new LiteralExpression("snipeTransactionRequest"));
+		messageSource.setCollectionNameExpression(new LiteralExpression(SNIPE_TRANSACTION_REQUEST));
 		return messageSource;
 	}
 }

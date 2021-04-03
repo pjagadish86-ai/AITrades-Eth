@@ -6,7 +6,6 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
-import org.web3j.tx.exceptions.ContractCallException;
 
 import com.aitrades.blockchain.eth.gateway.domain.ApproveTransaction;
 import com.aitrades.blockchain.eth.gateway.domain.GasModeEnum;
@@ -19,6 +18,8 @@ import com.aitrades.blockchain.eth.gateway.web3j.StrategyGasProvider;
 
 @Service
 public class ApprovedTransactionProcessor {
+
+	private static final String _0X1 = "0x1";
 
 	private static final String BUY = "BUY";
 
@@ -44,21 +45,14 @@ public class ApprovedTransactionProcessor {
 			if(StringUtils.isBlank(approveTransaction.getStatus())) {
 				Optional<TransactionReceipt> isApprovedSuccess  = orderPreprosorChecks.checkStatusOfApprovalTransaction(approveTransaction.getApprovedHash(), order.getRoute());
 				if(isApprovedSuccess.isPresent()) {
-					approveTransaction.setStatus("0x1");
+					approveTransaction.setStatus(_0X1);
 					approveTransactionRepository.update(approveTransaction);
 				}
 			}else {
 				return true;
 			}
 		}else {
-			String hash  = null;
-			try {
-				hash  = preApproveProcosser.approve(order.getRoute(), order.getCredentials(), order.getTo().getTicker().getAddress(), strategyGasProvider, GasModeEnum.fromValue(order.getGasMode()), order.getGasPrice().getValueBigInteger());
-			} catch (Exception e) {
-	            if (e instanceof ContractCallException){
-	            	
-	            }
-			}
+			String hash  = preApproveProcosser.approve(order.getRoute(), order.getCredentials(), order.getTo().getTicker().getAddress(), strategyGasProvider, GasModeEnum.fromValue(order.getGasMode()), order.getGasPrice().getValueBigInteger());
 			if(StringUtils.isNotBlank( hash)) {
 				ApproveTransaction approveTrnx = new ApproveTransaction();
 				approveTrnx.setId(order.getWalletInfo().getPublicKey().toLowerCase() + TILDA + order.getRoute() +TILDA +  address.toLowerCase());
@@ -77,19 +71,14 @@ public class ApprovedTransactionProcessor {
 			if(StringUtils.isBlank(approveTransaction.getStatus())) {
 				Optional<TransactionReceipt> isApprovedSuccess  = orderPreprosorChecks.checkStatusOfApprovalTransaction(approveTransaction.getApprovedHash(), snipeTransactionRequest.getRoute());
 				if(isApprovedSuccess.isPresent()) {
-					approveTransaction.setStatus("0x1");
+					approveTransaction.setStatus(_0X1);
 					approveTransactionRepository.update(approveTransaction);
 				}
 			}else {
 				return true;
 			}
 		}else {
-			String hash = null;
-			try {
-				hash = preApproveProcosser.approve(snipeTransactionRequest.getRoute(), snipeTransactionRequest.getCredentials(), snipeTransactionRequest.getToAddress(), strategyGasProvider, GasModeEnum.fromValue(snipeTransactionRequest.getGasMode()), snipeTransactionRequest.getGasPrice());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			String hash =preApproveProcosser.approve(snipeTransactionRequest.getRoute(), snipeTransactionRequest.getCredentials(), snipeTransactionRequest.getToAddress(), strategyGasProvider, GasModeEnum.fromValue(snipeTransactionRequest.getGasMode()), snipeTransactionRequest.getGasPrice());
 			if(StringUtils.isNotBlank( hash)) {
 				ApproveTransaction approveTrnx = new ApproveTransaction();
 				approveTrnx.setId(snipeTransactionRequest.getWalletInfo().getPublicKey().toLowerCase() + TILDA + snipeTransactionRequest.getRoute() +TILDA + snipeTransactionRequest.getToAddress().toLowerCase());
