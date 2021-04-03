@@ -41,11 +41,7 @@ public class OrderGatewayEndpoint {
 	}
 
 	private boolean checkStatusAndLockMessage(Order order) throws Exception {
-		try {
-			return approvedTransactionProcessor.checkAndProcessBuyApproveTransaction(order);
-		} catch (Exception e) {
-			throw e;
-		}
+		return approvedTransactionProcessor.checkAndProcessBuyApproveTransaction(order);
 	}
 	
 	private void sendGetPairData(Order order) {
@@ -58,6 +54,5 @@ public class OrderGatewayEndpoint {
 	private synchronized void sendToQueueAndUpdateLock(Order order) {
 		orderRepository.updateLock(order);
 		rabbitMQCreateOrderSender.send(order);
-		
 	}
 }
