@@ -40,7 +40,7 @@ public class ApprovedTransactionProcessor {
 	public boolean checkAndProcessBuyApproveTransaction(Order order) throws Exception {
 		String address  = order.getOrderEntity().getOrderSide().equalsIgnoreCase(BUY) ? order.getTo().getTicker().getAddress() : order.getFrom().getTicker().getAddress();
 				
-		ApproveTransaction approveTransaction = approveTransactionRepository.find(order.getWalletInfo().getPublicKey().toLowerCase() + TILDA + order.getRoute() +TILDA + address.toLowerCase()); // id should -> publickey ~ router ~ contractaddresss
+		ApproveTransaction approveTransaction = approveTransactionRepository.find(order.getWalletInfo().getPublicKey().toLowerCase().trim() + TILDA + order.getRoute().trim() +TILDA + address.toLowerCase().trim()); // id should -> publickey ~ router ~ contractaddresss
 		if(approveTransaction != null && approveTransaction.getApprovedHash() != null) {
 			if(StringUtils.isBlank(approveTransaction.getStatus())) {
 				Optional<TransactionReceipt> isApprovedSuccess  = orderPreprosorChecks.checkStatusOfApprovalTransaction(approveTransaction.getApprovedHash(), order.getRoute());
@@ -55,9 +55,9 @@ public class ApprovedTransactionProcessor {
 			String hash  = preApproveProcosser.approve(order.getRoute(), order.getCredentials(), order.getTo().getTicker().getAddress(), strategyGasProvider, GasModeEnum.fromValue(order.getGasMode()), order.getGasPrice().getValueBigInteger());
 			if(StringUtils.isNotBlank( hash)) {
 				ApproveTransaction approveTrnx = new ApproveTransaction();
-				approveTrnx.setId(order.getWalletInfo().getPublicKey().toLowerCase() + TILDA + order.getRoute() +TILDA +  address.toLowerCase());
-				approveTrnx.setContractAddressInteracted( order.getTo().getTicker().getAddress());
-				approveTrnx.setPublicKey(order.getWalletInfo().getPublicKey());
+				approveTrnx.setId(order.getWalletInfo().getPublicKey().toLowerCase().trim() + TILDA + order.getRoute().trim() +TILDA +  address.toLowerCase().trim());
+				approveTrnx.setContractAddressInteracted( order.getTo().getTicker().getAddress().trim());
+				approveTrnx.setPublicKey(order.getWalletInfo().getPublicKey().trim());
 				approveTrnx.setApprovedHash(hash);
 				approveTransactionRepository.insert(approveTrnx);
 			}
@@ -66,7 +66,7 @@ public class ApprovedTransactionProcessor {
 	}
 	
 	public boolean checkAndProcessSnipeApproveTransaction(SnipeTransactionRequest snipeTransactionRequest) throws Exception {
-		ApproveTransaction approveTransaction = approveTransactionRepository.find(snipeTransactionRequest.getWalletInfo().getPublicKey().toLowerCase() + TILDA + snipeTransactionRequest.getRoute() +TILDA + snipeTransactionRequest.getToAddress().toLowerCase()); // id should -> publickey ~ router ~ contractaddresss
+		ApproveTransaction approveTransaction = approveTransactionRepository.find(snipeTransactionRequest.getWalletInfo().getPublicKey().toLowerCase().trim() + TILDA + snipeTransactionRequest.getRoute().trim() +TILDA + snipeTransactionRequest.getToAddress().toLowerCase().trim()); // id should -> publickey ~ router ~ contractaddresss
 		if(approveTransaction != null && approveTransaction.getApprovedHash() != null) {
 			if(StringUtils.isBlank(approveTransaction.getStatus())) {
 				Optional<TransactionReceipt> isApprovedSuccess  = orderPreprosorChecks.checkStatusOfApprovalTransaction(approveTransaction.getApprovedHash(), snipeTransactionRequest.getRoute());
@@ -81,9 +81,9 @@ public class ApprovedTransactionProcessor {
 			String hash =preApproveProcosser.approve(snipeTransactionRequest.getRoute(), snipeTransactionRequest.getCredentials(), snipeTransactionRequest.getToAddress(), strategyGasProvider, GasModeEnum.fromValue(snipeTransactionRequest.getGasMode()), snipeTransactionRequest.getGasPrice());
 			if(StringUtils.isNotBlank( hash)) {
 				ApproveTransaction approveTrnx = new ApproveTransaction();
-				approveTrnx.setId(snipeTransactionRequest.getWalletInfo().getPublicKey().toLowerCase() + TILDA + snipeTransactionRequest.getRoute() +TILDA + snipeTransactionRequest.getToAddress().toLowerCase());
-				approveTrnx.setContractAddressInteracted(snipeTransactionRequest.getToAddress());
-				approveTrnx.setPublicKey(snipeTransactionRequest.getWalletInfo().getPublicKey());
+				approveTrnx.setId(snipeTransactionRequest.getWalletInfo().getPublicKey().toLowerCase().trim() + TILDA + snipeTransactionRequest.getRoute().trim() +TILDA + snipeTransactionRequest.getToAddress().toLowerCase().trim());
+				approveTrnx.setContractAddressInteracted(snipeTransactionRequest.getToAddress().trim());
+				approveTrnx.setPublicKey(snipeTransactionRequest.getWalletInfo().getPublicKey().trim());
 				approveTrnx.setApprovedHash(hash);
 				approveTransactionRepository.insert(approveTrnx);
 			}

@@ -31,8 +31,7 @@ public class EthereumDexContractPairData {
 		final Function function = new Function(FUNC_GETPAIR, Arrays.asList(new Address(tokenA), new Address(tokenB)),
 											   Arrays.asList(new TypeReference<Address>() {
 											}));
-		String data = FunctionEncoder.encode(function);
-		Transaction transaction = Transaction.createEthCallTransaction(TradeConstants.FACTORY_MAP.get(route), TradeConstants.FACTORY_MAP.get(route), data);
+		Transaction transaction = Transaction.createEthCallTransaction(TradeConstants.FACTORY_MAP.get(route), TradeConstants.FACTORY_MAP.get(route), FunctionEncoder.encode(function));
 		EthCall ethCall = web3jServiceClientFactory.getWeb3jMap().get(route).getWeb3j()
 										    .ethCall(transaction, DefaultBlockParameterName.LATEST)
 										    .flowable()
@@ -40,9 +39,6 @@ public class EthereumDexContractPairData {
 		if(ethCall.hasError()) {
 			throw new Exception(ethCall.getError().getMessage());
 		}
-		
-		String value = ethCall.getValue();
-		
-		return FunctionReturnDecoder.decode(value, function.getOutputParameters());
+		return FunctionReturnDecoder.decode(ethCall.getValue(), function.getOutputParameters());
 	}
 }

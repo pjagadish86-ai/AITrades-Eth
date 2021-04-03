@@ -79,7 +79,6 @@ public class PreApproveProcosser {
 		return ethSendTransaction.getTransactionHash();
 	}
 
-	@Async
 	private EthSendTransaction aprrov(String route, String contractAddress, StrategyGasProvider customGasProvider,
 										 GasModeEnum gasModeEnum, FastRawTransactionManager fastRawTxMgr, BigInteger gasPrice) throws Exception {
 		return fastRawTxMgr.sendTransaction(gasModeEnum.name().equalsIgnoreCase(CUSTOM) ? gasPrice : customGasProvider.getGasPrice(gasModeEnum), 

@@ -36,7 +36,7 @@ public class StrategyGasProvider{
     public static final BigInteger GAS_PRICE = BigInteger.valueOf(4_100_000_000L);
 	    
 	@SuppressWarnings("unchecked")
-	public BigInteger getGasPrice(GasModeEnum gasModeEnum) throws Exception{
+	public BigInteger getGasPrice(GasModeEnum gasModeEnum){
 		Map<String, Object> gasPrices = gasWebClient.get()
 													   .uri(GAS_PRICE_ORACLE)
 													   .accept(MediaType.APPLICATION_JSON)
@@ -47,9 +47,9 @@ public class StrategyGasProvider{
 		return Convert.toWei(gasPrices.get(gasModeEnum.getValue().toLowerCase()).toString(), Convert.Unit.GWEI).toBigInteger();
 	}
 	
-	public BigInteger getGasLimit(String route, boolean sensitive) throws Exception{
+	public BigInteger getGasLimit(String route, boolean sensitive){
 		return sensitive ? web3jServiceClientFactory.getWeb3jMap().get(route).getWeb3j()
-											 .ethGetBlockByNumber(DefaultBlockParameterName.PENDING, true)
+											 .ethGetBlockByNumber(DefaultBlockParameterName.LATEST, true)
 											 .flowable()
 											 .subscribeOn(io.reactivex.schedulers.Schedulers.newThread())
 											 .blockingLast()
@@ -74,9 +74,9 @@ public class StrategyGasProvider{
 		return GAS_PRICE;
 	}
 	
-	public BigInteger getGasLimitOfPancake(boolean senstive) throws Exception{
+	public BigInteger getGasLimitOfPancake(boolean senstive){
 		return senstive ? web3jServiceClientFactory.getWeb3jMap().get(PANCAKE).getWeb3j()
-						 .ethGetBlockByNumber(DefaultBlockParameterName.PENDING, true)
+						 .ethGetBlockByNumber(DefaultBlockParameterName.LATEST, true)
 						 .flowable()
 						 .subscribeOn(io.reactivex.schedulers.Schedulers.newThread())
 						 .blockingLast()
