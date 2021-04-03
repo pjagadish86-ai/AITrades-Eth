@@ -76,6 +76,9 @@ public class SnipeTransactionRequest {
 	
 	private String retryEnabled;
 	
+	private String doSell;
+	private String doSellPercentage;
+	
 	public String getId() {
 		return id;
 	}
@@ -327,6 +330,22 @@ public class SnipeTransactionRequest {
 
 	public void setRetryEnabled(String retryEnabled) {
 		this.retryEnabled = retryEnabled;
+	}
+	
+	public String getDoSell() {
+		return doSell;
+	}
+
+	public void setDoSell(String doSell) {
+		this.doSell = doSell;
+	}
+
+	public String getDoSellPercentage() {
+		return doSellPercentage;
+	}
+
+	public void setDoSellPercentage(String doSellPercentage) {
+		this.doSellPercentage = doSellPercentage;
 	}
 
 	@Override

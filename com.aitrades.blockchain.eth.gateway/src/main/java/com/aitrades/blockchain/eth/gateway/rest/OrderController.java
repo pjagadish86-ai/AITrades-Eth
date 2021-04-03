@@ -6,18 +6,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.aitrades.blockchain.eth.gateway.common.UUIDGenerator;
 import com.aitrades.blockchain.eth.gateway.domain.Order;
 import com.aitrades.blockchain.eth.gateway.service.OrderMutator;
+import com.aitrades.blockchain.eth.gateway.validator.OrderValidator;
+import com.aitrades.blockchain.eth.gateway.validator.RestExceptionMessage;
 
 @RestController
 @RequestMapping("/order/api/v1")
-public class CreateOrderController {
+public class OrderController {
 
 	@Autowired
 	private OrderMutator orderMutator;
 	
+	@Autowired
+	OrderValidator orderValidator;
+	
 	@PostMapping("/createOrder")
-	public String createOrder(@RequestBody Order order) throws Exception {
+	public Object createOrder(@RequestBody Order order) throws Exception {
+		String id = UUIDGenerator.nextHex(UUIDGenerator.TYPE1);
+		order.setId(id);
+		 RestExceptionMessage exceptionMessage  = orderValidator.validatorOrder(order);
+		 if(exceptionMessage != null) {
+			 return exceptionMessage;
+		 }
 		return orderMutator.createOrder(order);
 	}
 	
