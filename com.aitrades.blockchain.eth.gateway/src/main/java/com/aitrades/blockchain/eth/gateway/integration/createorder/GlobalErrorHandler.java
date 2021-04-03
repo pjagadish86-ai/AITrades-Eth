@@ -16,10 +16,10 @@ import com.aitrades.blockchain.eth.gateway.repository.SnipeOrderRepository;
 public class GlobalErrorHandler {
 
 	@Autowired
-	public OrderRepository orderRepository;
+	private OrderRepository orderRepository;
 	
 	@Autowired
-	public SnipeOrderRepository snipeOrderRepository;
+	private SnipeOrderRepository snipeOrderRepository;
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@ServiceActivator(inputChannel = "errorFlow")

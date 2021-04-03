@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 public class SnipeOrderProcessor {
 
 	@Autowired
-	public SnipeOrderRepository snipeOrderRepository;
+	private SnipeOrderRepository snipeOrderRepository;
 	
 	public String snipeOrder(SnipeTransactionRequest snipeTransactionRequest) {
 		Mono<SnipeTransactionRequest> insertedRecord = snipeOrderRepository.insert(snipeTransactionRequest);

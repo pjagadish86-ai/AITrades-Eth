@@ -12,6 +12,7 @@ import com.mongodb.reactivestreams.client.MongoClient;
 public class OrderHistoryMongoConfig extends AbstractReactiveMongoConfiguration {
 	
 	private static final String ORDER_HISTORY = "orderHistory";
+	
 	@Autowired
 	public MongoClient mongoClient;
 	

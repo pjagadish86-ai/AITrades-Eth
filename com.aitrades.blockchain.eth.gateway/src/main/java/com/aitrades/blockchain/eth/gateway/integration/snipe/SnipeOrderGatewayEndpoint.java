@@ -21,7 +21,7 @@ public class SnipeOrderGatewayEndpoint {
 	private ApprovedTransactionProcessor approvedTransactionProcessor;
 	
 	@Autowired
-	public SnipeOrderRepository snipeOrderRepository;
+	private SnipeOrderRepository snipeOrderRepository;
 	
 	@ServiceActivator(inputChannel = "addSnipeOrderToRabbitMq")
 	public void addSnipeOrderToRabbitMq(List<SnipeTransactionRequest> transactionRequests) throws Exception {
@@ -40,7 +40,7 @@ public class SnipeOrderGatewayEndpoint {
 	
 	public boolean checkStatus(SnipeTransactionRequest snipeTransactionRequest) throws Exception {
 		try {
-			return true;// approvedTransactionProcessor.checkAndProcessSnipeApproveTransaction(snipeTransactionRequest);
+			return approvedTransactionProcessor.checkAndProcessSnipeApproveTransaction(snipeTransactionRequest);
 		} catch (Exception e) {
 			throw e;
 		}

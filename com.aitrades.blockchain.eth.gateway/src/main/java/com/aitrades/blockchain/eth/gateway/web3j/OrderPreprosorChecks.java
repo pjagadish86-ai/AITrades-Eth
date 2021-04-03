@@ -24,7 +24,7 @@ public class OrderPreprosorChecks {
 	private static final String BUY = "BUY";
 
 	@Autowired
-	public Web3jServiceClientFactory  web3jServiceClientFactory;
+	private Web3jServiceClientFactory  web3jServiceClientFactory;
 	
 	@Autowired
 	private EthereumDexContractPairData ethereumDexContractPairData;

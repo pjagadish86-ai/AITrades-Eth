@@ -9,6 +9,7 @@ import com.aitrades.blockchain.eth.gateway.domain.SnipeTransactionRequest;
 public class SnipeOrderMutator {
 	
 	private static final String AVAL = "AVAL";
+	
 	@Autowired
 	private SnipeOrderProcessor snipeOrderProcessor;
 

@@ -20,7 +20,7 @@ public class OrderController {
 	private OrderMutator orderMutator;
 	
 	@Autowired
-	OrderValidator orderValidator;
+	private OrderValidator orderValidator;
 	
 	@PostMapping("/createOrder")
 	public Object createOrder(@RequestBody Order order) throws Exception {

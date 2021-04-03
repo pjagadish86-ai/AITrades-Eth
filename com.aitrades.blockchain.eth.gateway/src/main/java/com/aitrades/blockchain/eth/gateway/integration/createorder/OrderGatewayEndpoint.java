@@ -26,7 +26,7 @@ public class OrderGatewayEndpoint {
 	private ApprovedTransactionProcessor approvedTransactionProcessor;
 	
 	@Autowired
-	public OrderRepository orderRepository;
+	private OrderRepository orderRepository;
 
 	@ServiceActivator(inputChannel = "addNewOrderToRabbitMq")
 	public List<Order> addNewOrderToRabbitMq(List<Order> orders) throws Exception {

@@ -30,7 +30,7 @@ public class StrategyGasProvider{
 	private WebClient gasWebClient;
 	
 	@Autowired
-	public Web3jServiceClientFactory  web3jServiceClientFactory;
+	private Web3jServiceClientFactory  web3jServiceClientFactory;
 	
 	public static final BigInteger GAS_LIMIT = BigInteger.valueOf(9_000_000);
     public static final BigInteger GAS_PRICE = BigInteger.valueOf(4_100_000_000L);
