@@ -20,7 +20,7 @@ public class OrderGatewayEndpoint {
 	private RabbitMQCreateOrderSender rabbitMQCreateOrderSender;
 
 	@Autowired
-	private OrderPreprosorChecks statusChecker;
+	private OrderPreprosorChecks pairDataRetriever;
 	
 	@Autowired
 	private ApprovedTransactionProcessor approvedTransactionProcessor;
@@ -33,8 +33,16 @@ public class OrderGatewayEndpoint {
 		List<Order> uniqueOrders = new ArrayList<>(new LinkedHashSet<>(orders));
 		for(Order order : uniqueOrders) {
 			if(checkStatusAndLockMessage(order)) {
-				sendGetPairData(order);
-				sendToQueueAndUpdateLock(order);
+				if(order.getPairData() == null) {
+					PairData pairData  = populatePairData(order);
+					if(pairData != null) {
+						order.setPairData(pairData);
+					}
+				}
+				
+				if(order.getPairData() != null) {
+					sendToQueueAndUpdateLock(order);
+				}
 			}
 		}
 		return orders;
@@ -44,11 +52,8 @@ public class OrderGatewayEndpoint {
 		return approvedTransactionProcessor.checkAndProcessBuyApproveTransaction(order);
 	}
 	
-	private void sendGetPairData(Order order) {
-		PairData pairData  = statusChecker.getPairData(order);
-		if(pairData != null) {
-			order.setPairData(pairData);
-		}
+	private PairData populatePairData(Order order) {
+		return pairDataRetriever.getPairData(order);
 	}
 	
 	private synchronized void sendToQueueAndUpdateLock(Order order) {

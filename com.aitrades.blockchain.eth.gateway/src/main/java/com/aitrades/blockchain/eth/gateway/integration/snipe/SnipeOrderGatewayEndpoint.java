@@ -33,7 +33,7 @@ public class SnipeOrderGatewayEndpoint {
 		}
 	}
 
-	private synchronized void  sendOrderToSnipe(SnipeTransactionRequest snipeOrder) throws Exception {
+	private synchronized void  sendOrderToSnipe(SnipeTransactionRequest snipeOrder) {
 		snipeOrderRepository.saveWithUpdateLock(snipeOrder);
 		rabbitMQSnipeOrderSender.send(snipeOrder);
 	}
