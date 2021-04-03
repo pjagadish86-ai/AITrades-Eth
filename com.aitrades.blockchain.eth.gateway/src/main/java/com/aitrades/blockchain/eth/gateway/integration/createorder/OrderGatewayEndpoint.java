@@ -10,6 +10,7 @@ import org.springframework.integration.annotation.ServiceActivator;
 import com.aitrades.blockchain.eth.gateway.domain.Order;
 import com.aitrades.blockchain.eth.gateway.domain.PairData;
 import com.aitrades.blockchain.eth.gateway.mq.RabbitMQCreateOrderSender;
+import com.aitrades.blockchain.eth.gateway.repository.OrderHistoryRepository;
 import com.aitrades.blockchain.eth.gateway.repository.OrderRepository;
 import com.aitrades.blockchain.eth.gateway.service.ApprovedTransactionProcessor;
 import com.aitrades.blockchain.eth.gateway.web3j.OrderPreprosorChecks;
@@ -27,22 +28,32 @@ public class OrderGatewayEndpoint {
 	
 	@Autowired
 	private OrderRepository orderRepository;
-
+	
+	@Autowired
+	private OrderHistoryRepository orderHistoryRepository;
+	
 	@ServiceActivator(inputChannel = "addNewOrderToRabbitMq")
 	public List<Order> addNewOrderToRabbitMq(List<Order> orders) throws Exception {
 		List<Order> uniqueOrders = new ArrayList<>(new LinkedHashSet<>(orders));
 		for(Order order : uniqueOrders) {
-			if(checkStatusAndLockMessage(order)) {
-				if(order.getPairData() == null) {
-					PairData pairData  = populatePairData(order);
-					if(pairData != null) {
-						order.setPairData(pairData);
+			try {
+				if(checkStatusAndLockMessage(order)) {
+					if(order.getPairData() == null) {
+						PairData pairData  = populatePairData(order);
+						if(pairData != null) {
+							order.setPairData(pairData);
+						}
+					}
+					
+					if(order.getPairData() != null) {
+						sendToQueueAndUpdateLock(order);
 					}
 				}
-				
-				if(order.getPairData() != null) {
-					sendToQueueAndUpdateLock(order);
-				}
+			} catch (Exception e) {
+				order.setErrorMessage(e.getMessage());
+				orderHistoryRepository.save(order);
+				orderRepository.delete(order);
+				e.printStackTrace();
 			}
 		}
 		return orders;

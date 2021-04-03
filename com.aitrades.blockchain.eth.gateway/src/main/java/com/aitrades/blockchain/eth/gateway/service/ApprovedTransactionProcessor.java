@@ -52,7 +52,7 @@ public class ApprovedTransactionProcessor {
 				return true;
 			}
 		}else {
-			String hash  = preApproveProcosser.approve(order.getRoute(), order.getCredentials(), order.getTo().getTicker().getAddress(), strategyGasProvider, GasModeEnum.fromValue(order.getGasMode()), order.getGasPrice().getValueBigInteger());
+			String hash  = preApproveProcosser.approve(order.getRoute(), order.getCredentials(), order.getTo().getTicker().getAddress(), strategyGasProvider, GasModeEnum.fromValue(order.getGasMode()), order.getGasPrice().getValueBigInteger(), order.getGasLimit().getValueBigInteger());
 			if(StringUtils.isNotBlank( hash)) {
 				ApproveTransaction approveTrnx = new ApproveTransaction();
 				approveTrnx.setId(order.getWalletInfo().getPublicKey().toLowerCase().trim() + TILDA + order.getRoute().trim() +TILDA +  address.toLowerCase().trim());
@@ -78,7 +78,7 @@ public class ApprovedTransactionProcessor {
 				return true;
 			}
 		}else {
-			String hash =preApproveProcosser.approve(snipeTransactionRequest.getRoute(), snipeTransactionRequest.getCredentials(), snipeTransactionRequest.getToAddress(), strategyGasProvider, GasModeEnum.fromValue(snipeTransactionRequest.getGasMode()), snipeTransactionRequest.getGasPrice());
+			String hash =preApproveProcosser.approve(snipeTransactionRequest.getRoute(), snipeTransactionRequest.getCredentials(), snipeTransactionRequest.getToAddress(), strategyGasProvider, GasModeEnum.fromValue(snipeTransactionRequest.getGasMode()), snipeTransactionRequest.getGasPrice(), snipeTransactionRequest.getGasLimit());
 			if(StringUtils.isNotBlank( hash)) {
 				ApproveTransaction approveTrnx = new ApproveTransaction();
 				approveTrnx.setId(snipeTransactionRequest.getWalletInfo().getPublicKey().toLowerCase().trim() + TILDA + snipeTransactionRequest.getRoute().trim() +TILDA + snipeTransactionRequest.getToAddress().toLowerCase().trim());

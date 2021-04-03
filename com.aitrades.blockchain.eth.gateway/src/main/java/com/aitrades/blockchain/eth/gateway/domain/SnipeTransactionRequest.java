@@ -79,6 +79,8 @@ public class SnipeTransactionRequest {
 	private String doSell;
 	private String doSellPercentage;
 	
+	private String errorMessage;
+	
 	public String getId() {
 		return id;
 	}
@@ -346,6 +348,14 @@ public class SnipeTransactionRequest {
 
 	public void setDoSellPercentage(String doSellPercentage) {
 		this.doSellPercentage = doSellPercentage;
+	}
+	
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
 	}
 
 	@Override

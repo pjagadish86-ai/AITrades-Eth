@@ -84,13 +84,13 @@ public class OrderValidator {
 			return new RestExceptionMessage(order.getId(), INVALID_GAS_MODE);
 		}
 		
-		if(StringUtils.isNotBlank(order.getGasMode()) 
-				&& (order.getGasLimit() == null 
-				|| StringUtils.isBlank(order.getGasPrice().getValue() ) 
-				|| order.getGasPrice().getValueBigDecimal().compareTo(BigDecimal.ZERO) <= 0 
-				|| order.getGasPrice().getValueBigInteger().compareTo(BigInteger.ZERO) <= 0)) {
-			return new RestExceptionMessage(order.getId(), INVALID_GAS_GAS_PRICE_AMOUNT);
-		}
+////		if(StringUtils.isNotBlank(order.getGasMode()) 
+////				&& (order.getGasLimit() == null 
+////				|| StringUtils.isBlank(order.getGasPrice().getValue() ) 
+////				|| order.getGasPrice().getValueBigDecimal().compareTo(BigDecimal.ZERO) <= 0 
+////				|| order.getGasPrice().getValueBigInteger().compareTo(BigInteger.ZERO) <= 0)) {
+//			return new RestExceptionMessage(order.getId(), INVALID_GAS_GAS_PRICE_AMOUNT);
+//		}
 
 		if(StringUtils.isNotBlank(order.getGasMode()) 
 				&& (order.getGasLimit() == null 

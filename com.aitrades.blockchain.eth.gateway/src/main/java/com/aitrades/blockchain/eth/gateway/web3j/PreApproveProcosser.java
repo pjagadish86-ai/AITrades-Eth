@@ -7,7 +7,6 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.web3j.abi.FunctionEncoder;
 import org.web3j.abi.datatypes.Address;
@@ -28,34 +27,31 @@ import com.google.common.collect.Lists;
 public class PreApproveProcosser {
 
 	private static final String CUSTOM = "CUSTOM";
-	public static final String PANCAKE = "PANCAKE";
-	public static final String UNISWAP = "UNISWAP";
-	public static final String SUSHI = "SUSHI";
-	public static final String FUNC_APPROVE = "approve";
-	public static final String UNISWAP_FACTORY_ADDRESS = "0x5c69bee701ef814a2b6a3edd4b1652cb9cc5aa6f";
-	public static final String UNISWAP_ROUTER_ADDRESS = "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D";
-	public static final Map<String, String> ROUTER_MAP = ImmutableMap.of(UNISWAP, UNISWAP_ROUTER_ADDRESS);
+	private static final String PANCAKE = "PANCAKE";
+	private static final String UNISWAP = "UNISWAP";
+	private static final String SUSHI = "SUSHI";
+	private static final String FUNC_APPROVE = "approve";
+	private static final String UNISWAP_ROUTER_ADDRESS = "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D";
 	
-    public static BigInteger MAX_UINT256 = new BigInteger("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", 16);
+    private static BigInteger MAX_UINT256 = new BigInteger("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", 16);
 
-    public static final Function UNISWAP_APPROVE_FUNCTION = new Function(FUNC_APPROVE, 
+    private static final Function UNISWAP_APPROVE_FUNCTION = new Function(FUNC_APPROVE, 
     															         Lists.newArrayList(new Address(UNISWAP_ROUTER_ADDRESS), new Uint256(MAX_UINT256)),
 			  															 Collections.emptyList());
     
-    public static final Function SUSHI_APPROVE_FUNCTION = new Function(FUNC_APPROVE, 
+    private static final Function SUSHI_APPROVE_FUNCTION = new Function(FUNC_APPROVE, 
 																       Lists.newArrayList(new Address(UNISWAP_ROUTER_ADDRESS), new Uint256(MAX_UINT256)),
 																	   Collections.emptyList());
     
-    public static final Function PANCAKE_APPROVE_FUNCTION = new Function(FUNC_APPROVE, 
+    private static final Function PANCAKE_APPROVE_FUNCTION = new Function(FUNC_APPROVE, 
 																         Lists.newArrayList(new Address(UNISWAP_ROUTER_ADDRESS), 
 																        		 			new Uint256(MAX_UINT256)),				 
 																         Collections.emptyList());
     
-    public static final Map<String, Function> APPROVE_ROUTE_FUNCTION_MAP = ImmutableMap.of(UNISWAP, UNISWAP_APPROVE_FUNCTION, SUSHI, SUSHI_APPROVE_FUNCTION, PANCAKE, PANCAKE_APPROVE_FUNCTION);
-    
-    public static final Map<String, String> FUNCTION_ENCODE_ROUTE_MAP = ImmutableMap.of(UNISWAP, FunctionEncoder.encode(UNISWAP_APPROVE_FUNCTION), 
+    private static final Map<String, String> FUNCTION_ENCODE_ROUTE_MAP = ImmutableMap.of(UNISWAP, FunctionEncoder.encode(UNISWAP_APPROVE_FUNCTION), 
     																					SUSHI,   FunctionEncoder.encode(SUSHI_APPROVE_FUNCTION), 
     																					PANCAKE, FunctionEncoder.encode(PANCAKE_APPROVE_FUNCTION));
+    
     
     @Autowired
     private Web3jServiceClientFactory  web3jServiceClientFactory;
@@ -67,12 +63,12 @@ public class PreApproveProcosser {
 	private NoOpProcessor noOpProcessor;
 	
 	public String approve(String route, Credentials credentials, String contractAddress, StrategyGasProvider customGasProvider,
-			  			  GasModeEnum gasModeEnum, BigInteger gasPrice) throws Exception {
+			  			  GasModeEnum gasModeEnum, BigInteger gasPrice, BigInteger gasLimit) throws Exception {
 		FastRawTransactionManager fastRawTxMgr = new FastRawTransactionManager(web3jServiceClientFactory.getWeb3jMap().get(route).getWeb3j(), 
 																			   credentials,
 																			   noOpProcessor);
-		
-		EthSendTransaction ethSendTransaction = aprrov(route, contractAddress, customGasProvider, gasModeEnum, fastRawTxMgr, gasPrice);
+		BigInteger gasLmt = gasModeEnum.name().equalsIgnoreCase(CUSTOM) ? gasLimit : BigInteger.valueOf(21000l).add(BigInteger.valueOf(68l).multiply(BigInteger.valueOf(FUNCTION_ENCODE_ROUTE_MAP.get(route).getBytes().length)));
+		EthSendTransaction ethSendTransaction = aprrov(route, contractAddress, customGasProvider, gasModeEnum, fastRawTxMgr, gasPrice, gasLmt);
 		if(ethSendTransaction.hasError()) {
 			throw new Exception(ethSendTransaction.getError().getMessage());
 		}
@@ -80,9 +76,10 @@ public class PreApproveProcosser {
 	}
 
 	private EthSendTransaction aprrov(String route, String contractAddress, StrategyGasProvider customGasProvider,
-										 GasModeEnum gasModeEnum, FastRawTransactionManager fastRawTxMgr, BigInteger gasPrice) throws Exception {
+										 GasModeEnum gasModeEnum, FastRawTransactionManager fastRawTxMgr, BigInteger gasPrice, 
+										 BigInteger gasLmt) throws Exception {
 		return fastRawTxMgr.sendTransaction(gasModeEnum.name().equalsIgnoreCase(CUSTOM) ? gasPrice : customGasProvider.getGasPrice(gasModeEnum), 
-											customGasProvider.getGasLimit(route, true), 
+											gasLmt, 
 											contractAddress, 
 											FUNCTION_ENCODE_ROUTE_MAP.get(route), 
 											BigInteger.ZERO);

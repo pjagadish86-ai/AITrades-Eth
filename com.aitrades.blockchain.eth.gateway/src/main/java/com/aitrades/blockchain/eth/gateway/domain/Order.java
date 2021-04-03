@@ -33,6 +33,7 @@ public class Order {
 	private Integer orderCode;
 	private String approvedHash;
 	private String read;
+	private String errorMessage;
 	
 	public String getId() {
 		return id;
@@ -135,6 +136,13 @@ public class Order {
 	}
 	public void setRead(String read) {
 		this.read = read;
+	}
+	
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
 	}
 	@Override
 	public String toString() {

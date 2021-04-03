@@ -26,10 +26,10 @@ public class OrderController {
 	public Object createOrder(@RequestBody Order order) throws Exception {
 		String id = UUIDGenerator.nextHex(UUIDGenerator.TYPE1);
 		order.setId(id);
-		 RestExceptionMessage exceptionMessage  = orderValidator.validatorOrder(order);
-		 if(exceptionMessage != null) {
-			 return exceptionMessage;
-		 }
+//		 RestExceptionMessage exceptionMessage  = orderValidator.validatorOrder(order);
+//		 if(exceptionMessage != null) {
+//			 return exceptionMessage;
+//		 }
 		return orderMutator.createOrder(order);
 	}
 	

@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import com.aitrades.blockchain.eth.gateway.domain.SnipeTransactionRequest;
+import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 
 import reactor.core.publisher.Mono;
@@ -23,12 +24,22 @@ public class SnipeOrderRepository {
 	private static final String ID = "id";
 	
 	@Resource(name = "snipeOrderReactiveMongoTemplate")
-	public ReactiveMongoTemplate snipeOrderReactiveMongoTemplate;
+	private ReactiveMongoTemplate snipeOrderReactiveMongoTemplate;
 
 	public Mono<SnipeTransactionRequest> insert(SnipeTransactionRequest transactionRequest) {
 		return snipeOrderReactiveMongoTemplate.insert(transactionRequest);
 	}
 	
+	public void delete(SnipeTransactionRequest transactionRequest) {
+		Query query = new Query();
+        query.addCriteria(Criteria.where(ID).is(transactionRequest.getId()));
+        DeleteResult deleteResult = snipeOrderReactiveMongoTemplate.remove(transactionRequest).block();
+        if(deleteResult != null && deleteResult.getDeletedCount() == 0) {
+        	System.out.println("not deleted");
+		}else {
+			System.out.println("deleted");
+		}
+	}
 	
 	public SnipeTransactionRequest find(SnipeTransactionRequest transactionRequest) {
 		Query query = new Query();
