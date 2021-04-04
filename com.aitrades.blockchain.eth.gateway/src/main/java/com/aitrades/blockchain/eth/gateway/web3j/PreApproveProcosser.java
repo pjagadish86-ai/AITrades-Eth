@@ -32,6 +32,9 @@ public class PreApproveProcosser {
 	private static final String SUSHI = "SUSHI";
 	private static final String FUNC_APPROVE = "approve";
 	private static final String UNISWAP_ROUTER_ADDRESS = "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D";
+	private static final String SUSHI_ROUTER_ADDRESS = "0xd9e1cE17f2641f24aE83637ab66a2cca9C378B9F";
+	private static final String PANCAKE_ROUTER_ADDRESS = "0x05ff2b0db69458a0750badebc4f9e13add608c7f";
+
 	
     private static BigInteger MAX_UINT256 = new BigInteger("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", 16);
 
@@ -40,11 +43,11 @@ public class PreApproveProcosser {
 			  															 Collections.emptyList());
     
     private static final Function SUSHI_APPROVE_FUNCTION = new Function(FUNC_APPROVE, 
-																       Lists.newArrayList(new Address(UNISWAP_ROUTER_ADDRESS), new Uint256(MAX_UINT256)),
+																       Lists.newArrayList(new Address(SUSHI_ROUTER_ADDRESS), new Uint256(MAX_UINT256)),
 																	   Collections.emptyList());
     
     private static final Function PANCAKE_APPROVE_FUNCTION = new Function(FUNC_APPROVE, 
-																         Lists.newArrayList(new Address(UNISWAP_ROUTER_ADDRESS), 
+																         Lists.newArrayList(new Address(PANCAKE_ROUTER_ADDRESS), 
 																        		 			new Uint256(MAX_UINT256)),				 
 																         Collections.emptyList());
     
@@ -76,8 +79,9 @@ public class PreApproveProcosser {
 	}
 
 	private EthSendTransaction aprrov(String route, String contractAddress, StrategyGasProvider customGasProvider,
-										 GasModeEnum gasModeEnum, FastRawTransactionManager fastRawTxMgr, BigInteger gasPrice, 
-										 BigInteger gasLmt) throws Exception {
+									  GasModeEnum gasModeEnum, FastRawTransactionManager fastRawTxMgr, BigInteger gasPrice, 
+									  BigInteger gasLmt) throws Exception {
+
 		return fastRawTxMgr.sendTransaction(gasModeEnum.name().equalsIgnoreCase(CUSTOM) ? gasPrice : customGasProvider.getGasPrice(gasModeEnum), 
 											gasLmt, 
 											contractAddress, 

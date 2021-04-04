@@ -37,7 +37,7 @@ public class OrderPreprosorChecks {
 									    .subscribeOn(Schedulers.io())
 									    .blockingSingle()
 									    .getTransactionReceipt()
-									    .filter(e -> StringUtils.equalsIgnoreCase(e.getStatus(), _0X0));
+									    .filter(e -> !StringUtils.equalsIgnoreCase(e.getStatus(), _0X0));
 	};
 	
 	public PairData getPairData(Order order) {

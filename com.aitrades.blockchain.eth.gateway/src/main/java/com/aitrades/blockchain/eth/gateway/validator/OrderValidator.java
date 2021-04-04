@@ -11,6 +11,7 @@ import com.aitrades.blockchain.eth.gateway.domain.Order;
 @Component
 public class OrderValidator {
 
+	private static final String CUSTOM = "CUSTOM";
 	private static final String INVALID_ORDER_SIDE = "Invalid Order Side";
 	private static final String LIMIT = "LIMIT";
 	private static final String STOPLOSS = "STOPLOSS";
@@ -34,7 +35,7 @@ public class OrderValidator {
 	private static final String TO_TICKER_ENTITY_IS_EMPTY = "To Ticker Entity is Empty";
 	private static final String FROM_TICKER_ENTITY_IS_EMPTY = "From Ticker Entity is Empty";
 
-	private static final Set<String> GAS_MODES = Set.of("ULTRA", "FASTEST", "FAST", "STANDARD", "SAFELOW", "CUSTOM");
+	private static final Set<String> GAS_MODES = Set.of("ULTRA", "FASTEST", "FAST", "STANDARD", "SAFELOW", CUSTOM);
 	
 	private static final Set<String> ORDER_SIDE = Set.of("BUY", "SELL");
 	
@@ -73,48 +74,42 @@ public class OrderValidator {
 			return new RestExceptionMessage(order.getId(), SLIPAGE_IS_INVALID);
 		}
 		
-		if(order.getSlippage() == null 
-				|| StringUtils.isEmpty(order.getSlippage().getSlipagePercent())
-				|| order.getSlippage().getSlipageInBipsInDouble() <= 0) {
-			return new RestExceptionMessage(order.getId(), SLIPAGE_IS_INVALID);
-		}
-		
 		if(StringUtils.isEmpty(order.getGasMode()) 
 				|| !GAS_MODES.contains(order.getGasMode())) {
 			return new RestExceptionMessage(order.getId(), INVALID_GAS_MODE);
 		}
 		
-////		if(StringUtils.isNotBlank(order.getGasMode()) 
-////				&& (order.getGasLimit() == null 
-////				|| StringUtils.isBlank(order.getGasPrice().getValue() ) 
-////				|| order.getGasPrice().getValueBigDecimal().compareTo(BigDecimal.ZERO) <= 0 
-////				|| order.getGasPrice().getValueBigInteger().compareTo(BigInteger.ZERO) <= 0)) {
-//			return new RestExceptionMessage(order.getId(), INVALID_GAS_GAS_PRICE_AMOUNT);
-//		}
-
 		if(StringUtils.isNotBlank(order.getGasMode()) 
-				&& (order.getGasLimit() == null 
-						|| StringUtils.isBlank(order.getGasLimit().getValue() ) 
-						|| order.getGasLimit().getValueBigDecimal().compareTo(BigDecimal.ZERO) <= 0 
-						|| order.getGasLimit().getValueBigInteger().compareTo(BigInteger.ZERO) <= 0)) {
-			return new RestExceptionMessage(order.getId(), INVALID_GAS_GAS_LIMIT_AMOUNT);
+				&& StringUtils.equalsIgnoreCase(order.getGasMode(), CUSTOM) 
+				&& StringUtils.isBlank(order.getGasPrice().getValue() ) 
+				&& order.getGasPrice().getValueBigDecimal().compareTo(BigDecimal.ZERO) <= 0 
+				&& order.getGasPrice().getValueBigInteger().compareTo(BigInteger.ZERO) <= 0) {
+			return new RestExceptionMessage(order.getId(), INVALID_GAS_GAS_PRICE_AMOUNT);
 		}
 		
-		if(order.getOrderEntity() != null 
-				|| StringUtils.isBlank(order.getOrderEntity().getOrderSide() )
-				|| (!ORDER_SIDE.contains(order.getOrderEntity().getOrderSide() ))) {
+		if(StringUtils.isNotBlank(order.getGasMode()) 
+				&& StringUtils.equalsIgnoreCase(order.getGasMode(), CUSTOM) 
+				&& StringUtils.isBlank(order.getGasLimit().getValue() ) 
+				&& order.getGasLimit().getValueBigDecimal().compareTo(BigDecimal.ZERO) <= 0 
+				&& order.getGasLimit().getValueBigInteger().compareTo(BigInteger.ZERO) <= 0) {
+			return new RestExceptionMessage(order.getId(), INVALID_GAS_GAS_LIMIT_AMOUNT);
+		}
+
+		if(order.getOrderEntity() == null 
+				|| StringUtils.isBlank(order.getOrderEntity().getOrderSide())
+				|| !ORDER_SIDE.contains(order.getOrderEntity().getOrderSide())) {
 			return new RestExceptionMessage(order.getId(), INVALID_ORDER_SIDE);
 		}
 		
-		if(order.getOrderEntity() != null 
+		if(order.getOrderEntity() == null 
 				|| StringUtils.isBlank(order.getOrderEntity().getOrderType() )
-				|| (!ORDER_TYPE.contains(order.getOrderEntity().getOrderType() ))) {
+				|| !ORDER_TYPE.contains(order.getOrderEntity().getOrderType())) {
 			return new RestExceptionMessage(order.getId(), INVALID_ORDER_TYPE);
 		}
 		
-		if(order.getOrderEntity() != null 
-				|| StringUtils.isBlank(order.getOrderEntity().getOrderType() )
-				|| (!ORDER_STATE.contains(order.getOrderEntity().getOrderType() ))) {
+		if(order.getOrderEntity() == null 
+				|| StringUtils.isBlank(order.getOrderEntity().getOrderState())
+				|| !ORDER_STATE.contains(order.getOrderEntity().getOrderState())) {
 			return new RestExceptionMessage(order.getId(), INVALID_ORDER_STATE);
 		}
 		

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.mongodb.ReactiveMongoDatabaseFactory;
 import org.springframework.data.mongodb.ReactiveMongoTransactionManager;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
@@ -45,6 +46,8 @@ public class Application {
 
 	private static final String ENDPOINT_WSS = "wss://eth-ropsten.ws.alchemyapi.io/v2/rbcu5rCKQjynzoU_TTGtTvamSnagl9BU";
 	
+	private static final String BSC_ENDPOINT_WSS ="wss://holy-twilight-violet.bsc.quiknode.pro/9ccdc8c6748f92a972bc9c9c1b8b56de961c0fc6/";
+	
 	private static final long WEBCLIENT_TIMEOUT= 20l;
 	private static final String ETH_GAS_PRICE_ORACLE ="https://www.etherchain.org/api";
 	
@@ -62,10 +65,21 @@ public class Application {
 
 	@Bean(name = "web3bscjClient")
 	public Web3j web3bscjClient() {
-		return Web3j.build(webSocketService());
+		return Web3j.build(webBSCSocketService());
 	}
 	
-	@Bean
+	@Bean(name = "webBSCSocketService")
+	public WebSocketService webBSCSocketService() {
+		WebSocketService webSocketService = new WebSocketService(new WebSocketClient(parseURI(BSC_ENDPOINT_WSS)), false);
+		try {
+			webSocketService.connect();
+		} catch (ConnectException e) {
+			e.printStackTrace();
+		}
+		return webSocketService;
+	}
+
+	@Bean(name = "webSocketService")
 	public WebSocketService webSocketService() {
 		WebSocketService webSocketService = new WebSocketService(new WebSocketClient(parseURI(ENDPOINT_WSS)), false);
 		try {
@@ -102,6 +116,7 @@ public class Application {
 	
 	
 	@Bean(name = "web3jServiceClient")
+	@Primary
 	public Web3jServiceClient web3jServiceClient(@Qualifier("web3jClient") final Web3j web3j,
 												 final ObjectMapper objectMapper) {
 		return new Web3jServiceClient(web3j, restTemplate(), objectMapper);

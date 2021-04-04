@@ -33,9 +33,9 @@ public class EthereumDexContractPairData {
 											}));
 		Transaction transaction = Transaction.createEthCallTransaction(TradeConstants.FACTORY_MAP.get(route), TradeConstants.FACTORY_MAP.get(route), FunctionEncoder.encode(function));
 		EthCall ethCall = web3jServiceClientFactory.getWeb3jMap().get(route).getWeb3j()
-										    .ethCall(transaction, DefaultBlockParameterName.LATEST)
-										    .flowable()
-										    .blockingSingle();
+															     .ethCall(transaction, DefaultBlockParameterName.LATEST)
+															     .flowable()
+															     .blockingSingle();
 		if(ethCall.hasError()) {
 			throw new Exception(ethCall.getError().getMessage());
 		}

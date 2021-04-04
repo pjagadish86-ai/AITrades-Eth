@@ -14,11 +14,13 @@ public class SnipeOrderValidator {
 	
 	private static final String INVALID_INPUT_AMOUNT = "Invalid Input Amount";
 	private static final String INVALID_GAS_GAS_PRICE_AMOUNT = "Invalid gas Gas Price Amount";
+	private static final String INVALID_GAS_GAS_LIMIT_AMOUNT = "Invalid gas Gas Limit Amount";
 	private static final String INVALID_GAS_MODE = "Invalid gas mode";
 	private static final String INVALID_SLIPAGE_AMOUNT = "Invalid Slipage Amount";
 	private static final String INVALID_TO_ADDRESS = "Invalid To Address";
 	private static final String INVALID_FROM_ADDRESS = "Invalid From Address";
 	private static final Set<String> GAS_MODES = Set.of("ULTRA", "FASTEST", "FAST", "STANDARD", "SAFELOW", "CUSTOM");
+	private static final String CUSTOM = "CUSTOM";
 
 	public RestExceptionMessage validateSnipeOrder(SnipeTransactionRequest snipeTransactionRequest) {
 		
@@ -36,28 +38,28 @@ public class SnipeOrderValidator {
 			return new RestExceptionMessage(snipeTransactionRequest.getId(), INVALID_INPUT_AMOUNT);
 		}
 		
-		if(snipeTransactionRequest.getSlipage() == null 
+		if(snipeTransactionRequest.getSlipage() == null
 				|| snipeTransactionRequest.getSlipage().compareTo(BigDecimal.ZERO) <= 0) {
 			return new RestExceptionMessage(snipeTransactionRequest.getId(), INVALID_SLIPAGE_AMOUNT);
 		}
 		
-		if(StringUtils.isEmpty(snipeTransactionRequest.getGasMode()) 
+		if(StringUtils.isEmpty(snipeTransactionRequest.getGasMode())
 				|| !GAS_MODES.contains(snipeTransactionRequest.getGasMode())) {
 			return new RestExceptionMessage(snipeTransactionRequest.getId(), INVALID_GAS_MODE);
 		}
 		
 		if(StringUtils.isNotBlank(snipeTransactionRequest.getGasMode()) 
-				&& (snipeTransactionRequest.getGasLimit() == null 
-					|| snipeTransactionRequest.getGasLimit().compareTo(BigInteger.ZERO) <= 0)) {
+				&& StringUtils.equalsIgnoreCase(snipeTransactionRequest.getGasMode(), CUSTOM) 
+				&& snipeTransactionRequest.getGasLimit().compareTo(BigInteger.ZERO) <= 0) {
+			return new RestExceptionMessage(snipeTransactionRequest.getId(), INVALID_GAS_GAS_LIMIT_AMOUNT);
+		}
+		
+		if(StringUtils.isNotBlank(snipeTransactionRequest.getGasMode())
+				&& StringUtils.equalsIgnoreCase(snipeTransactionRequest.getGasMode(), CUSTOM) 
+				&& snipeTransactionRequest.getGasPrice().compareTo(BigInteger.ZERO) <= 0) {
 			return new RestExceptionMessage(snipeTransactionRequest.getId(), INVALID_GAS_GAS_PRICE_AMOUNT);
 		}
 
-		if(StringUtils.isNotBlank(snipeTransactionRequest.getGasMode()) 
-				&& (snipeTransactionRequest.getGasPrice() == null 
-					|| snipeTransactionRequest.getGasPrice().compareTo(BigInteger.ZERO) <= 0)) {
-			return new RestExceptionMessage(snipeTransactionRequest.getId(), INVALID_GAS_GAS_PRICE_AMOUNT);
-		}
-		
 		return null;
 	}
 	
