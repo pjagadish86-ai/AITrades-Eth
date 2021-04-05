@@ -12,6 +12,10 @@ import com.aitrades.blockchain.eth.gateway.domain.GasModeEnum;
 import com.aitrades.blockchain.eth.gateway.domain.Order;
 import com.aitrades.blockchain.eth.gateway.domain.SnipeTransactionRequest;
 import com.aitrades.blockchain.eth.gateway.repository.ApproveTransactionRepository;
+import com.aitrades.blockchain.eth.gateway.repository.OrderHistoryRepository;
+import com.aitrades.blockchain.eth.gateway.repository.OrderRepository;
+import com.aitrades.blockchain.eth.gateway.repository.SnipeOrderHistoryRepository;
+import com.aitrades.blockchain.eth.gateway.repository.SnipeOrderRepository;
 import com.aitrades.blockchain.eth.gateway.web3j.OrderPreprosorChecks;
 import com.aitrades.blockchain.eth.gateway.web3j.PreApproveProcosser;
 import com.aitrades.blockchain.eth.gateway.web3j.StrategyGasProvider;
@@ -24,6 +28,8 @@ public class ApprovedTransactionProcessor {
 	private static final String BUY = "BUY";
 
 	private static final String TILDA = "~";
+	
+	private static final String _0X0 = "0x0";
 
 	@Autowired
 	private ApproveTransactionRepository approveTransactionRepository;
@@ -37,16 +43,35 @@ public class ApprovedTransactionProcessor {
 	@Autowired
 	private StrategyGasProvider strategyGasProvider;
 	
+	@Autowired
+	private OrderRepository orderRepository;
+	
+	@Autowired
+	private OrderHistoryRepository orderHistoryRepository;
+	
+	@Autowired
+	private SnipeOrderRepository snipeOrderRepository;
+	
+	@Autowired
+	private SnipeOrderHistoryRepository snipeOrderHistoryRepository;
+	
 	public boolean checkAndProcessBuyApproveTransaction(Order order) throws Exception {
 		String address  = order.getOrderEntity().getOrderSide().equalsIgnoreCase(BUY) ? order.getTo().getTicker().getAddress() : order.getFrom().getTicker().getAddress();
 				
 		ApproveTransaction approveTransaction = approveTransactionRepository.find(order.getWalletInfo().getPublicKey().toLowerCase().trim() + TILDA + order.getRoute().trim() +TILDA + address.toLowerCase().trim()); // id should -> publickey ~ router ~ contractaddresss
 		if(approveTransaction != null && approveTransaction.getApprovedHash() != null) {
 			if(StringUtils.isBlank(approveTransaction.getStatus())) {
-				Optional<TransactionReceipt> isApprovedSuccess  = orderPreprosorChecks.checkStatusOfApprovalTransaction(approveTransaction.getApprovedHash(), order.getRoute());
-				if(isApprovedSuccess.isPresent()) {
-					approveTransaction.setStatus(_0X1);
-					approveTransactionRepository.update(approveTransaction);
+				Optional<TransactionReceipt> transactionRecieptOptional  = orderPreprosorChecks.checkStatusOfApprovalTransaction(approveTransaction.getApprovedHash(), order.getRoute());
+				if(transactionRecieptOptional.isPresent()) {
+					if(StringUtils.equalsIgnoreCase(transactionRecieptOptional.get().getStatus(), _0X0)) {
+						approveTransactionRepository.delete(approveTransaction);
+						order.setErrorMessage("APPROVE FAILED");
+						orderHistoryRepository.save(order);
+						orderRepository.delete(order);
+					}else {
+						approveTransaction.setStatus(_0X1);
+						approveTransactionRepository.update(approveTransaction);
+					}
 				}
 			}else {
 				return true;
@@ -69,11 +94,19 @@ public class ApprovedTransactionProcessor {
 		ApproveTransaction approveTransaction = approveTransactionRepository.find(snipeTransactionRequest.getWalletInfo().getPublicKey().toLowerCase().trim() + TILDA + snipeTransactionRequest.getRoute().trim() +TILDA + snipeTransactionRequest.getToAddress().toLowerCase().trim()); // id should -> publickey ~ router ~ contractaddresss
 		if(approveTransaction != null && approveTransaction.getApprovedHash() != null) {
 			if(StringUtils.isBlank(approveTransaction.getStatus())) {
-				Optional<TransactionReceipt> isApprovedSuccess  = orderPreprosorChecks.checkStatusOfApprovalTransaction(approveTransaction.getApprovedHash(), snipeTransactionRequest.getRoute());
-				if(isApprovedSuccess.isPresent()) {
-					approveTransaction.setStatus(_0X1);
-					approveTransactionRepository.update(approveTransaction);
+				Optional<TransactionReceipt> transactionRecieptOptional  = orderPreprosorChecks.checkStatusOfApprovalTransaction(approveTransaction.getApprovedHash(), snipeTransactionRequest.getRoute());
+				if(transactionRecieptOptional.isPresent()) {
+					if(StringUtils.equalsIgnoreCase(transactionRecieptOptional.get().getStatus(), _0X0)) {
+						approveTransactionRepository.delete(approveTransaction);
+						snipeTransactionRequest.setErrorMessage("APPROVE FAILED");
+						snipeOrderHistoryRepository.save(snipeTransactionRequest);
+						snipeOrderRepository.delete(snipeTransactionRequest);
+					}else {
+						approveTransaction.setStatus(_0X1);
+						approveTransactionRepository.update(approveTransaction);
+					}
 				}
+				
 			}else {
 				return true;
 			}

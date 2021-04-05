@@ -19,7 +19,6 @@ import io.reactivex.schedulers.Schedulers;
 @Component
 public class OrderPreprosorChecks {
 	
-	private static final String _0X0 = "0x0";
 	private static final String _0X000000 = "0x000000";
 	private static final String BUY = "BUY";
 
@@ -36,8 +35,7 @@ public class OrderPreprosorChecks {
 									    .flowable()
 									    .subscribeOn(Schedulers.io())
 									    .blockingSingle()
-									    .getTransactionReceipt()
-									    .filter(e -> !StringUtils.equalsIgnoreCase(e.getStatus(), _0X0));
+									    .getTransactionReceipt();
 	};
 	
 	public PairData getPairData(Order order) {
