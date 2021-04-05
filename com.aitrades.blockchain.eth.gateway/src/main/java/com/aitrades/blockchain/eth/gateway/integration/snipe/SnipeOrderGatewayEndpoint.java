@@ -11,17 +11,12 @@ import com.aitrades.blockchain.eth.gateway.domain.SnipeTransactionRequest;
 import com.aitrades.blockchain.eth.gateway.mq.RabbitMQSnipeOrderSender;
 import com.aitrades.blockchain.eth.gateway.repository.SnipeOrderHistoryRepository;
 import com.aitrades.blockchain.eth.gateway.repository.SnipeOrderRepository;
-import com.aitrades.blockchain.eth.gateway.service.ApprovedTransactionProcessor;
 
 public class SnipeOrderGatewayEndpoint {
 
 	@Autowired
 	private RabbitMQSnipeOrderSender rabbitMQSnipeOrderSender;
 
-	@SuppressWarnings("unused")
-	@Autowired
-	private ApprovedTransactionProcessor approvedTransactionProcessor;
-	
 	@Autowired
 	private SnipeOrderRepository snipeOrderRepository;
 	
@@ -48,7 +43,4 @@ public class SnipeOrderGatewayEndpoint {
 		rabbitMQSnipeOrderSender.send(snipeOrder);
 	}
 	
-	public boolean checkStatus(SnipeTransactionRequest snipeTransactionRequest) throws Exception {
-		return true;// approvedTransactionProcessor.checkAndProcessSnipeApproveTransaction(snipeTransactionRequest);
-	}
 }
