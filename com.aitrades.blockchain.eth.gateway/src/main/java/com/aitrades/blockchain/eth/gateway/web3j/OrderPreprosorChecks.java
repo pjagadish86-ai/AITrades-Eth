@@ -53,18 +53,6 @@ public class OrderPreprosorChecks {
 			e.printStackTrace();
 		}
 		if (pairAddress.isPresent()
-				&& StringUtils.startsWithIgnoreCase((String) pairAddress.get().getValue(), _0X000000)) {
-			try {
-				pairAddress = ethereumDexContractPairData.getPair(order.getOrderEntity().getOrderSide().equalsIgnoreCase(BUY) ? order.getTo().getTicker().getAddress() : order.getFrom().getTicker().getAddress(), 
-														          TradeConstants.ETH, 
-														          order.getRoute().toUpperCase())
-														  .parallelStream()
-														  .findFirst();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		if (pairAddress.isPresent()
 				&& !StringUtils.startsWithIgnoreCase((String) pairAddress.get().getValue(), _0X000000)) {
 			PairData pairData = new PairData();
 			Ticker ticker = new Ticker();

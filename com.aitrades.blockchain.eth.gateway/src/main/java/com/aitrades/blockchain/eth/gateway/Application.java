@@ -44,7 +44,7 @@ public class Application {
 
 	private static final int _40 = 40;
 
-	private static final String ENDPOINT_WSS = "wss://eth-ropsten.ws.alchemyapi.io/v2/rbcu5rCKQjynzoU_TTGtTvamSnagl9BU";
+	private static final String ENDPOINT_WSS = "wss://eth-mainnet.ws.alchemyapi.io/v2/9XymsgNnaJBVR1KHUM6aH9dG2CU1FJ-2";
 	
 	private static final String BSC_ENDPOINT_WSS ="wss://holy-twilight-violet.bsc.quiknode.pro/9ccdc8c6748f92a972bc9c9c1b8b56de961c0fc6/";
 	
