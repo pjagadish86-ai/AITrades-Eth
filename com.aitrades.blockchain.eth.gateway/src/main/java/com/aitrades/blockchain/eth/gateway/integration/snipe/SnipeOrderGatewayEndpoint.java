@@ -18,6 +18,7 @@ public class SnipeOrderGatewayEndpoint {
 	@Autowired
 	private RabbitMQSnipeOrderSender rabbitMQSnipeOrderSender;
 
+	@SuppressWarnings("unused")
 	@Autowired
 	private ApprovedTransactionProcessor approvedTransactionProcessor;
 	
@@ -32,9 +33,7 @@ public class SnipeOrderGatewayEndpoint {
 		List<SnipeTransactionRequest> uniqueSnipeOrders = new ArrayList<>(new LinkedHashSet<>(transactionRequests));
 		for(SnipeTransactionRequest snipeTransactionRequest : uniqueSnipeOrders) {
 			try {
-				if(checkStatus(snipeTransactionRequest)) {
-					sendOrderToSnipe(snipeTransactionRequest);
-				}
+				sendOrderToSnipe(snipeTransactionRequest);
 			} catch (Exception e) {
 				snipeTransactionRequest.setErrorMessage(e.getMessage());
 				snipeOrderHistoryRepository.save(snipeTransactionRequest);
@@ -50,6 +49,6 @@ public class SnipeOrderGatewayEndpoint {
 	}
 	
 	public boolean checkStatus(SnipeTransactionRequest snipeTransactionRequest) throws Exception {
-		return approvedTransactionProcessor.checkAndProcessSnipeApproveTransaction(snipeTransactionRequest);
+		return true;// approvedTransactionProcessor.checkAndProcessSnipeApproveTransaction(snipeTransactionRequest);
 	}
 }

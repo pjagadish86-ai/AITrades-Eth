@@ -84,6 +84,7 @@ public class ApprovedTransactionProcessor {
 				approveTrnx.setContractAddressInteracted( order.getTo().getTicker().getAddress().trim());
 				approveTrnx.setPublicKey(order.getWalletInfo().getPublicKey().trim());
 				approveTrnx.setApprovedHash(hash);
+				orderRepository.updateApprovedHash(order, hash);
 				approveTransactionRepository.insert(approveTrnx);
 			}
 		}
@@ -112,12 +113,13 @@ public class ApprovedTransactionProcessor {
 			}
 		}else {
 			String hash =preApproveProcosser.approve(snipeTransactionRequest.getRoute(), snipeTransactionRequest.getCredentials(), snipeTransactionRequest.getToAddress(), strategyGasProvider, GasModeEnum.fromValue(snipeTransactionRequest.getGasMode()), snipeTransactionRequest.getGasPrice(), snipeTransactionRequest.getGasLimit());
-			if(StringUtils.isNotBlank( hash)) {
+			if(StringUtils.isNotBlank(hash)) {
 				ApproveTransaction approveTrnx = new ApproveTransaction();
 				approveTrnx.setId(snipeTransactionRequest.getWalletInfo().getPublicKey().toLowerCase().trim() + TILDA + snipeTransactionRequest.getRoute().trim() +TILDA + snipeTransactionRequest.getToAddress().toLowerCase().trim());
 				approveTrnx.setContractAddressInteracted(snipeTransactionRequest.getToAddress().trim());
 				approveTrnx.setPublicKey(snipeTransactionRequest.getWalletInfo().getPublicKey().trim());
 				approveTrnx.setApprovedHash(hash);
+				snipeOrderRepository.updateApprovedHash(snipeTransactionRequest, hash);
 				approveTransactionRepository.insert(approveTrnx);
 			}
 		}

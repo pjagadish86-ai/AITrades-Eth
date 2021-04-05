@@ -23,6 +23,7 @@ public class OrderGatewayEndpoint {
 	@Autowired
 	private OrderPreprosorChecks pairDataRetriever;
 	
+	@SuppressWarnings("unused")
 	@Autowired
 	private ApprovedTransactionProcessor approvedTransactionProcessor;
 	
@@ -37,17 +38,16 @@ public class OrderGatewayEndpoint {
 		List<Order> uniqueOrders = new ArrayList<>(new LinkedHashSet<>(orders));
 		for(Order order : uniqueOrders) {
 			try {
-				if(checkStatusAndLockMessage(order)) {
-					if(order.getPairData() == null) {
-						PairData pairData  = populatePairData(order);
-						if(pairData != null) {
+				if (checkStatusAndLockMessage(order)) {
+					if (order.getPairData() == null) {
+						PairData pairData = populatePairData(order);
+						if (pairData != null) {
 							order.setPairData(pairData);
 						}
 					}
-					
-					if(order.getPairData() != null) {
+					if (order.getPairData() != null) {
 						sendToQueueAndUpdateLock(order);
-					}
+					} 
 				}
 			} catch (Exception e) {
 				order.setErrorMessage(e.getMessage());
@@ -60,7 +60,7 @@ public class OrderGatewayEndpoint {
 	}
 
 	private boolean checkStatusAndLockMessage(Order order) throws Exception {
-		return approvedTransactionProcessor.checkAndProcessBuyApproveTransaction(order);
+		return !order.isApproveStatusCheck();//approvedTransactionProcessor.checkAndProcessBuyApproveTransaction(order);
 	}
 	
 	private PairData populatePairData(Order order) {

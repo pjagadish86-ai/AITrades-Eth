@@ -21,6 +21,8 @@ public class OrderRepository {
 	private static final String READ = "read";
 	private static final String ID = "id";
 	
+	private static final String APPROVED_HASH = "approvedHash";
+	
 	@Resource(name = "orderReactiveMongoTemplate")
 	public ReactiveMongoTemplate orderReactiveMongoTemplate;
 
@@ -53,5 +55,13 @@ public class OrderRepository {
 		}else {
 			System.out.println("deleted");
 		}
+	}
+
+	public void updateApprovedHash(Order order, String apporvedHash) {
+		Query query = new Query();
+        query.addCriteria(Criteria.where(ID).is(order.getId()));
+        Update update = new Update();
+        update.set(APPROVED_HASH, apporvedHash);
+		orderReactiveMongoTemplate.updateFirst(query, update, Order.class).block();
 	}
 }

@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
+import com.aitrades.blockchain.eth.gateway.domain.Order;
 import com.aitrades.blockchain.eth.gateway.domain.SnipeTransactionRequest;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
@@ -22,6 +23,7 @@ public class SnipeOrderRepository {
 	private static final String LOCK = "LOCK";
 	private static final String READ = "read";
 	private static final String ID = "id";
+	private static final String APPROVED_HASH = "approvedHash";
 	
 	@Resource(name = "snipeOrderReactiveMongoTemplate")
 	private ReactiveMongoTemplate snipeOrderReactiveMongoTemplate;
@@ -72,5 +74,14 @@ public class SnipeOrderRepository {
         Update update = new Update();
         update.set(READ, AVAL);
         snipeOrderReactiveMongoTemplate.updateFirst(query, update, SnipeTransactionRequest.class).block();
+	}
+
+	public void updateApprovedHash(SnipeTransactionRequest snipeTransactionRequest, String apporvedHash) {
+		Query query = new Query();
+        query.addCriteria(Criteria.where(ID).is(snipeTransactionRequest.getId()));
+        Update update = new Update();
+        update.set(APPROVED_HASH, apporvedHash);
+        snipeOrderReactiveMongoTemplate.updateFirst(query, update, Order.class).block();
+		
 	}
 }
