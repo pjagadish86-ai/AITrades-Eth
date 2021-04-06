@@ -60,7 +60,7 @@ public class OrderGatewayEndpoint {
 	}
 
 	private boolean checkStatusAndLockMessage(Order order) throws Exception {
-		return !order.isApproveStatusCheck();//approvedTransactionProcessor.checkAndProcessBuyApproveTransaction(order);
+		return order.isApproveStatusCheck() ? approvedTransactionProcessor.checkAndProcessBuyApproveTransaction(order) : true;
 	}
 	
 	private PairData populatePairData(Order order) {

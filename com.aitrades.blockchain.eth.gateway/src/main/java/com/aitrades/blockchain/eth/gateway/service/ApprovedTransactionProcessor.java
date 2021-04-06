@@ -74,6 +74,9 @@ public class ApprovedTransactionProcessor {
 					}
 				}
 			}else {
+				if(StringUtils.isBlank(order.getApprovedHash())) {
+					order.setApprovedHash(approveTransaction.getApprovedHash());
+				}
 				return true;
 			}
 		}else {
