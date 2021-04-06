@@ -50,10 +50,10 @@ public class SnipeOrderGatewayEndpoint {
 	private boolean executionTimeMet(String executionTime) {
 	    LocalDateTime dateTime = LocalDateTime.parse(executionTime);
 	    LocalDateTime now = LocalDateTime.now(ZoneId.systemDefault());
-		return dateTime.isAfter(now);
+		return now.isAfter(dateTime);
 	}
 
-	private synchronized void  sendOrderToSnipe(SnipeTransactionRequest snipeOrder) {
+	private void  sendOrderToSnipe(SnipeTransactionRequest snipeOrder) {
 		snipeOrderRepository.saveWithUpdateLock(snipeOrder);
 		rabbitMQSnipeOrderSender.send(snipeOrder);
 	}
