@@ -46,6 +46,9 @@ public class SnipeTransactionRequest {
 	private boolean hasFee;
 	private String gasMode;
 	
+	private boolean exeTimeCheck;
+	private String executionTime;
+	
 	private BigDecimal slipage;
 	
 	private Double slipageInDouble;
@@ -81,6 +84,22 @@ public class SnipeTransactionRequest {
 	
 	private String errorMessage;
 	
+	public boolean isExeTimeCheck() {
+		return exeTimeCheck;
+	}
+
+	public void setExeTimeCheck(boolean exeTimeCheck) {
+		this.exeTimeCheck = exeTimeCheck;
+	}
+
+	public String getExecutionTime() {
+		return executionTime;
+	}
+
+	public void setExecutionTime(String executionTime) {
+		this.executionTime = executionTime;
+	}
+
 	public String getId() {
 		return id;
 	}

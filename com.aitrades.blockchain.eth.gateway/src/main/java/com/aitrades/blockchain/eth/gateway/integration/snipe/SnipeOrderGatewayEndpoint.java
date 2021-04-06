@@ -1,5 +1,7 @@
 package com.aitrades.blockchain.eth.gateway.integration.snipe;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -28,7 +30,14 @@ public class SnipeOrderGatewayEndpoint {
 		List<SnipeTransactionRequest> uniqueSnipeOrders = new ArrayList<>(new LinkedHashSet<>(transactionRequests));
 		for(SnipeTransactionRequest snipeTransactionRequest : uniqueSnipeOrders) {
 			try {
-				sendOrderToSnipe(snipeTransactionRequest);
+				if(snipeTransactionRequest.isExeTimeCheck()) {
+					boolean timeMet = executionTimeMet(snipeTransactionRequest.getExecutionTime());
+					if(timeMet) {
+						sendOrderToSnipe(snipeTransactionRequest);
+					}
+				}else {
+					sendOrderToSnipe(snipeTransactionRequest);
+				}
 			} catch (Exception e) {
 				snipeTransactionRequest.setErrorMessage(e.getMessage());
 				snipeOrderHistoryRepository.save(snipeTransactionRequest);
@@ -36,6 +45,12 @@ public class SnipeOrderGatewayEndpoint {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	private boolean executionTimeMet(String executionTime) {
+	    LocalDateTime dateTime = LocalDateTime.parse(executionTime);
+	    LocalDateTime now = LocalDateTime.now(ZoneId.systemDefault());
+		return dateTime.isAfter(now);
 	}
 
 	private synchronized void  sendOrderToSnipe(SnipeTransactionRequest snipeOrder) {

@@ -6,6 +6,7 @@ import java.util.concurrent.Executors;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -21,7 +22,6 @@ import com.aitrades.blockchain.eth.gateway.service.Web3jServiceClientFactory;
 import reactor.core.scheduler.Schedulers;
 
 @Component
-//TODO: Gas should be populated in PairCreated Channel and assign it into snipeRequestObject, so this way we can avoid further or do just make a call?
 public class StrategyGasProvider{
 
 	private static final String PANCAKE = "PANCAKE";
@@ -39,13 +39,17 @@ public class StrategyGasProvider{
 	@SuppressWarnings("unchecked")
 	public BigInteger getGasPrice(GasModeEnum gasModeEnum){
 		Map<String, Object> gasPrices = gasWebClient.get()
-													   .uri(GAS_PRICE_ORACLE)
-													   .accept(MediaType.APPLICATION_JSON)
-													   .retrieve()
-													   .bodyToMono(LinkedCaseInsensitiveMap.class)
-													   .subscribeOn(Schedulers.fromExecutor(Executors.newCachedThreadPool()))
-													   .block();
-		return Convert.toWei(gasPrices.get(gasModeEnum.getValue().toLowerCase()).toString(), Convert.Unit.GWEI).toBigInteger();
+												    .uri(GAS_PRICE_ORACLE)
+												    .accept(MediaType.APPLICATION_JSON)
+												    .retrieve()
+												    .bodyToMono(LinkedCaseInsensitiveMap.class)
+												    .subscribeOn(Schedulers.fromExecutor(Executors.newCachedThreadPool()))
+												    .block();
+		String gasMode = gasModeEnum.getValue().toLowerCase();
+		if(StringUtils.equalsIgnoreCase(gasModeEnum.getValue().toLowerCase(), "ULTRA")) {
+			gasMode ="FASTEST";
+		}
+		return Convert.toWei(gasPrices.get(gasMode).toString(), Convert.Unit.GWEI).toBigInteger();
 	}
 	
 	public BigInteger getGasLimit(String route, boolean sensitive){
@@ -68,7 +72,11 @@ public class StrategyGasProvider{
 												    .bodyToMono(Map.class)
 												    .subscribeOn(Schedulers.fromExecutor(Executors.newCachedThreadPool()))
 												    .block();
-		Object gasPrice = gasPrices.get(gasModeEnum.getValue());
+		String gasMode = gasModeEnum.getValue().toLowerCase();
+		if(StringUtils.equalsIgnoreCase(gasModeEnum.getValue().toLowerCase(), "ULTRA")) {
+			gasMode ="FASTEST";
+		}
+		Object gasPrice = gasPrices.get(gasMode);
 		if(gasPrice != null) {
 			return Convert.toWei(gasPrice.toString(), Convert.Unit.GWEI).toBigInteger();
 		}
