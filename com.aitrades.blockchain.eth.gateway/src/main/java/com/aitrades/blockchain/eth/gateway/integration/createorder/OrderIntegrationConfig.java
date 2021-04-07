@@ -1,5 +1,6 @@
 package com.aitrades.blockchain.eth.gateway.integration.createorder;
 
+import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
@@ -14,7 +15,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.core.task.TaskExecutor;
 import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
 import org.springframework.expression.common.LiteralExpression;
 import org.springframework.integration.annotation.IntegrationComponentScan;
@@ -61,10 +61,10 @@ public class OrderIntegrationConfig {
 	}
 
 	@Bean
-	public TaskExecutor executor() {
+	public Executor executor() {
 		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-		executor.setCorePoolSize(4);
-		executor.setMaxPoolSize(4);
+		executor.setCorePoolSize(5);
+		executor.setMaxPoolSize(20);
 		executor.setThreadNamePrefix(CREATE_ORDER_TASK_EXECUTOR_THREAD);
 		executor.initialize();
 		return executor;
