@@ -5,7 +5,10 @@ import java.util.Map;
 import com.google.common.collect.ImmutableMap;
 
 public final class TradeConstants {
-	
+
+	private TradeConstants() {
+	}
+
 	public static final String UNISWAP = "UNISWAP";
 	public static final String UNISWAP_FACOTRYADDRESS ="0x5c69bee701ef814a2b6a3edd4b1652cb9cc5aa6f";
 	public static final String UNISWAP_ROUTERADDRESS ="0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D";

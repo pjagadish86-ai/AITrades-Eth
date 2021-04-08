@@ -36,7 +36,7 @@ public class OrderPreprosorChecks {
 									    .subscribeOn(Schedulers.io())
 									    .blockingSingle()
 									    .getTransactionReceipt();
-	};
+	}
 	
 	public PairData getPairData(Order order) {
 		@SuppressWarnings("rawtypes")

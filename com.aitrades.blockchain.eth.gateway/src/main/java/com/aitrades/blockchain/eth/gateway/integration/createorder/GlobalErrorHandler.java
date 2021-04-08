@@ -47,9 +47,6 @@ public class GlobalErrorHandler {
 			    
 			    }
 			}
-			if(object instanceof List){
-			   
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
