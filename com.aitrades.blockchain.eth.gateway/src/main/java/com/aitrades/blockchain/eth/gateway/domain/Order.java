@@ -29,13 +29,15 @@ public class Order {
 	private PairData pairData;
 	private OrderEntity orderEntity;
 	private EventState eventState;
-	private List<AdditionalProperty> AdditionalProperty;
+	private List<AdditionalProperty> additionalProperty;
 	private Integer orderCode;
 	private String approvedHash;
 	private String read;
 	private String errorMessage;
 	private boolean approveStatusCheck;
 	private boolean isFee;
+	private String parentSnipeId;
+	private String autoSnipeLimitSellTrailPercent;
 	
 	public String getId() {
 		return id;
@@ -107,10 +109,10 @@ public class Order {
 		this.eventState = eventState;
 	}
 	public List<AdditionalProperty> getAdditionalProperty() {
-		return AdditionalProperty;
+		return additionalProperty;
 	}
-	public void setAdditionalProperty(List<AdditionalProperty> AdditionalProperty) {
-		this.AdditionalProperty = AdditionalProperty;
+	public void setAdditionalProperty(List<AdditionalProperty> additionalProperty) {
+		this.additionalProperty = additionalProperty;
 	}
 	public Integer getOrderCode() {
 		return orderCode;
@@ -159,6 +161,20 @@ public class Order {
 	}
 	public void setApproveStatusCheck(boolean approveStatusCheck) {
 		this.approveStatusCheck = approveStatusCheck;
+	}
+	
+	public String getParentSnipeId() {
+		return parentSnipeId;
+	}
+	public void setParentSnipeId(String parentSnipeId) {
+		this.parentSnipeId = parentSnipeId;
+	}
+	
+	public String getAutoSnipeLimitSellTrailPercent() {
+		return autoSnipeLimitSellTrailPercent;
+	}
+	public void setAutoSnipeLimitSellTrailPercent(String autoSnipeLimitSellTrailPercent) {
+		this.autoSnipeLimitSellTrailPercent = autoSnipeLimitSellTrailPercent;
 	}
 	@Override
 	public String toString() {

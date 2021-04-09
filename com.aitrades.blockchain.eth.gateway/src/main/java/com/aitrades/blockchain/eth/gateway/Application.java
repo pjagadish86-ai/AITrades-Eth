@@ -162,4 +162,5 @@ public class Application {
 	public MessageConverter jsonMessageConverter() {
 		return new Jackson2JsonMessageConverter();
 	}
+	
 }

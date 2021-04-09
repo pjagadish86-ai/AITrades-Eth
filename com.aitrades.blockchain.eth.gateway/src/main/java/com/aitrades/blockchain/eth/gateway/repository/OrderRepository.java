@@ -29,6 +29,10 @@ public class OrderRepository {
 	public Mono<Order> insert(Order order) {
 		return orderReactiveMongoTemplate.insert(order);
 	}
+	
+	public Order save(Order order) {
+		return orderReactiveMongoTemplate.save(order).block();
+	}
 
 	public void updateLock(Order order) {
 		Query query = new Query();

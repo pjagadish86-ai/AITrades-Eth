@@ -26,7 +26,7 @@ public class OrderController {
 	public Object createOrder(@RequestBody Order order) throws Exception {
 		String id = UUIDGenerator.nextHex(UUIDGenerator.TYPE1);
 		order.setId(id);
-		RestExceptionMessage exceptionMessage  = orderValidator.validatorOrder(order);
+		RestExceptionMessage exceptionMessage  = orderValidator.validatorOrder(order);// we should check balance for buy and sell and skip only when we have parentid not null
 		if(exceptionMessage != null) {
 			return exceptionMessage;
 		}

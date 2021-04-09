@@ -5,12 +5,16 @@ import java.math.BigInteger;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.aitrades.blockchain.eth.gateway.domain.Order;
 @Component
 public class OrderValidator {
 
+	@Autowired
+	private BalanceValidator balanceValidator;
+	
 	private static final String CUSTOM = "CUSTOM";
 	private static final String INVALID_ORDER_SIDE = "Invalid Order Side";
 	private static final String LIMIT = "LIMIT";
@@ -45,7 +49,7 @@ public class OrderValidator {
 
 	private static final Set<String> ROUTES = Set.of("UNISWAP", "SUSHI", "PANCAKE");
 	
-	
+	// we should check balance for buy and sell and skip only when we have parentid not null
 	public RestExceptionMessage validatorOrder(Order order) {
 		
 		if(order.getFrom() == null 
@@ -60,13 +64,13 @@ public class OrderValidator {
 			return new RestExceptionMessage(order.getId(), TO_TICKER_ENTITY_IS_EMPTY);
 		}
 		
-		
-		if(StringUtils.isBlank(order.getFrom().getAmount()) 
-				|| order.getFrom().getAmountAsBigInteger() == null
-				|| order.getFrom().getAmountAsBigInteger().compareTo(BigInteger.ZERO) <= 0) {
-			return new RestExceptionMessage(order.getId(), INVALID_INPUT_AMOUNT);
+		if(StringUtils.isBlank(order.getParentSnipeId())) {
+			if(StringUtils.isBlank(order.getFrom().getAmount()) 
+					|| order.getFrom().getAmountAsBigInteger() == null
+					|| order.getFrom().getAmountAsBigInteger().compareTo(BigInteger.ZERO) <= 0) {
+				return new RestExceptionMessage(order.getId(), INVALID_INPUT_AMOUNT);
+			}
 		}
-		
 		
 		if(order.getSlippage() == null 
 				|| StringUtils.isEmpty(order.getSlippage().getSlipagePercent())
@@ -173,7 +177,7 @@ public class OrderValidator {
 			}
 		}
 		
-		return null;
+		return balanceValidator.validateBalance(order);
 		
 	}
 }

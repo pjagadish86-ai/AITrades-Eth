@@ -16,7 +16,7 @@ import com.aitrades.blockchain.eth.gateway.repository.OrderHistoryRepository;
 import com.aitrades.blockchain.eth.gateway.repository.OrderRepository;
 import com.aitrades.blockchain.eth.gateway.repository.SnipeOrderHistoryRepository;
 import com.aitrades.blockchain.eth.gateway.repository.SnipeOrderRepository;
-import com.aitrades.blockchain.eth.gateway.web3j.OrderPreprosorChecks;
+import com.aitrades.blockchain.eth.gateway.web3j.OrderProcessorPrechecker;
 import com.aitrades.blockchain.eth.gateway.web3j.PreApproveProcosser;
 import com.aitrades.blockchain.eth.gateway.web3j.StrategyGasProvider;
 
@@ -35,7 +35,7 @@ public class ApprovedTransactionProcessor {
 	private ApproveTransactionRepository approveTransactionRepository;
 	
 	@Autowired
-	private OrderPreprosorChecks orderPreprosorChecks;
+	private OrderProcessorPrechecker orderPreprosorChecks;
 	
 	@Autowired
 	private PreApproveProcosser preApproveProcosser;
@@ -61,7 +61,7 @@ public class ApprovedTransactionProcessor {
 		ApproveTransaction approveTransaction = approveTransactionRepository.find(order.getWalletInfo().getPublicKey().toLowerCase().trim() + TILDA + order.getRoute().trim() +TILDA + address.toLowerCase().trim()); // id should -> publickey ~ router ~ contractaddresss
 		if(approveTransaction != null && approveTransaction.getApprovedHash() != null) {
 			if(StringUtils.isBlank(approveTransaction.getStatus())) {
-				Optional<TransactionReceipt> transactionRecieptOptional  = orderPreprosorChecks.checkStatusOfApprovalTransaction(approveTransaction.getApprovedHash(), order.getRoute());
+				Optional<TransactionReceipt> transactionRecieptOptional  = orderPreprosorChecks.checkTransactionHashSuccess(approveTransaction.getApprovedHash(), order.getRoute());
 				if(transactionRecieptOptional.isPresent()) {
 					if(StringUtils.equalsIgnoreCase(transactionRecieptOptional.get().getStatus(), _0X0)) {
 						approveTransactionRepository.delete(approveTransaction);
@@ -98,7 +98,7 @@ public class ApprovedTransactionProcessor {
 		ApproveTransaction approveTransaction = approveTransactionRepository.find(snipeTransactionRequest.getWalletInfo().getPublicKey().toLowerCase().trim() + TILDA + snipeTransactionRequest.getRoute().trim() +TILDA + snipeTransactionRequest.getToAddress().toLowerCase().trim()); // id should -> publickey ~ router ~ contractaddresss
 		if(approveTransaction != null && approveTransaction.getApprovedHash() != null) {
 			if(StringUtils.isBlank(approveTransaction.getStatus())) {
-				Optional<TransactionReceipt> transactionRecieptOptional  = orderPreprosorChecks.checkStatusOfApprovalTransaction(approveTransaction.getApprovedHash(), snipeTransactionRequest.getRoute());
+				Optional<TransactionReceipt> transactionRecieptOptional  = orderPreprosorChecks.checkTransactionHashSuccess(approveTransaction.getApprovedHash(), snipeTransactionRequest.getRoute());
 				if(transactionRecieptOptional.isPresent()) {
 					if(StringUtils.equalsIgnoreCase(transactionRecieptOptional.get().getStatus(), _0X0)) {
 						approveTransactionRepository.delete(approveTransaction);

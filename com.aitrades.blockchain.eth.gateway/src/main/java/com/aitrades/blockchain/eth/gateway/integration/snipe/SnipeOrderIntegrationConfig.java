@@ -55,7 +55,7 @@ public class SnipeOrderIntegrationConfig {
 	
 	@Bean(name = "snipePoller")
 	public PollerMetadata snipePoller() {
-		return Pollers.fixedDelay(10, TimeUnit.SECONDS).get();
+		return Pollers.fixedDelay(1, TimeUnit.SECONDS).get();
 	}
 
 	@Bean
