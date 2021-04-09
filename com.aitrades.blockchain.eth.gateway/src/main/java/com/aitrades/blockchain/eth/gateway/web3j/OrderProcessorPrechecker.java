@@ -71,7 +71,7 @@ public class OrderProcessorPrechecker {
 	private boolean getBalance(BigDecimal inputAmount, String publicKey, String address, String route) throws Exception {
 		List<Type> types  = ethereumDexContract.getBalance(publicKey, address, route);
 		if(CollectionUtils.isNotEmpty(types) && types.get(0) != null) {
-			BigDecimal balance = Convert.fromWei(Numeric.decodeQuantity(types.get(0).getValue().toString()).toString(), Convert.Unit.ETHER);
+			BigDecimal balance = Convert.fromWei(types.get(0).getValue().toString(), Convert.Unit.ETHER);
 			return inputAmount.compareTo(balance) <= 0;
 		}
 		return false;
