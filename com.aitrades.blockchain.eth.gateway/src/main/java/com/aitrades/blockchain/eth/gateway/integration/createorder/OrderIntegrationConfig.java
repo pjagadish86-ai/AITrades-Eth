@@ -57,7 +57,7 @@ public class OrderIntegrationConfig {
 	
 	@Bean(name = PollerMetadata.DEFAULT_POLLER)
 	public PollerMetadata poller() {
-		return Pollers.fixedDelay(10, TimeUnit.SECONDS).get();
+		return Pollers.fixedDelay(2, TimeUnit.SECONDS).get();
 	}
 
 	@Bean
