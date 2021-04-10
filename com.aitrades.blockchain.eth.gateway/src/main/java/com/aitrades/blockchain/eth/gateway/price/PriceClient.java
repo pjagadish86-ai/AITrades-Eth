@@ -8,6 +8,8 @@ import java.util.concurrent.TimeUnit;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.web3j.crypto.Credentials;
@@ -37,7 +39,9 @@ public class PriceClient {
 	@Autowired
 	private Web3jServiceClientFactory web3jServiceClientFactory;
 	
-	public Cryptonator nativeCoinPrice(String route) throws Exception {
+	private final Logger logger = LoggerFactory.getLogger(getClass());
+	
+	private Cryptonator nativeCoinPrice(String route) throws Exception {
 		return web3jServiceClientFactory.getWeb3jMap().get(route).getRestTemplate().getForEntity(BLOCKCHAIN_NATIVE_PRICE_ORACLE.get(route), Cryptonator.class).getBody();
 	}
 	
@@ -48,7 +52,7 @@ public class PriceClient {
                              .build();
     }
 
-    public Cryptonator getNtvPrice(String route){
+	private Cryptonator getNtvPrice(String route){
         return tokenCache.get(route, rout -> {
 			try {
 				return this.nativeCoinPrice(rout);
@@ -59,7 +63,7 @@ public class PriceClient {
 		});
     }
 
-    public String getPrice(String route) throws Exception  {
+	private String getPrice(String route) throws Exception  {
         return getNtvPrice(route).getTicker().getPrice();
     }
 	
@@ -79,10 +83,11 @@ public class PriceClient {
 		}
 		BigInteger divide = reserves.component1().divide(reserves.component2());
 		Double priceOFToken = (Double.valueOf(1)/ divide.doubleValue()) * Double.valueOf(price);
-		
+		logger.info("Price of token for pairAddress ={}, route={}, price={}, reserves={}", pairAddress, route, priceOFToken, reserves);
 		try {
 			return BigDecimal.valueOf(priceOFToken);
 		} catch (Exception e) {
+			logger.info("exeception orccured reversing the reserves for price calculation of token for pairAddress ={}, route={}, price={}, reserves={}", pairAddress, route, priceOFToken, reserves);
 			BigInteger divide1 = reserves.component2().divide(reserves.component1());
 			Double priceOFToken1 = (Double.valueOf(1)/ divide1.doubleValue()) * Double.valueOf(price);
 			return BigDecimal.valueOf(priceOFToken1);

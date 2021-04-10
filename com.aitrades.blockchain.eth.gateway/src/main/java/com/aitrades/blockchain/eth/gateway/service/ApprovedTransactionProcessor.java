@@ -3,6 +3,8 @@ package com.aitrades.blockchain.eth.gateway.service;
 import java.util.Optional;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
@@ -55,6 +57,8 @@ public class ApprovedTransactionProcessor {
 	@Autowired
 	private SnipeOrderHistoryRepository snipeOrderHistoryRepository;
 	
+	private final Logger logger = LoggerFactory.getLogger(getClass());
+
 	public boolean checkAndProcessBuyApproveTransaction(Order order) throws Exception {
 		String address  = order.getOrderEntity().getOrderSide().equalsIgnoreCase(BUY) ? order.getTo().getTicker().getAddress() : order.getFrom().getTicker().getAddress();
 				
@@ -80,7 +84,7 @@ public class ApprovedTransactionProcessor {
 				return true;
 			}
 		}else {
-			String hash  = preApproveProcosser.approve(order.getRoute(), order.getCredentials(), order.getTo().getTicker().getAddress(), strategyGasProvider, GasModeEnum.fromValue(order.getGasMode()), order.getGasPrice().getValueBigInteger(), order.getGasLimit().getValueBigInteger());
+			String hash  = preApproveProcosser.approve(order.getId(), order.getRoute(), order.getCredentials(), order.getTo().getTicker().getAddress(), strategyGasProvider, GasModeEnum.fromValue(order.getGasMode()), order.getGasPrice().getValueBigInteger(), order.getGasLimit().getValueBigInteger());
 			if(StringUtils.isNotBlank( hash)) {
 				ApproveTransaction approveTrnx = new ApproveTransaction();
 				approveTrnx.setId(order.getWalletInfo().getPublicKey().toLowerCase().trim() + TILDA + order.getRoute().trim() +TILDA +  address.toLowerCase().trim());
@@ -115,7 +119,7 @@ public class ApprovedTransactionProcessor {
 				return true;
 			}
 		}else {
-			String hash =preApproveProcosser.approve(snipeTransactionRequest.getRoute(), snipeTransactionRequest.getCredentials(), snipeTransactionRequest.getToAddress(), strategyGasProvider, GasModeEnum.fromValue(snipeTransactionRequest.getGasMode()), snipeTransactionRequest.getGasPrice(), snipeTransactionRequest.getGasLimit());
+			String hash =preApproveProcosser.approve(snipeTransactionRequest.getId(), snipeTransactionRequest.getRoute(), snipeTransactionRequest.getCredentials(), snipeTransactionRequest.getToAddress(), strategyGasProvider, GasModeEnum.fromValue(snipeTransactionRequest.getGasMode()), snipeTransactionRequest.getGasPrice(), snipeTransactionRequest.getGasLimit());
 			if(StringUtils.isNotBlank(hash)) {
 				ApproveTransaction approveTrnx = new ApproveTransaction();
 				approveTrnx.setId(snipeTransactionRequest.getWalletInfo().getPublicKey().toLowerCase().trim() + TILDA + snipeTransactionRequest.getRoute().trim() +TILDA + snipeTransactionRequest.getToAddress().toLowerCase().trim());

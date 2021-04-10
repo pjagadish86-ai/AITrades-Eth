@@ -1,5 +1,7 @@
 package com.aitrades.blockchain.eth.gateway.rest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,13 +23,17 @@ public class OrderController {
 	
 	@Autowired
 	private OrderValidator orderValidator;
-	
+
+	private final Logger logger = LoggerFactory.getLogger(getClass());
+
 	@PostMapping("/createOrder")
 	public Object createOrder(@RequestBody Order order) throws Exception {
 		String id = UUIDGenerator.nextHex(UUIDGenerator.TYPE1);
 		order.setId(id);
+		logger.info("in create order={}", order);
 		RestExceptionMessage exceptionMessage  = orderValidator.validatorOrder(order);// we should check balance for buy and sell and skip only when we have parentid not null
 		if(exceptionMessage != null) {
+			logger.error(" order is invalid for create order={}, validation message={}", order, exceptionMessage);
 			return exceptionMessage;
 		}
 		return orderMutator.createOrder(order);

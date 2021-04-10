@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.web3j.abi.FunctionEncoder;
@@ -65,7 +67,9 @@ public class PreApproveProcosser {
 	@Resource(name= "noOpProcessor")
 	private NoOpProcessor noOpProcessor;
 	
-	public String approve(String route, Credentials credentials, String contractAddress, StrategyGasProvider customGasProvider,
+	private final Logger logger = LoggerFactory.getLogger(getClass());
+
+	public String approve(String id, String route, Credentials credentials, String contractAddress, StrategyGasProvider customGasProvider,
 			  			  GasModeEnum gasModeEnum, BigInteger gasPrice, BigInteger gasLimit) throws Exception {
 		FastRawTransactionManager fastRawTxMgr = new FastRawTransactionManager(web3jServiceClientFactory.getWeb3jMap().get(route).getWeb3j(), 
 																			   credentials,
@@ -73,6 +77,7 @@ public class PreApproveProcosser {
 		BigInteger gasLmt = gasModeEnum.name().equalsIgnoreCase(CUSTOM) ? gasLimit : BigInteger.valueOf(21000l).add(BigInteger.valueOf(68l).multiply(BigInteger.valueOf(FUNCTION_ENCODE_ROUTE_MAP.get(route).getBytes().length)));
 		EthSendTransaction ethSendTransaction = aprrov(route, contractAddress, customGasProvider, gasModeEnum, fastRawTxMgr, gasPrice, gasLmt);
 		if(ethSendTransaction.hasError()) {
+			logger.error("Approved failed for id={}, route={}, contractAddress={}, gasPrice={}, gasLimit={}, exceptionmesge={}", id, route, contractAddress, gasPrice, gasLimit,ethSendTransaction.getError().getMessage() );
 			throw new Exception(ethSendTransaction.getError().getMessage());
 		}
 		return ethSendTransaction.getTransactionHash();

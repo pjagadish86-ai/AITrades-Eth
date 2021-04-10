@@ -3,6 +3,8 @@ package com.aitrades.blockchain.eth.gateway.web3j;
 import java.util.Arrays;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.web3j.abi.FunctionEncoder;
@@ -25,10 +27,12 @@ public class EthereumDexContract {
 	private static final String FUNC_GETPAIR = "getPair";
     private static final String FUNC_BALANCEOF = "balanceOf";
     
+	private final Logger logger = LoggerFactory.getLogger(getClass());
+    
 	@Autowired
 	private Web3jServiceClientFactory web3jServiceClientFactory;
 	
-	public List<Type> getPair(String tokenA, String tokenB, String route) throws Exception{
+	public List<Type> getPair(String tokenA, String tokenB, String route, String id) throws Exception{
 		final Function function = new Function(FUNC_GETPAIR, Arrays.asList(new Address(tokenA), new Address(tokenB)),
 											   Arrays.asList(new TypeReference<Address>() {
 											}));
@@ -38,12 +42,13 @@ public class EthereumDexContract {
 															     .flowable()
 															     .blockingSingle();
 		if(ethCall.hasError()) {
+			logger.error("exception occurred for getPair order/snipe id ={}, tokenA={}, tokenB={}, route={}, exception={}", id, tokenA, tokenB, route, ethCall.getError().getMessage());
 			throw new Exception(ethCall.getError().getMessage());
 		}
 		return FunctionReturnDecoder.decode(ethCall.getValue(), function.getOutputParameters());
 	}
 	
-	public List<Type> getBalance(String owner, String contractAddress, String route) throws Exception{
+	public List<Type> getBalance(String owner, String contractAddress, String route, String id) throws Exception{
 		final Function function = new Function(FUNC_BALANCEOF, 
 								               Arrays.asList(new Address(owner)), 
 								               Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
@@ -53,6 +58,7 @@ public class EthereumDexContract {
 																	        .flowable()
 																	        .blockingSingle();
 		if(ethCall.hasError()) {
+			logger.error("exception occurred for getBalance order/snipe id ={}, owner={}, contractAddress={}, route={}, exception={}", id, owner, contractAddress, route, ethCall.getError().getMessage());
 			throw new Exception(ethCall.getError().getMessage());
 		}
 		return FunctionReturnDecoder.decode(ethCall.getValue(), function.getOutputParameters());
