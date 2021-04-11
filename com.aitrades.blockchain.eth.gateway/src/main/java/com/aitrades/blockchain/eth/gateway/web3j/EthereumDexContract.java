@@ -13,6 +13,7 @@ import org.web3j.abi.TypeReference;
 import org.web3j.abi.datatypes.Address;
 import org.web3j.abi.datatypes.Function;
 import org.web3j.abi.datatypes.Type;
+import org.web3j.abi.datatypes.Utf8String;
 import org.web3j.abi.datatypes.generated.Uint256;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.request.Transaction;
@@ -26,7 +27,8 @@ public class EthereumDexContract {
 
 	private static final String FUNC_GETPAIR = "getPair";
     private static final String FUNC_BALANCEOF = "balanceOf";
-    
+    private static final String FUNC_SYMBOL = "symbol";
+
 	private final Logger logger = LoggerFactory.getLogger(getClass());
     
 	@Autowired
@@ -48,7 +50,7 @@ public class EthereumDexContract {
 		return FunctionReturnDecoder.decode(ethCall.getValue(), function.getOutputParameters());
 	}
 	
-	public List<Type> getBalance(String owner, String contractAddress, String route, String id) throws Exception{
+	public List<Type> getBalance(String id, String owner, String contractAddress, String route) throws Exception{
 		final Function function = new Function(FUNC_BALANCEOF, 
 								               Arrays.asList(new Address(owner)), 
 								               Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
@@ -62,5 +64,10 @@ public class EthereumDexContract {
 			throw new Exception(ethCall.getError().getMessage());
 		}
 		return FunctionReturnDecoder.decode(ethCall.getValue(), function.getOutputParameters());
+	}
+	
+	public List<Type> getSymbol(){
+		final Function function = new Function(FUNC_SYMBOL,  Arrays.<Type>asList(), Arrays.<TypeReference<?>>asList(new TypeReference<Utf8String>() {}));
+		return null;
 	}
 }

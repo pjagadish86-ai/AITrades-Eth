@@ -1,5 +1,7 @@
 package com.aitrades.blockchain.eth.gateway.repository;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
@@ -20,11 +22,12 @@ public class OrderRepository {
 	private static final String AVAL = "AVAL";
 	private static final String READ = "read";
 	private static final String ID = "id";
+	private static final String PUBLIC_KEY = "publicKey";
 	
 	private static final String APPROVED_HASH = "approvedHash";
 	
 	@Resource(name = "orderReactiveMongoTemplate")
-	public ReactiveMongoTemplate orderReactiveMongoTemplate;
+	private ReactiveMongoTemplate orderReactiveMongoTemplate;
 
 	public Mono<Order> insert(Order order) {
 		return orderReactiveMongoTemplate.insert(order);
@@ -67,5 +70,11 @@ public class OrderRepository {
         Update update = new Update();
         update.set(APPROVED_HASH, apporvedHash);
 		orderReactiveMongoTemplate.updateFirst(query, update, Order.class).block();
+	}
+	
+	public List<Order> fetchOrdersById(List<String> walletIds){
+		Query query = new Query();
+        query.addCriteria(Criteria.where(PUBLIC_KEY).in(walletIds));
+		return orderReactiveMongoTemplate.find(query, Order.class).collectList().block();
 	}
 }

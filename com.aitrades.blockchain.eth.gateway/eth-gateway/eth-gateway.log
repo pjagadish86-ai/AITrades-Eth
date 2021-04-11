@@ -1,0 +1,4 @@
+2021-04-10 16:51:35,913 INFO com.aitrades.blockchain.eth.gateway.Application [main] Starting Application using Java 11.0.10 on JayMSI with PID 9188 (C:\Users\jay\Desktop\Sreelekha_Documents\New folder\com.blockchain.bot\com.aitrades.blockchain.eth.gateway\target\classes started by jay in C:\Users\jay\Desktop\Sreelekha_Documents\New folder\com.blockchain.bot\com.aitrades.blockchain.eth.gateway)
+2021-04-10 16:51:35,916 INFO com.aitrades.blockchain.eth.gateway.Application [main] No active profile set, falling back to default profiles: default
+2021-04-10 16:51:42,367 INFO com.aitrades.blockchain.eth.gateway.Application [main] Started Application in 6.71 seconds (JVM running for 7.703)
+2021-04-10 16:51:54,752 INFO com.aitrades.blockchain.eth.gateway.rest.SnipeOrderController [http-nio-8080-exec-1] New Order id->

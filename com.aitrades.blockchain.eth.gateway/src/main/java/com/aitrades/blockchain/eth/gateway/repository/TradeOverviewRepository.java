@@ -19,7 +19,7 @@ public class TradeOverviewRepository {
 		tradeOverviewReactiveMongoTemplate.save(tradeOverview).block();
 	}
 	
-	public TradeOverview findById(String parentSnipeOrderId) {
-		return tradeOverviewReactiveMongoTemplate.findById(parentSnipeOrderId, TradeOverview.class).block();
+	public TradeOverview findById(String id) {
+		return tradeOverviewReactiveMongoTemplate.findById(id, TradeOverview.class).block();
 	}
 }

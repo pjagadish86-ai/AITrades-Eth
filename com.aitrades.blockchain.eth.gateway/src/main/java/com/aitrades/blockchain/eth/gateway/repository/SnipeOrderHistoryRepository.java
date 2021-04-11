@@ -1,19 +1,30 @@
 package com.aitrades.blockchain.eth.gateway.repository;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import com.aitrades.blockchain.eth.gateway.domain.SnipeTransactionRequest;
 
 @Repository
 public class SnipeOrderHistoryRepository {
-
+	private static final String PUBLIC_KEY = "publicKey";
+	
 	@Resource(name = "snipeOrderHistoryReactiveMongoTemplate")
 	public ReactiveMongoTemplate snipeOrderHistoryReactiveMongoTemplate;
 
 	public void save(SnipeTransactionRequest snipeTransactionRequest) throws Exception {
 		 snipeOrderHistoryReactiveMongoTemplate.save(snipeTransactionRequest).block();
+	}
+	
+	public List<SnipeTransactionRequest> fetchOrdersById(List<String> walletIds){
+		Query query = new Query();
+        query.addCriteria(Criteria.where(PUBLIC_KEY).in(walletIds));
+		return snipeOrderHistoryReactiveMongoTemplate.find(query, SnipeTransactionRequest.class).collectList().block();
 	}
 }

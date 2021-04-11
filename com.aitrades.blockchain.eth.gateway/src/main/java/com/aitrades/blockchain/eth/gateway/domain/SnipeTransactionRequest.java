@@ -84,6 +84,10 @@ public class SnipeTransactionRequest {
 	
 	private String errorMessage;
 	
+	private AuditInformation auditInformation;
+	
+	private String publicKey;
+	private String swappedHash;
 	public boolean isExeTimeCheck() {
 		return exeTimeCheck;
 	}
@@ -283,6 +287,17 @@ public class SnipeTransactionRequest {
 		return snipe;
 	}
 	
+	public AuditInformation getAuditInformation() {
+		if(this.auditInformation == null) {
+			return new AuditInformation();
+		}
+		return auditInformation;
+	}
+
+	public void setAuditInformation(AuditInformation auditInformation) {
+		this.auditInformation = auditInformation;
+	}
+
 	@JsonIgnore
 	public boolean hasSniped() {
 		return isSnipe();
@@ -375,6 +390,17 @@ public class SnipeTransactionRequest {
 
 	public void setErrorMessage(String errorMessage) {
 		this.errorMessage = errorMessage;
+	}
+	
+	public String getPublicKey() {
+		return getWalletInfo().getPublicKey();
+	}
+	public String getSwappedHash() {
+		return swappedHash;
+	}
+
+	public void setSwappedHash(String swappedHash) {
+		this.swappedHash = swappedHash;
 	}
 
 	@Override

@@ -38,6 +38,9 @@ public class Order {
 	private boolean isFee;
 	private String parentSnipeId;
 	private String autoSnipeLimitSellTrailPercent;
+	private AuditInformation auditInformation;
+	private String publicKey;
+	private String swappedHash;
 	
 	public String getId() {
 		return id;
@@ -176,6 +179,26 @@ public class Order {
 	public void setAutoSnipeLimitSellTrailPercent(String autoSnipeLimitSellTrailPercent) {
 		this.autoSnipeLimitSellTrailPercent = autoSnipeLimitSellTrailPercent;
 	}
+	
+	public AuditInformation getAuditInformation() {
+		if(this.auditInformation == null) {
+			return new AuditInformation();
+		}
+		return auditInformation;
+	}
+	public void setAuditInformation(AuditInformation auditInformation) {
+		this.auditInformation = auditInformation;
+	}
+
+	public String getPublicKey() {
+		return getWalletInfo().getPublicKey();
+	}
+	public String getSwappedHash() {
+		return swappedHash;
+	}
+	public void setSwappedHash(String swappedHash) {
+		this.swappedHash = swappedHash;
+	}
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
@@ -198,8 +221,6 @@ public class Order {
                 .append(getId())
                 .toHashCode();
     }
-    
-    
     
 	@JsonIgnore
 	public Credentials getCredentials() {

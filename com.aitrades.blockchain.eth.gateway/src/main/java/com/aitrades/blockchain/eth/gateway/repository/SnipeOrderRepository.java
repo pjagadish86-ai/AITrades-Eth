@@ -1,5 +1,7 @@
 package com.aitrades.blockchain.eth.gateway.repository;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
@@ -24,6 +26,7 @@ public class SnipeOrderRepository {
 	private static final String READ = "read";
 	private static final String ID = "id";
 	private static final String APPROVED_HASH = "approvedHash";
+	private static final String PUBLIC_KEY = "publicKey";
 	
 	@Resource(name = "snipeOrderReactiveMongoTemplate")
 	private ReactiveMongoTemplate snipeOrderReactiveMongoTemplate;
@@ -83,5 +86,11 @@ public class SnipeOrderRepository {
         update.set(APPROVED_HASH, apporvedHash);
         snipeOrderReactiveMongoTemplate.updateFirst(query, update, Order.class).block();
 		
+	}
+
+	public List<SnipeTransactionRequest> fetchOrdersById(List<String> walletIds) {
+		Query query = new Query();
+        query.addCriteria(Criteria.where(PUBLIC_KEY).in(walletIds));
+		return snipeOrderReactiveMongoTemplate.find(query, SnipeTransactionRequest.class).collectList().block();
 	}
 }
