@@ -1,5 +1,6 @@
 package com.aitrades.blockchain.eth.gateway.domain;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -41,6 +42,7 @@ public class Order {
 	private AuditInformation auditInformation;
 	private String publicKey;
 	private String swappedHash;
+	private BigDecimal executionPrice;
 	
 	public String getId() {
 		return id;
@@ -198,6 +200,13 @@ public class Order {
 	}
 	public void setSwappedHash(String swappedHash) {
 		this.swappedHash = swappedHash;
+	}
+	
+	public BigDecimal getExecutionPrice() {
+		return executionPrice;
+	}
+	public void setExecutionPrice(BigDecimal executionPrice) {
+		this.executionPrice = executionPrice;
 	}
 	@Override
 	public String toString() {
