@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.web3j.abi.datatypes.Type;
 import org.web3j.contracts.eip20.generated.ERC20;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
+import org.web3j.tuples.generated.Tuple2;
 import org.web3j.tx.gas.DefaultGasProvider;
 import org.web3j.utils.Convert;
 
@@ -78,6 +79,17 @@ public class OrderHistoryDataFetcher {
 		 }
 		 return null;
 	}
+	
+	public String getBalanceAtBlock(SnipeTransactionRequest request, String address, BigInteger blockNbr) throws Exception {
+		List<Type> types =  ethereumDexContract.getBalance(request.getId(), request.getPublicKey(), address, request.getRoute(), blockNbr);
+		 if(CollectionUtils.isNotEmpty(types) && types.get(0) != null) {
+			for(Type type : types) {
+				BigInteger balanceAsBigInt = (BigInteger)type.getValue();
+				return Convert.fromWei(balanceAsBigInt.toString(), Convert.Unit.ETHER).toString();
+			}
+		 }
+		 return null;
+	}
 
 	public String getExecutedPrice(Order order) {
 		try {
@@ -114,16 +126,19 @@ public class OrderHistoryDataFetcher {
 		return order.getSwappedHash();
 	}
 
-	public String getSwappedHashStatus(Order order) {
-		 Optional<TransactionReceipt> transactionRecieptOptional =orderProcessorPrechecker.checkTransactionHashSuccess(order.getSwappedHash(), order.getRoute());
-			if(transactionRecieptOptional.isPresent()) {
+	public Tuple2<String, BigInteger> getSnipeSwappedHashStatus(SnipeTransactionRequest snipeTransactionRequest) {
+		 Optional<TransactionReceipt> transactionRecieptOptional =orderProcessorPrechecker.checkTransactionHashSuccess(snipeTransactionRequest.getSwappedHash(), snipeTransactionRequest.getRoute());
+		String status = STRING;	
+		BigInteger blockNbr = null;
+		 if(transactionRecieptOptional.isPresent()) {
 				if(StringUtils.equalsIgnoreCase(transactionRecieptOptional.get().getStatus(), _0X0)) {
-					return FAILED;
+					status= FAILED;
 				}else {
-					return SUCCESS;
+					status= SUCCESS;
 				}
+				blockNbr = transactionRecieptOptional.get().getBlockNumber();
 			}
-			return STRING;
+			return new Tuple2<>(status, blockNbr);
 	}
 
 	public String getErrorMessage(Order order) {

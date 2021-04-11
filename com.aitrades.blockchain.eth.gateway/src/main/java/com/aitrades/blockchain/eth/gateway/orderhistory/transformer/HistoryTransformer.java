@@ -1,11 +1,13 @@
 package com.aitrades.blockchain.eth.gateway.orderhistory.transformer;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.web3j.tuples.generated.Tuple2;
 
 import com.aitrades.blockchain.eth.gateway.domain.Order;
 import com.aitrades.blockchain.eth.gateway.domain.SnipeTransactionRequest;
@@ -58,16 +60,17 @@ public class HistoryTransformer {
 		}
 		
 		history.setInput(snipe.getInputTokenValueAmountAsBigDecimal().toString()) ;
-		
-		String balance = orderHistoryDataFetcher.getBalance(snipe, snipe.getToAddress());
-		history.setOutput(StringUtils.contains(balance, "E") ? "0": balance) ;
 		history.setExecutedprice(orderHistoryDataFetcher.getExecutedPrice(snipe)) ;
 		history.setOrderstate(snipe.getSnipeStatus()) ;
 		String snipeApprovedHash = orderHistoryDataFetcher.getSnipeApprovedHash(snipe);
 		history.setApprovedhash(snipeApprovedHash) ;
 		history.setApprovedhashStatus(orderHistoryDataFetcher.transactionHashStatus(snipeApprovedHash, snipe.getRoute())) ;
 		history.setSwappedhash(snipe.getSwappedHash()) ;
-		history.setSwappedhashStatus(orderHistoryDataFetcher.transactionHashStatus(snipe.getSwappedHash(), snipe.getRoute())) ;
+		Tuple2<String, BigInteger> tuple = orderHistoryDataFetcher.getSnipeSwappedHashStatus(snipe);
+		history.setSwappedhashStatus(tuple.component1()) ;
+		String balance = orderHistoryDataFetcher.getBalanceAtBlock(snipe, snipe.getToAddress(), tuple.component2());
+		history.setOutput(StringUtils.contains(balance, "E") ? "0": balance) ;
+		
 		history.setOrderside("SNIPE") ;
 		history.setErrormessage(snipe.getErrorMessage()) ;
 		return history;
@@ -107,7 +110,7 @@ public class HistoryTransformer {
 		history.setApprovedhash(orderHistoryDataFetcher.getApprovedHash(order)) ;
 		history.setApprovedhashStatus(orderHistoryDataFetcher.getApprovedHashStatus(order)) ;
 		history.setSwappedhash(orderHistoryDataFetcher.getSwappedHash(order)) ;
-		history.setSwappedhashStatus(orderHistoryDataFetcher.getSwappedHashStatus(order)) ;
+		history.setSwappedhashStatus(orderHistoryDataFetcher.transactionHashStatus(history.getSwappedhash(), order.getRoute())) ;
 		history.setOrderside(order.getOrderEntity().getOrderSide()) ;
 		history.setErrormessage(orderHistoryDataFetcher.getErrorMessage(order)) ;
 		return history;

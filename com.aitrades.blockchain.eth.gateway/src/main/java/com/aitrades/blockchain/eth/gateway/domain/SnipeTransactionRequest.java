@@ -88,6 +88,8 @@ public class SnipeTransactionRequest {
 	
 	private String publicKey;
 	private String swappedHash;
+	
+	private BigDecimal balance;
 	public boolean isExeTimeCheck() {
 		return exeTimeCheck;
 	}
@@ -401,6 +403,14 @@ public class SnipeTransactionRequest {
 
 	public void setSwappedHash(String swappedHash) {
 		this.swappedHash = swappedHash;
+	}
+	
+	public BigDecimal getBalance() {
+		return balance;
+	}
+
+	public void setBalance(BigDecimal balance) {
+		this.balance = balance;
 	}
 
 	@Override

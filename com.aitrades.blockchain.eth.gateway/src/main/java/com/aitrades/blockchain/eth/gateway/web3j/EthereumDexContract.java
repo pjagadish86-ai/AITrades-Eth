@@ -1,5 +1,6 @@
 package com.aitrades.blockchain.eth.gateway.web3j;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import org.web3j.abi.datatypes.Type;
 import org.web3j.abi.datatypes.Utf8String;
 import org.web3j.abi.datatypes.generated.Uint256;
 import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.web3j.protocol.core.DefaultBlockParameterNumber;
 import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.protocol.core.methods.response.EthCall;
 
@@ -50,6 +52,21 @@ public class EthereumDexContract {
 		return FunctionReturnDecoder.decode(ethCall.getValue(), function.getOutputParameters());
 	}
 	
+	public List<Type> getBalance(String id, String owner, String contractAddress, String route, BigInteger blockNbr) throws Exception{
+		final Function function = new Function(FUNC_BALANCEOF, 
+	               Arrays.asList(new Address(owner)), 
+	               Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
+		Transaction transaction = Transaction.createEthCallTransaction(owner, contractAddress, FunctionEncoder.encode(function));
+		EthCall ethCall = web3jServiceClientFactory.getWeb3jMap().get(route).getWeb3j()
+												        .ethCall(transaction, new DefaultBlockParameterNumber(blockNbr))
+												        .flowable()
+												        .blockingSingle();
+		if(ethCall.hasError()) {
+			logger.error("exception occurred for getBalance order/snipe id ={}, owner={}, contractAddress={}, route={}, exception={}", id, owner, contractAddress, route, ethCall.getError().getMessage());
+			throw new Exception(ethCall.getError().getMessage());
+		}
+		return FunctionReturnDecoder.decode(ethCall.getValue(), function.getOutputParameters());
+	}
 	public List<Type> getBalance(String id, String owner, String contractAddress, String route) throws Exception{
 		final Function function = new Function(FUNC_BALANCEOF, 
 								               Arrays.asList(new Address(owner)), 
