@@ -80,6 +80,7 @@ public class OrderHistoryDataFetcher {
 		 return null;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public String getBalanceAtBlock(SnipeTransactionRequest request, String address, BigInteger blockNbr) throws Exception {
 		List<Type> types =  ethereumDexContract.getBalance(request.getId(), request.getPublicKey(), address, request.getRoute(), blockNbr);
 		 if(CollectionUtils.isNotEmpty(types) && types.get(0) != null) {

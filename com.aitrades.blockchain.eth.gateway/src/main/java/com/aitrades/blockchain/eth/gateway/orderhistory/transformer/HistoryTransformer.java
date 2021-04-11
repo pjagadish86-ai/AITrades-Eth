@@ -18,6 +18,14 @@ import com.aitrades.blockchain.eth.gateway.service.OrderHistoryDataFetcher;
 @Service
 public class HistoryTransformer {
 
+	private static final String SNIPE2 = "SNIPE";
+	private static final String BNB = "BNB";
+	private static final String ETH = "ETH";
+	private static final String SELL = "SELL";
+	private static final String _0 = "0";
+	private static final String E = "E";
+	private static final String BUY = "BUY";
+	private static final String PANCAKE = "PANCAKE";
 	@Autowired
 	private OrderHistoryDataFetcher orderHistoryDataFetcher;
 
@@ -40,21 +48,21 @@ public class HistoryTransformer {
 		history.setOrderId(snipe.getId());
 		history.setRoute(snipe.getRoute());
 		history.setTradetype(snipe.getOrderType()) ;
-		if(snipe.getRoute().equalsIgnoreCase("PANCAKE")) {
-			if(snipe.getOrderSide().equalsIgnoreCase("BUY")) {
-				history.setFromTickerSymbol("BNB") ;
+		if(snipe.getRoute().equalsIgnoreCase(PANCAKE)) {
+			if(snipe.getOrderSide().equalsIgnoreCase(BUY)) {
+				history.setFromTickerSymbol(BNB) ;
 				history.setToTickerSymbol(orderHistoryDataFetcher.getTickerSymbolSnipe(snipe, snipe.getToAddress())) ;
 			}else {
-				history.setToTickerSymbol("BNB") ;
+				history.setToTickerSymbol(BNB) ;
 				history.setFromTickerSymbol(orderHistoryDataFetcher.getTickerSymbolSnipe(snipe, snipe.getFromAddress())) ;
 			}
 		}else {
-			if(snipe.getOrderSide().equalsIgnoreCase("BUY")) {
-				history.setFromTickerSymbol("ETH") ;
+			if(snipe.getOrderSide().equalsIgnoreCase(BUY)) {
+				history.setFromTickerSymbol(ETH) ;
 				history.setToTickerSymbol(orderHistoryDataFetcher.getTickerSymbolSnipe(snipe, snipe.getToAddress())) ;
 
 			}else {
-				history.setToTickerSymbol("ETH") ;
+				history.setToTickerSymbol(ETH) ;
 				history.setFromTickerSymbol(orderHistoryDataFetcher.getTickerSymbolSnipe(snipe, snipe.getFromAddress())) ;
 			}
 		}
@@ -69,9 +77,9 @@ public class HistoryTransformer {
 		Tuple2<String, BigInteger> tuple = orderHistoryDataFetcher.getSnipeSwappedHashStatus(snipe);
 		history.setSwappedhashStatus(tuple.component1()) ;
 		String balance = orderHistoryDataFetcher.getBalanceAtBlock(snipe, snipe.getToAddress(), tuple.component2());
-		history.setOutput(StringUtils.contains(balance, "E") ? "0": balance) ;
+		history.setOutput(StringUtils.contains(balance, E) ? _0: balance) ;
 		
-		history.setOrderside("SNIPE") ;
+		history.setOrderside(SNIPE2) ;
 		history.setErrormessage(snipe.getErrorMessage()) ;
 		return history;
 	}
@@ -82,21 +90,21 @@ public class HistoryTransformer {
 		history.setOrderId(order.getId());
 		history.setRoute(order.getRoute());
 		history.setTradetype(order.getOrderEntity().getOrderType()) ;
-		if(order.getRoute().equalsIgnoreCase("PANCAKE")) {
-			if(order.getOrderEntity().getOrderSide().equalsIgnoreCase("BUY")) {
-				history.setFromTickerSymbol("BNB") ;
+		if(order.getRoute().equalsIgnoreCase(PANCAKE)) {
+			if(order.getOrderEntity().getOrderSide().equalsIgnoreCase(BUY)) {
+				history.setFromTickerSymbol(BNB) ;
 				history.setToTickerSymbol(orderHistoryDataFetcher.getTickerSymbol(order, order.getTo().getTicker().getAddress())) ;
-			}else if(order.getOrderEntity().getOrderSide().equalsIgnoreCase("SELL")){
+			}else if(order.getOrderEntity().getOrderSide().equalsIgnoreCase(SELL)){
 				history.setFromTickerSymbol(orderHistoryDataFetcher.getTickerSymbol(order, order.getFrom().getTicker().getAddress())) ;
-				history.setToTickerSymbol("BNB") ;
+				history.setToTickerSymbol(BNB) ;
 			}
 		}else {
-			if(order.getOrderEntity().getOrderSide().equalsIgnoreCase("BUY")) {
-				history.setFromTickerSymbol("ETH") ;
+			if(order.getOrderEntity().getOrderSide().equalsIgnoreCase(BUY)) {
+				history.setFromTickerSymbol(ETH) ;
 				history.setToTickerSymbol(orderHistoryDataFetcher.getTickerSymbol(order, order.getTo().getTicker().getAddress())) ;
 
-			}else if(order.getOrderEntity().getOrderSide().equalsIgnoreCase("SELL")){
-				history.setToTickerSymbol("ETH") ;
+			}else if(order.getOrderEntity().getOrderSide().equalsIgnoreCase(SELL)){
+				history.setToTickerSymbol(ETH) ;
 				history.setFromTickerSymbol(orderHistoryDataFetcher.getTickerSymbol(order, order.getFrom().getTicker().getAddress())) ;
 			}
 		}
@@ -104,7 +112,7 @@ public class HistoryTransformer {
 		history.setInput(order.getFrom().getAmount()) ;
 		
  		String balance = orderHistoryDataFetcher.getBalance(order, order.getTo().getTicker().getAddress());
-		history.setOutput(StringUtils.contains(balance, "E") ? "0": balance) ;
+		history.setOutput(StringUtils.contains(balance, E) ? _0: balance) ;
 		history.setExecutedprice(orderHistoryDataFetcher.getExecutedPrice(order)) ;
 		history.setOrderstate(order.getOrderEntity().getOrderState()) ;
 		history.setApprovedhash(orderHistoryDataFetcher.getApprovedHash(order)) ;
