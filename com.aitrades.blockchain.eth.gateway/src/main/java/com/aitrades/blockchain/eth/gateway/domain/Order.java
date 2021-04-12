@@ -183,15 +183,11 @@ public class Order {
 	}
 	
 	public AuditInformation getAuditInformation() {
-		if(this.auditInformation == null) {
-			return new AuditInformation();
-		}
 		return auditInformation;
 	}
 	public void setAuditInformation(AuditInformation auditInformation) {
 		this.auditInformation = auditInformation;
 	}
-
 	public String getPublicKey() {
 		return getWalletInfo().getPublicKey();
 	}

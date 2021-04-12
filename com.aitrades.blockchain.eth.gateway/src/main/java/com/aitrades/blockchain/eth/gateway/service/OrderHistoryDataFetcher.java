@@ -82,13 +82,16 @@ public class OrderHistoryDataFetcher {
 	
 	@SuppressWarnings("rawtypes")
 	public String getBalanceAtBlock(SnipeTransactionRequest request, String address, BigInteger blockNbr) throws Exception {
-		List<Type> types =  ethereumDexContract.getBalance(request.getId(), request.getPublicKey(), address, request.getRoute(), blockNbr);
-		 if(CollectionUtils.isNotEmpty(types) && types.get(0) != null) {
-			for(Type type : types) {
-				BigInteger balanceAsBigInt = (BigInteger)type.getValue();
-				return Convert.fromWei(balanceAsBigInt.toString(), Convert.Unit.ETHER).toString();
-			}
-		 }
+		try {
+			List<Type> types =  ethereumDexContract.getBalance(request.getId(), request.getPublicKey(), address, request.getRoute(), blockNbr);
+			 if(CollectionUtils.isNotEmpty(types) && types.get(0) != null) {
+				for(Type type : types) {
+					BigInteger balanceAsBigInt = (BigInteger)type.getValue();
+					return Convert.fromWei(balanceAsBigInt.toString(), Convert.Unit.ETHER).toString();
+				}
+			 }
+		} catch (Exception e) {
+		}
 		 return null;
 	}
 

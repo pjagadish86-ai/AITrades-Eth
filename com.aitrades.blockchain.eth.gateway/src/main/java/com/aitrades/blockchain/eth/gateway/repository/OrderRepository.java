@@ -1,5 +1,6 @@
 package com.aitrades.blockchain.eth.gateway.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -34,6 +35,7 @@ public class OrderRepository {
 	}
 	
 	public Order save(Order order) {
+		order.getAuditInformation().setUpdatedDateTime(LocalDateTime.now().toString());
 		return orderReactiveMongoTemplate.save(order).block();
 	}
 

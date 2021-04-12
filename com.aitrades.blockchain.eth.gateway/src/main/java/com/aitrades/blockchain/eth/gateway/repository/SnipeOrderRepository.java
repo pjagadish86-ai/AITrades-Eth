@@ -1,5 +1,6 @@
 package com.aitrades.blockchain.eth.gateway.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -68,6 +69,7 @@ public class SnipeOrderRepository {
 	public void saveWithUpdateLock(SnipeTransactionRequest transactionRequest) {
 		transactionRequest.setRead(LOCK);
 		transactionRequest.setRetryEnabled(NO);
+		transactionRequest.getAuditInformation().setUpdatedDateTime(LocalDateTime.now().toString());
 		snipeOrderReactiveMongoTemplate.save(transactionRequest).block();
 	}
 	

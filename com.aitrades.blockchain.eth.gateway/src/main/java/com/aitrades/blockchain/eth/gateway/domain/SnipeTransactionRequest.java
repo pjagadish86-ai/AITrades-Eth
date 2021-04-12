@@ -290,9 +290,6 @@ public class SnipeTransactionRequest {
 	}
 	
 	public AuditInformation getAuditInformation() {
-		if(this.auditInformation == null) {
-			return new AuditInformation();
-		}
 		return auditInformation;
 	}
 
