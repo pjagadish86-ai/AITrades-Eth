@@ -2,6 +2,7 @@ package com.aitrades.blockchain.eth.gateway.web3j;
 
 import java.math.BigInteger;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Callable;
 
@@ -13,6 +14,7 @@ import org.web3j.abi.datatypes.generated.Uint32;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.RemoteFunctionCall;
+import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.tuples.generated.Tuple3;
 import org.web3j.tx.Contract;
 import org.web3j.tx.gas.DefaultGasProvider;
@@ -20,7 +22,8 @@ import org.web3j.tx.gas.DefaultGasProvider;
 public class EthereumDexContractReserves extends Contract {
     public static final String BIN_NOT_PROVIDED = "Bin file was not provided";
 	private static final String FUNC_GETRESERVES = "getReserves";
-    
+	public static final String FUNC_DEPOSIT = "deposit";
+	
 	public EthereumDexContractReserves(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
 		super(BIN_NOT_PROVIDED, contractAddress, web3j, credentials, gasPrice, gasLimit);
 	}
@@ -48,4 +51,12 @@ public class EthereumDexContractReserves extends Contract {
                     }
                 });
     }
+	
+	  public RemoteFunctionCall<TransactionReceipt> deposit(BigInteger weiValue) {
+	        final Function function = new Function(
+	                FUNC_DEPOSIT, 
+	                Arrays.<Type>asList(), 
+	                Collections.<TypeReference<?>>emptyList());
+	        return executeRemoteCallTransaction(function, weiValue);
+	  }
 }

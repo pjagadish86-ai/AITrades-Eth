@@ -35,7 +35,7 @@ public class SnipeTransactionRequest {
 	
 	private BigDecimal inputTokenValueAmountAsBigDecimal;
 	private BigDecimal ouputTokenValueAmounttAsBigDecimal;
-	
+	private BigDecimal expectedOutPutToken;
 	private WalletInfo walletInfo;
 	
 	private BigInteger gasPrice;
@@ -408,6 +408,14 @@ public class SnipeTransactionRequest {
 
 	public void setBalance(BigDecimal balance) {
 		this.balance = balance;
+	}
+
+	public BigDecimal getExpectedOutPutToken() {
+		return expectedOutPutToken;
+	}
+
+	public void setExpectedOutPutToken(BigDecimal expectedOutPutToken) {
+		this.expectedOutPutToken = expectedOutPutToken;
 	}
 
 	@Override
