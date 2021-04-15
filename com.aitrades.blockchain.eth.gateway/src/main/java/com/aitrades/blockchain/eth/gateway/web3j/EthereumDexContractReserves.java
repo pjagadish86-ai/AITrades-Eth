@@ -22,7 +22,7 @@ import org.web3j.tx.gas.DefaultGasProvider;
 public class EthereumDexContractReserves extends Contract {
     public static final String BIN_NOT_PROVIDED = "Bin file was not provided";
 	private static final String FUNC_GETRESERVES = "getReserves";
-	public static final String FUNC_DEPOSIT = "deposit";
+	public static final String FUNC_DEPOSIT = "deposit"; 
 	
 	public EthereumDexContractReserves(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
 		super(BIN_NOT_PROVIDED, contractAddress, web3j, credentials, gasPrice, gasLimit);

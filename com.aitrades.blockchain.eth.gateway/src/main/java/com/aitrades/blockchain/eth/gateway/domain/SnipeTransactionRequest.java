@@ -22,7 +22,7 @@ public class SnipeTransactionRequest {
 	
 	@Id
 	private String id;
-	
+	 
 	private String route;
 	
 	private String fromAddress;

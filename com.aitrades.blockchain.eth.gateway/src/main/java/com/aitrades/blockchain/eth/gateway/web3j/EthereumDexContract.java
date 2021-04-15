@@ -33,7 +33,7 @@ public class EthereumDexContract {
 
 	private final Logger logger = LoggerFactory.getLogger(getClass());
     
-	@Autowired
+	@Autowired 
 	private Web3jServiceClientFactory web3jServiceClientFactory;
 	
 	public List<Type> getPair(String tokenA, String tokenB, String route, String id) throws Exception{
