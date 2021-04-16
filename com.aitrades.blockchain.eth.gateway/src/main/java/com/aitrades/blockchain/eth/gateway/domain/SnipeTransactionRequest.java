@@ -48,7 +48,7 @@ public class SnipeTransactionRequest {
 	
 	private boolean exeTimeCheck;
 	private String executionTime;
-	
+	private BigInteger liquidityQuantity;
 	private BigDecimal slipage;
 	
 	private Double slipageInDouble;
@@ -416,6 +416,14 @@ public class SnipeTransactionRequest {
 
 	public void setExpectedOutPutToken(BigDecimal expectedOutPutToken) {
 		this.expectedOutPutToken = expectedOutPutToken;
+	}
+
+	public BigInteger getLiquidityQuantity() {
+		return liquidityQuantity;
+	}
+
+	public void setLiquidityQuantity(BigInteger liquidityQuantity) {
+		this.liquidityQuantity = liquidityQuantity;
 	}
 
 	@Override
