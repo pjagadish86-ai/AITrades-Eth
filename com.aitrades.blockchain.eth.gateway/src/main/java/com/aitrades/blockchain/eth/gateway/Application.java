@@ -44,9 +44,9 @@ public class Application {
 
 	private static final int _40 = 40;
 
-	private static final String ENDPOINT_WSS = "wss://eth-mainnet.ws.alchemyapi.io/v2/9XymsgNnaJBVR1KHUM6aH9dG2CU1FJ-2";
+	private static final String ENDPOINT_WSS = "wss://silent-dark-resonance.quiknode.pro/4822e969e7caaa2fdfac46a52ef94ec9c2ba169a/";
 	
-	private static final String BSC_ENDPOINT_WSS ="wss://holy-twilight-violet.bsc.quiknode.pro/9ccdc8c6748f92a972bc9c9c1b8b56de961c0fc6/";
+	private static final String BSC_ENDPOINT_WSS ="wss://misty-bitter-violet.bsc.quiknode.pro/91f2afbd1c5e6240c56eef7233c38502b288803a/";
 	
 	private static final long WEBCLIENT_TIMEOUT= 20l;
 	private static final String ETH_GAS_PRICE_ORACLE ="https://www.etherchain.org/api";

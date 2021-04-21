@@ -19,8 +19,8 @@ import com.aitrades.blockchain.eth.gateway.service.OrderHistoryDataFetcher;
 public class HistoryTransformer {
 
 	private static final String SNIPE2 = "SNIPE";
-	private static final String BNB = "BNB";
-	private static final String ETH = "ETH";
+	private static final String WBNB = "WBNB";
+	private static final String WETH = "WETH";
 	private static final String SELL = "SELL";
 	private static final String _0 = "0";
 	private static final String E = "E";
@@ -50,19 +50,19 @@ public class HistoryTransformer {
 		history.setTradetype(snipe.getOrderType()) ;
 		if(snipe.getRoute().equalsIgnoreCase(PANCAKE)) {
 			if(snipe.getOrderSide().equalsIgnoreCase(BUY)) {
-				history.setFromTickerSymbol(BNB) ;
+				history.setFromTickerSymbol(WBNB) ;
 				history.setToTickerSymbol(orderHistoryDataFetcher.getTickerSymbolSnipe(snipe, snipe.getToAddress())) ;
 			}else {
-				history.setToTickerSymbol(BNB) ;
+				history.setToTickerSymbol(WBNB) ;
 				history.setFromTickerSymbol(orderHistoryDataFetcher.getTickerSymbolSnipe(snipe, snipe.getFromAddress())) ;
 			}
 		}else {
 			if(snipe.getOrderSide().equalsIgnoreCase(BUY)) {
-				history.setFromTickerSymbol(ETH) ;
+				history.setFromTickerSymbol(WETH) ;
 				history.setToTickerSymbol(orderHistoryDataFetcher.getTickerSymbolSnipe(snipe, snipe.getToAddress())) ;
 
 			}else {
-				history.setToTickerSymbol(ETH) ;
+				history.setToTickerSymbol(WETH) ;
 				history.setFromTickerSymbol(orderHistoryDataFetcher.getTickerSymbolSnipe(snipe, snipe.getFromAddress())) ;
 			}
 		}
@@ -92,19 +92,19 @@ public class HistoryTransformer {
 		history.setTradetype(order.getOrderEntity().getOrderType()) ;
 		if(order.getRoute().equalsIgnoreCase(PANCAKE)) {
 			if(order.getOrderEntity().getOrderSide().equalsIgnoreCase(BUY)) {
-				history.setFromTickerSymbol(BNB) ;
+				history.setFromTickerSymbol(WBNB) ;
 				history.setToTickerSymbol(orderHistoryDataFetcher.getTickerSymbol(order, order.getTo().getTicker().getAddress())) ;
 			}else if(order.getOrderEntity().getOrderSide().equalsIgnoreCase(SELL)){
 				history.setFromTickerSymbol(orderHistoryDataFetcher.getTickerSymbol(order, order.getFrom().getTicker().getAddress())) ;
-				history.setToTickerSymbol(BNB) ;
+				history.setToTickerSymbol(WBNB) ;
 			}
 		}else {
 			if(order.getOrderEntity().getOrderSide().equalsIgnoreCase(BUY)) {
-				history.setFromTickerSymbol(ETH) ;
+				history.setFromTickerSymbol(WETH) ;
 				history.setToTickerSymbol(orderHistoryDataFetcher.getTickerSymbol(order, order.getTo().getTicker().getAddress())) ;
 
 			}else if(order.getOrderEntity().getOrderSide().equalsIgnoreCase(SELL)){
-				history.setToTickerSymbol(ETH) ;
+				history.setToTickerSymbol(WETH) ;
 				history.setFromTickerSymbol(orderHistoryDataFetcher.getTickerSymbol(order, order.getFrom().getTicker().getAddress())) ;
 			}
 		}
