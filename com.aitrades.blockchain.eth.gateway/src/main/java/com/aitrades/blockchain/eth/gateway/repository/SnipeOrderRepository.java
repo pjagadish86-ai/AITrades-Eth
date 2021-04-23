@@ -95,4 +95,10 @@ public class SnipeOrderRepository {
         query.addCriteria(Criteria.where(PUBLIC_KEY).in(walletIds));
 		return snipeOrderReactiveMongoTemplate.find(query, SnipeTransactionRequest.class).collectList().block();
 	}
+
+	public SnipeTransactionRequest fetchSnipeOrderById(String parentOrderId) {
+		Query query = new Query();
+        query.addCriteria(Criteria.where(PUBLIC_KEY).in(parentOrderId));
+		return snipeOrderReactiveMongoTemplate.find(query, SnipeTransactionRequest.class).blockFirst();
+	}
 }

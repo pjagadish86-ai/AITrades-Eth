@@ -69,13 +69,13 @@ public class HistoryTransformer {
 		
 		history.setInput(snipe.getInputTokenValueAmountAsBigDecimal().toString()) ;
 		history.setExecutedprice(orderHistoryDataFetcher.getExecutedPrice(snipe)) ;
-		history.setOrderstate(snipe.getSnipeStatus()) ;
 		String snipeApprovedHash = orderHistoryDataFetcher.getSnipeApprovedHash(snipe);
 		history.setApprovedhash(snipeApprovedHash) ;
 		history.setApprovedhashStatus(orderHistoryDataFetcher.transactionHashStatus(snipeApprovedHash, snipe.getRoute())) ;
 		history.setSwappedhash(snipe.getSwappedHash()) ;
 		Tuple2<String, BigInteger> tuple = orderHistoryDataFetcher.getSnipeSwappedHashStatus(snipe);
 		history.setSwappedhashStatus(tuple.component1()) ;
+		history.setOrderstate(StringUtils.isBlank(tuple.component1()) ? snipe.getSnipeStatus() : tuple.component1()) ;
 		String balance = orderHistoryDataFetcher.getBalanceAtBlock(snipe, snipe.getToAddress(), tuple.component2());
 		history.setOutput(StringUtils.contains(balance, E) ? _0: balance) ;
 		
@@ -114,11 +114,12 @@ public class HistoryTransformer {
  		String balance = orderHistoryDataFetcher.getBalance(order, order.getTo().getTicker().getAddress());
 		history.setOutput(StringUtils.contains(balance, E) ? _0: balance) ;
 		history.setExecutedprice(orderHistoryDataFetcher.getExecutedPrice(order)) ;
-		history.setOrderstate(order.getOrderEntity().getOrderState()) ;
+		String swapStatus = orderHistoryDataFetcher.transactionHashStatus(history.getSwappedhash(), order.getRoute());
+		history.setOrderstate(StringUtils.isBlank(swapStatus) ? order.getOrderEntity().getOrderState() : swapStatus) ;
 		history.setApprovedhash(orderHistoryDataFetcher.getApprovedHash(order)) ;
 		history.setApprovedhashStatus(orderHistoryDataFetcher.getApprovedHashStatus(order)) ;
 		history.setSwappedhash(orderHistoryDataFetcher.getSwappedHash(order)) ;
-		history.setSwappedhashStatus(orderHistoryDataFetcher.transactionHashStatus(history.getSwappedhash(), order.getRoute())) ;
+		history.setSwappedhashStatus(swapStatus) ;
 		history.setOrderside(order.getOrderEntity().getOrderSide()) ;
 		history.setErrormessage(orderHistoryDataFetcher.getErrorMessage(order)) ;
 		return history;

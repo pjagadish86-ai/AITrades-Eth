@@ -79,4 +79,10 @@ public class OrderRepository {
         query.addCriteria(Criteria.where(PUBLIC_KEY).in(walletIds));
 		return orderReactiveMongoTemplate.find(query, Order.class).collectList().block();
 	}
+	
+	public Order fetchOrderById(String id){
+		Query query = new Query();
+        query.addCriteria(Criteria.where(ID).in(id));
+		return orderReactiveMongoTemplate.find(query, Order.class).blockFirst();
+	}
 }

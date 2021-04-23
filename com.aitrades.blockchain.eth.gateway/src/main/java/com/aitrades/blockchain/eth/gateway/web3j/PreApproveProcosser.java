@@ -21,6 +21,7 @@ import org.web3j.tx.response.NoOpProcessor;
 import org.web3j.tx.response.PollingTransactionReceiptProcessor;
 
 import com.aitrades.blockchain.eth.gateway.domain.GasModeEnum;
+import com.aitrades.blockchain.eth.gateway.domain.TradeConstants;
 import com.aitrades.blockchain.eth.gateway.service.Web3jServiceClientFactory;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
@@ -35,7 +36,6 @@ public class PreApproveProcosser {
 	private static final String FUNC_APPROVE = "approve";
 	private static final String UNISWAP_ROUTER_ADDRESS = "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D";
 	private static final String SUSHI_ROUTER_ADDRESS = "0xd9e1cE17f2641f24aE83637ab66a2cca9C378B9F";
-	private static final String PANCAKE_ROUTER_ADDRESS = "0x05ff2b0db69458a0750badebc4f9e13add608c7f";
 
 	
     private static BigInteger MAX_UINT256 = new BigInteger("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", 16);
@@ -49,7 +49,7 @@ public class PreApproveProcosser {
 																	   Collections.emptyList());
     
     private static final Function PANCAKE_APPROVE_FUNCTION = new Function(FUNC_APPROVE, 
-																         Lists.newArrayList(new Address(PANCAKE_ROUTER_ADDRESS), 
+																         Lists.newArrayList(new Address(TradeConstants.PANCAKE_ROUTER_ADDRESS), 
 																        		 			new Uint256(MAX_UINT256)),				 
 																         Collections.emptyList());
     

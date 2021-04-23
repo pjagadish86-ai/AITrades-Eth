@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aitrades.blockchain.eth.gateway.common.UUIDGenerator;
+import com.aitrades.blockchain.eth.gateway.domain.RetriggerSnipeOrder;
 import com.aitrades.blockchain.eth.gateway.domain.SnipeTransactionRequest;
+import com.aitrades.blockchain.eth.gateway.service.RetriggerSnipeOrderPreparer;
 import com.aitrades.blockchain.eth.gateway.service.SnipeOrderMutator;
 import com.aitrades.blockchain.eth.gateway.validator.RestExceptionMessage;
 import com.aitrades.blockchain.eth.gateway.validator.SnipeOrderValidator;
@@ -20,6 +22,9 @@ public class SnipeOrderController {
 
 	@Autowired
 	private SnipeOrderMutator snipeOrderMutator;
+	
+	@Autowired
+	private RetriggerSnipeOrderPreparer retriggerOrderPreparer;
 	
 	@Autowired
 	private SnipeOrderValidator snipeOrderValidator;
@@ -36,6 +41,11 @@ public class SnipeOrderController {
 			return restExceptionMessage;
 		}
 		return snipeOrderMutator.snipeOrder(snipeTransactionRequest);
+	}
+	
+	@PostMapping("/retriggerOrder")
+	public Object retriggerOrder(@RequestBody RetriggerSnipeOrder retriggerOrder) throws Exception {
+		return retriggerOrderPreparer.retriggerOrder(retriggerOrder);
 	}
 	
 	@PostMapping("/cancelSnipeOrder")

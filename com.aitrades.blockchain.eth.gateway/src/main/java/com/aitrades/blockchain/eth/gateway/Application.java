@@ -4,16 +4,19 @@ import java.net.ConnectException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.Duration;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Scope;
 import org.springframework.data.mongodb.ReactiveMongoDatabaseFactory;
 import org.springframework.data.mongodb.ReactiveMongoTransactionManager;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
@@ -24,6 +27,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.web3j.protocol.Web3j;
+import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.websocket.WebSocketClient;
 import org.web3j.protocol.websocket.WebSocketService;
 import org.web3j.tx.response.NoOpProcessor;
@@ -36,6 +40,9 @@ import com.mongodb.reactivestreams.client.MongoClients;
 import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;
+import okhttp3.ConnectionPool;
+import okhttp3.Dispatcher;
+import okhttp3.OkHttpClient;
 import reactor.netty.http.client.HttpClient;
 
 @SpringBootApplication(scanBasePackages = { "com.aitrades.blockchain.eth.gateway" })
@@ -46,8 +53,12 @@ public class Application {
 
 	private static final int _40 = 40;
 
-	private static final String ENDPOINT_WSS = "wss://cool-sparkling-dawn.quiknode.pro/d5ffadd5dde5cbfe5e2c1d919316cf4ab383858d/";
+	private static final String ETH_ENDPOINT = "https://cool-sparkling-dawn.quiknode.pro/d5ffadd5dde5cbfe5e2c1d919316cf4ab383858d/";
+	private static final String BSC_ENDPOINT ="https://bold-bold-leaf.bsc.quiknode.pro/cf39e2ea6fd28d8e720c5cb0a548fa58cec6debe/";
+	
+	private static final String ETH_ENDPOINT_WSS = "wss://cool-sparkling-dawn.quiknode.pro/d5ffadd5dde5cbfe5e2c1d919316cf4ab383858d/";
 	private static final String BSC_ENDPOINT_WSS ="wss://bold-bold-leaf.bsc.quiknode.pro/cf39e2ea6fd28d8e720c5cb0a548fa58cec6debe/";
+	
 	
 	private static final long WEBCLIENT_TIMEOUT= 20l;
 	private static final String ETH_GAS_PRICE_ORACLE ="https://www.etherchain.org/api";
@@ -62,16 +73,59 @@ public class Application {
 	@Bean(name = "web3jClient")
 	public Web3j web3J() throws Exception {
 		return Web3j.build(webSocketService());
+		//return Web3j.build(httpBSCService());
 	}
 
 	@Bean(name = "web3bscjClient")
 	public Web3j web3bscjClient() throws Exception {
 		return Web3j.build(webBSCSocketService());
+		//return Web3j.build(httpETHService());
 	}
 	
+//	//@Bean(name ="httpBSCService")
+//	public HttpService httpBSCService() {
+//		Dispatcher dispatcher = new Dispatcher(Executors.newFixedThreadPool(40));
+//		 dispatcher.setMaxRequests(60);
+//		 dispatcher.setMaxRequestsPerHost(5);
+//		 
+//		OkHttpClient client = new OkHttpClient.Builder()
+//			      .readTimeout(6000, TimeUnit.SECONDS)
+//			      .dispatcher(dispatcher)
+//			      .connectionPool(new ConnectionPool(10, 5, TimeUnit.MINUTES))
+//			      .connectTimeout(6000, TimeUnit.SECONDS)
+//			        .writeTimeout(6000, TimeUnit.SECONDS)
+//			      .addInterceptor(new DefaultContentTypeInterceptor())
+//			      .retryOnConnectionFailure(true)
+//			      .build();
+//		return new HttpService(BSC_ENDPOINT);
+//	}
+//	
+//	
+//	//@Bean(name ="httpETHService")
+//	public HttpService httpETHService() {
+//		Dispatcher dispatcher = new Dispatcher(Executors.newFixedThreadPool(40));
+//		 dispatcher.setMaxRequests(60);
+//		 dispatcher.setMaxRequestsPerHost(5);
+//		 
+//		OkHttpClient client = new OkHttpClient.Builder()
+//			      .readTimeout(6000, TimeUnit.SECONDS)
+//			      .dispatcher(dispatcher)
+//			      .connectionPool(new ConnectionPool(10, 5, TimeUnit.MINUTES))
+//			      .connectTimeout(6000, TimeUnit.SECONDS)
+//			        .writeTimeout(6000, TimeUnit.SECONDS)
+//			      .addInterceptor(new DefaultContentTypeInterceptor())
+//			      .retryOnConnectionFailure(true)
+//			      .build();
+//		return new HttpService(ETH_ENDPOINT);
+//	}
+//	
+	
+	
+	
 	@Bean(name = "webBSCSocketService")
+	@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 	public WebSocketService webBSCSocketService() throws Exception {
-		WebSocketService webSocketService = new WebSocketService(new WebSocketClient(parseURI(BSC_ENDPOINT_WSS)), false);
+		WebSocketService webSocketService = new WebSocketService(new CustomWebSocketClient(parseURI(BSC_ENDPOINT_WSS)), false);
 		try {
 			webSocketService.connect();
 		} catch (Exception e) {
@@ -89,10 +143,10 @@ public class Application {
 
 	@Bean(name = "webSocketService")
 	public WebSocketService webSocketService() throws Exception {
-		WebSocketService webSocketService = new WebSocketService(new WebSocketClient(parseURI(ENDPOINT_WSS)), false);
+		WebSocketService webSocketService = new WebSocketService(new CustomWebSocketClient(parseURI(ETH_ENDPOINT_WSS)), false);
 		try {
 			webSocketService.connect();
-		} catch (ConnectException e) {
+		} catch (Exception e) {
 			System.out.println("sleeping -->>");
 			Thread.sleep(6000l);
 			try {

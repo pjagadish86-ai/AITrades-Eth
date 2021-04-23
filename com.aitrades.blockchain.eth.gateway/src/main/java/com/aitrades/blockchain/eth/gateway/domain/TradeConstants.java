@@ -16,9 +16,9 @@ public final class TradeConstants {
 
 	
 	public static final String PANCAKE = "PANCAKE";
-	public static final String PANCAKE_FACTORY_ADDRESS = "0xbcfccbde45ce874adcb698cc183debcf17952812";
-	public static final String PANCAKE_ROUTER_ADDRESS = "0x05ff2b0db69458a0750badebc4f9e13add608c7f";
-	public static final String PANCAKE_WBNB_FACOTRYADDRESS ="0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c";
+	public static final String PANCAKE_FACTORY_ADDRESS     = "0x877fe7f4e22e21be397cd9364fafd4af4e15edb6";
+	public static final String PANCAKE_ROUTER_ADDRESS      = "0x2ad2c5314028897aecfcf37fd923c079beeb2c56";
+	public static final String PANCAKE_WBNB_FACOTRYADDRESS = "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c";
 
 	public static final String SUSHI = "SUSHI";
 	public static final String SUSHI_FACTORY_ADDRESS = "0xc0aee478e3658e2610c5f7a4a2e1777ce9e4f2ac";
