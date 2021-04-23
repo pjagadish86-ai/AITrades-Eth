@@ -1,5 +1,6 @@
 package com.aitrades.blockchain.eth.gateway.orderhistory.transformer;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +9,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.web3j.tuples.generated.Tuple2;
+import org.web3j.utils.Convert;
 
 import com.aitrades.blockchain.eth.gateway.domain.Order;
 import com.aitrades.blockchain.eth.gateway.domain.SnipeTransactionRequest;
@@ -81,6 +83,9 @@ public class HistoryTransformer {
 		
 		history.setOrderside(SNIPE2) ;
 		history.setErrormessage(snipe.getErrorMessage()) ;
+		history.setGasLimit(snipe.getGasLimit().toString());
+		history.setGasPrice(Convert.fromWei(snipe.getGasPrice().toString(), Convert.Unit.GWEI).toString());
+		history.setSlipage(snipe.getSlipage().multiply(new BigDecimal(100)).toString());
 		return history;
 	}
 
@@ -122,6 +127,9 @@ public class HistoryTransformer {
 		history.setSwappedhashStatus(swapStatus) ;
 		history.setOrderside(order.getOrderEntity().getOrderSide()) ;
 		history.setErrormessage(orderHistoryDataFetcher.getErrorMessage(order)) ;
+		history.setGasLimit(order.getGasLimit().getValue());
+		history.setGasPrice(Convert.fromWei(order.getGasPrice().getValue().toString(), Convert.Unit.GWEI).toString());
+		history.setSlipage(order.getSlippage().getSlipagePercent());
 		return history;
 	}
 

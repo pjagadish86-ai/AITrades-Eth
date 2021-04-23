@@ -22,6 +22,9 @@ public class OrderHistory {
 	private String swappedhashStatus;
 	private String orderside;
 	private String errormessage;
+	private String slipage;
+	private String gasLimit;
+	private String gasPrice;
 	
 	public String getId() {
 		return id;
@@ -124,6 +127,31 @@ public class OrderHistory {
 	public void setErrormessage(String errormessage) {
 		this.errormessage = errormessage;
 	}
+	
+	public String getSlipage() {
+		return slipage;
+	}
+
+	public void setSlipage(String slipage) {
+		this.slipage = slipage;
+	}
+
+	public String getGasLimit() {
+		return gasLimit;
+	}
+
+	public void setGasLimit(String gasLimit) {
+		this.gasLimit = gasLimit;
+	}
+
+	public String getGasPrice() {
+		return gasPrice;
+	}
+
+	public void setGasPrice(String gasPrice) {
+		this.gasPrice = gasPrice;
+	}
+
 	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
