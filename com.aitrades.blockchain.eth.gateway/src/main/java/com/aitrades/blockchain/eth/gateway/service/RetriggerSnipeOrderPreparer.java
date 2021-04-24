@@ -25,6 +25,7 @@ public class RetriggerSnipeOrderPreparer {
 			snipeOrder.setSnipe(false);
 			snipeOrder.setSnipeStatus(WORKING);
 			snipeOrder.setRead(AVAL);
+			snipeOrder.setSwappedHash(null);
 			snipeOrder.setErrorMessage(null);
 			if(retriggerSnipeOrder.getSlipage() != null) {
 				snipeOrder.setSlipage(retriggerSnipeOrder.getSlipage());

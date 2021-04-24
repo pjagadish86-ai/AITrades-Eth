@@ -46,7 +46,7 @@ public class SnipeOrderHistoryRepository {
         query.addCriteria(Criteria.where(ID).is(snipeTransactionRequest));
         DeleteResult deleteResult = snipeOrderHistoryReactiveMongoTemplate.remove(snipeTransactionRequest).block();
         if(deleteResult != null && deleteResult.getDeletedCount() == 0) {
-        	System.out.println("retrigger snipe order not deleted");
+        	System.err.println("retrigger snipe order not deleted");
 		}else {
 			System.out.println("retrigger snipe order deleted");
 		}

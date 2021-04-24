@@ -29,7 +29,7 @@ public class HistoryTransformer {
 	private static final String BUY = "BUY";
 	private static final String PANCAKE = "PANCAKE";
 	@Autowired
-	private OrderHistoryDataFetcher orderHistoryDataFetcher;
+	private OrderHistoryDataFetcher web3jDataFetcher;
 
 	public OrderHistories transformToHistories(List<Order> orders, List<SnipeTransactionRequest> snipes) throws Exception {
 		OrderHistories orderHistories = new OrderHistories();
@@ -53,32 +53,32 @@ public class HistoryTransformer {
 		if(snipe.getRoute().equalsIgnoreCase(PANCAKE)) {
 			if(snipe.getOrderSide().equalsIgnoreCase(BUY)) {
 				history.setFromTickerSymbol(WBNB) ;
-				history.setToTickerSymbol(orderHistoryDataFetcher.getTickerSymbolSnipe(snipe, snipe.getToAddress())) ;
+				history.setToTickerSymbol(web3jDataFetcher.getTickerSymbolSnipe(snipe, snipe.getToAddress())) ;
 			}else {
 				history.setToTickerSymbol(WBNB) ;
-				history.setFromTickerSymbol(orderHistoryDataFetcher.getTickerSymbolSnipe(snipe, snipe.getFromAddress())) ;
+				history.setFromTickerSymbol(web3jDataFetcher.getTickerSymbolSnipe(snipe, snipe.getFromAddress())) ;
 			}
 		}else {
 			if(snipe.getOrderSide().equalsIgnoreCase(BUY)) {
 				history.setFromTickerSymbol(WETH) ;
-				history.setToTickerSymbol(orderHistoryDataFetcher.getTickerSymbolSnipe(snipe, snipe.getToAddress())) ;
+				history.setToTickerSymbol(web3jDataFetcher.getTickerSymbolSnipe(snipe, snipe.getToAddress())) ;
 
 			}else {
 				history.setToTickerSymbol(WETH) ;
-				history.setFromTickerSymbol(orderHistoryDataFetcher.getTickerSymbolSnipe(snipe, snipe.getFromAddress())) ;
+				history.setFromTickerSymbol(web3jDataFetcher.getTickerSymbolSnipe(snipe, snipe.getFromAddress())) ;
 			}
 		}
 		
 		history.setInput(snipe.getInputTokenValueAmountAsBigDecimal().toString()) ;
-		history.setExecutedprice(orderHistoryDataFetcher.getExecutedPrice(snipe)) ;
-		String snipeApprovedHash = orderHistoryDataFetcher.getSnipeApprovedHash(snipe);
+		history.setExecutedprice(web3jDataFetcher.getExecutedPrice(snipe)) ;
+		String snipeApprovedHash = web3jDataFetcher.getSnipeApprovedHash(snipe);
 		history.setApprovedhash(snipeApprovedHash) ;
-		history.setApprovedhashStatus(orderHistoryDataFetcher.transactionHashStatus(snipeApprovedHash, snipe.getRoute())) ;
+		history.setApprovedhashStatus(web3jDataFetcher.transactionHashStatus(snipeApprovedHash, snipe.getRoute())) ;
 		history.setSwappedhash(snipe.getSwappedHash()) ;
-		Tuple2<String, BigInteger> tuple = orderHistoryDataFetcher.getSnipeSwappedHashStatus(snipe);
+		Tuple2<String, BigInteger> tuple = web3jDataFetcher.getSnipeSwappedHashStatus(snipe);
 		history.setSwappedhashStatus(tuple.component1()) ;
-		history.setOrderstate(StringUtils.isBlank(tuple.component1()) ? snipe.getSnipeStatus() : tuple.component1()) ;
-		String balance = orderHistoryDataFetcher.getBalanceAtBlock(snipe, snipe.getToAddress(), tuple.component2());
+		history.setOrderstate(snipe.getSnipeStatus()) ;
+		String balance = web3jDataFetcher.getBalanceAtBlock(snipe, snipe.getToAddress(), tuple.component2());
 		history.setOutput(StringUtils.contains(balance, E) ? _0: balance) ;
 		
 		history.setOrderside(SNIPE2) ;
@@ -98,35 +98,35 @@ public class HistoryTransformer {
 		if(order.getRoute().equalsIgnoreCase(PANCAKE)) {
 			if(order.getOrderEntity().getOrderSide().equalsIgnoreCase(BUY)) {
 				history.setFromTickerSymbol(WBNB) ;
-				history.setToTickerSymbol(orderHistoryDataFetcher.getTickerSymbol(order, order.getTo().getTicker().getAddress())) ;
+				history.setToTickerSymbol(web3jDataFetcher.getTickerSymbol(order, order.getTo().getTicker().getAddress())) ;
 			}else if(order.getOrderEntity().getOrderSide().equalsIgnoreCase(SELL)){
-				history.setFromTickerSymbol(orderHistoryDataFetcher.getTickerSymbol(order, order.getFrom().getTicker().getAddress())) ;
+				history.setFromTickerSymbol(web3jDataFetcher.getTickerSymbol(order, order.getFrom().getTicker().getAddress())) ;
 				history.setToTickerSymbol(WBNB) ;
 			}
 		}else {
 			if(order.getOrderEntity().getOrderSide().equalsIgnoreCase(BUY)) {
 				history.setFromTickerSymbol(WETH) ;
-				history.setToTickerSymbol(orderHistoryDataFetcher.getTickerSymbol(order, order.getTo().getTicker().getAddress())) ;
+				history.setToTickerSymbol(web3jDataFetcher.getTickerSymbol(order, order.getTo().getTicker().getAddress())) ;
 
 			}else if(order.getOrderEntity().getOrderSide().equalsIgnoreCase(SELL)){
 				history.setToTickerSymbol(WETH) ;
-				history.setFromTickerSymbol(orderHistoryDataFetcher.getTickerSymbol(order, order.getFrom().getTicker().getAddress())) ;
+				history.setFromTickerSymbol(web3jDataFetcher.getTickerSymbol(order, order.getFrom().getTicker().getAddress())) ;
 			}
 		}
 		
 		history.setInput(order.getFrom().getAmount()) ;
 		
- 		String balance = orderHistoryDataFetcher.getBalance(order, order.getTo().getTicker().getAddress());
+ 		String balance = web3jDataFetcher.getBalance(order, order.getTo().getTicker().getAddress());
 		history.setOutput(StringUtils.contains(balance, E) ? _0: balance) ;
-		history.setExecutedprice(orderHistoryDataFetcher.getExecutedPrice(order)) ;
-		String swapStatus = orderHistoryDataFetcher.transactionHashStatus(history.getSwappedhash(), order.getRoute());
+		history.setExecutedprice(web3jDataFetcher.getExecutedPrice(order)) ;
+		String swapStatus = web3jDataFetcher.transactionHashStatus(history.getSwappedhash(), order.getRoute());
 		history.setOrderstate(StringUtils.isBlank(swapStatus) ? order.getOrderEntity().getOrderState() : swapStatus) ;
-		history.setApprovedhash(orderHistoryDataFetcher.getApprovedHash(order)) ;
-		history.setApprovedhashStatus(orderHistoryDataFetcher.getApprovedHashStatus(order)) ;
-		history.setSwappedhash(orderHistoryDataFetcher.getSwappedHash(order)) ;
+		history.setApprovedhash(web3jDataFetcher.getApprovedHash(order)) ;
+		history.setApprovedhashStatus(web3jDataFetcher.getApprovedHashStatus(order)) ;
+		history.setSwappedhash(web3jDataFetcher.getSwappedHash(order)) ;
 		history.setSwappedhashStatus(swapStatus) ;
 		history.setOrderside(order.getOrderEntity().getOrderSide()) ;
-		history.setErrormessage(orderHistoryDataFetcher.getErrorMessage(order)) ;
+		history.setErrormessage(web3jDataFetcher.getErrorMessage(order)) ;
 		history.setGasLimit(order.getGasLimit().getValue());
 		history.setGasPrice(Convert.fromWei(order.getGasPrice().getValue().toString(), Convert.Unit.GWEI).toString());
 		history.setSlipage(order.getSlippage().getSlipagePercent());
