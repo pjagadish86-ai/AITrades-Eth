@@ -70,13 +70,13 @@ public class OrderProcessorPrechecker {
 	}
 	
 	public boolean getBalance(Order order) throws Exception {
-		return getBalance(order.getId(), order.getFrom().getAmountAsBigDecimal(), order.getWalletInfo().getPublicKey(), order.getFrom().getTicker().getAddress(), order.getRoute());
+		return getBalance(order.getId(), order.getFrom().getAmountAsBigDecimal(), order.getWalletInfo().getPublicKey(), order.getFrom().getTicker().getAddress(), order.getRoute(), order.getFrom().getTicker().getDecimals());
 	}
 	
-	private boolean getBalance(String id, BigDecimal inputAmount, String publicKey, String address, String route) throws Exception {
+	private boolean getBalance(String id, BigDecimal inputAmount, String publicKey, String address, String route, String decimals) throws Exception {
 		List<Type> types  = ethereumDexContract.getBalance(id, publicKey, address, route);
 		if(CollectionUtils.isNotEmpty(types) && types.get(0) != null) {
-			BigDecimal balance = Convert.fromWei(types.get(0).getValue().toString(), Convert.Unit.ETHER);
+			BigDecimal balance = Convert.fromWei(types.get(0).getValue().toString(), Convert.Unit.fromString(TradeConstants.DECIMAL_MAP.get(decimals)));
 			return inputAmount.compareTo(balance) <= 0;
 		}
 		return false;

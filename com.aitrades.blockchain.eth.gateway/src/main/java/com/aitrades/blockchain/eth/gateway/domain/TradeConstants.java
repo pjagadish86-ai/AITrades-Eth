@@ -1,5 +1,6 @@
 package com.aitrades.blockchain.eth.gateway.domain;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.google.common.collect.ImmutableMap;
@@ -52,6 +53,21 @@ public final class TradeConstants {
 	public static final String ORDER = "ORDER";
 
 	public static final String SWAP_TOKEN_FOR_ETH_HASH = "SWAP_TOKEN_FOR_ETH_HASH";
+	public static Map<String, String> DECIMAL_MAP = null;
 	
+	static {
+		DECIMAL_MAP = new HashMap<String, String>();
+		DECIMAL_MAP.put("0", "WEI");
+		DECIMAL_MAP.put("3", "KWEI");
+		DECIMAL_MAP.put("6", "MWEI");
+		DECIMAL_MAP.put("9", "GWEI");
+		DECIMAL_MAP.put("12", "SZABO");
+		DECIMAL_MAP.put("15", "FINNEY");
+		DECIMAL_MAP.put( "18", "ETHER");
+		DECIMAL_MAP.put("21", "KETHER");
+		DECIMAL_MAP.put("24", "METHER");
+		DECIMAL_MAP.put("27", "GETHER");
+		
+	}
 	
 }

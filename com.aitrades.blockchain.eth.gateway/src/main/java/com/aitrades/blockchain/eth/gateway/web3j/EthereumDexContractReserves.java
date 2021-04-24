@@ -11,6 +11,7 @@ import org.web3j.abi.datatypes.Function;
 import org.web3j.abi.datatypes.Type;
 import org.web3j.abi.datatypes.generated.Uint112;
 import org.web3j.abi.datatypes.generated.Uint32;
+import org.web3j.abi.datatypes.generated.Uint8;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.RemoteFunctionCall;
@@ -23,6 +24,7 @@ public class EthereumDexContractReserves extends Contract {
     public static final String BIN_NOT_PROVIDED = "Bin file was not provided";
 	private static final String FUNC_GETRESERVES = "getReserves";
 	public static final String FUNC_DEPOSIT = "deposit"; 
+	public static final String FUNC_DECIMALS = "decimals";
 	
 	public EthereumDexContractReserves(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
 		super(BIN_NOT_PROVIDED, contractAddress, web3j, credentials, gasPrice, gasLimit);
@@ -59,4 +61,12 @@ public class EthereumDexContractReserves extends Contract {
 	                Collections.<TypeReference<?>>emptyList());
 	        return executeRemoteCallTransaction(function, weiValue);
 	  }
+	  
+    public RemoteFunctionCall<BigInteger> decimals() {
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_DECIMALS, 
+                Arrays.<Type>asList(), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Uint8>() {}));
+        return executeRemoteCallSingleValueReturn(function, BigInteger.class);
+    }
+
 }

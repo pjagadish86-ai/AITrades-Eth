@@ -37,7 +37,7 @@ public class SnipeTransactionRequest {
 	private BigDecimal ouputTokenValueAmounttAsBigDecimal;
 	private BigInteger expectedOutPutToken;
 	private WalletInfo walletInfo;
-	
+	private String toAddressDecimals;
 	private BigInteger gasPrice;
 	private BigInteger gasLimit;
 	
@@ -424,6 +424,14 @@ public class SnipeTransactionRequest {
 
 	public void setLiquidityQuantity(BigInteger liquidityQuantity) {
 		this.liquidityQuantity = liquidityQuantity;
+	}
+	
+	public String getToAddressDecimals() {
+		return toAddressDecimals;
+	}
+
+	public void setToAddressDecimals(String toAddressDecimals) {
+		this.toAddressDecimals = toAddressDecimals;
 	}
 
 	@Override

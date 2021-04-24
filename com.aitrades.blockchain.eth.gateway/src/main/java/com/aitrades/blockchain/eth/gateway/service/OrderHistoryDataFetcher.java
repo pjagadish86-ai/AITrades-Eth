@@ -18,6 +18,7 @@ import org.web3j.utils.Convert;
 import com.aitrades.blockchain.eth.gateway.domain.ApproveTransaction;
 import com.aitrades.blockchain.eth.gateway.domain.Order;
 import com.aitrades.blockchain.eth.gateway.domain.SnipeTransactionRequest;
+import com.aitrades.blockchain.eth.gateway.domain.TradeConstants;
 import com.aitrades.blockchain.eth.gateway.repository.ApproveTransactionRepository;
 import com.aitrades.blockchain.eth.gateway.repository.TradeOverviewRepository;
 import com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract;
@@ -74,7 +75,7 @@ public class OrderHistoryDataFetcher {
 		 if(CollectionUtils.isNotEmpty(types) && types.get(0) != null) {
 			for(Type type : types) {
 				BigInteger balanceAsBigInt = (BigInteger)type.getValue();
-				return Convert.fromWei(balanceAsBigInt.toString(), Convert.Unit.ETHER).toString();
+				return Convert.fromWei(balanceAsBigInt.toString(), Convert.Unit.fromString(TradeConstants.DECIMAL_MAP.get(order.getTo().getTicker().getDecimals()))).toString();
 			}
 		 }
 		 return null;
@@ -87,7 +88,7 @@ public class OrderHistoryDataFetcher {
 			 if(CollectionUtils.isNotEmpty(types) && types.get(0) != null) {
 				for(Type type : types) {
 					BigInteger balanceAsBigInt = (BigInteger)type.getValue();
-					return Convert.fromWei(balanceAsBigInt.toString(), Convert.Unit.ETHER).toString();
+					return Convert.fromWei(balanceAsBigInt.toString(), Convert.Unit.fromString(TradeConstants.DECIMAL_MAP.get(request.getToAddressDecimals()))).toString();
 				}
 			 }
 		} catch (Exception e) {
@@ -165,7 +166,7 @@ public class OrderHistoryDataFetcher {
 		 if(CollectionUtils.isNotEmpty(types) && types.get(0) != null) {
 			for(Type type : types) {
 				BigInteger balanceAsBigInt = (BigInteger)type.getValue();
-				return Convert.fromWei(balanceAsBigInt.toString(), Convert.Unit.ETHER).toString();
+				return Convert.fromWei(balanceAsBigInt.toString(), Convert.Unit.fromString(TradeConstants.DECIMAL_MAP.get(snipe.getToAddressDecimals()))).toString();
 			}
 		 }
 		 return null;

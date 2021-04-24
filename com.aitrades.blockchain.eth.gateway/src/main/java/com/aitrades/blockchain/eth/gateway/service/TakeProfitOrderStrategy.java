@@ -17,6 +17,7 @@ import org.web3j.utils.Convert;
 import com.aitrades.blockchain.eth.gateway.domain.Order;
 import com.aitrades.blockchain.eth.gateway.domain.OrderType;
 import com.aitrades.blockchain.eth.gateway.domain.StopLimitOrder;
+import com.aitrades.blockchain.eth.gateway.domain.TradeConstants;
 import com.aitrades.blockchain.eth.gateway.domain.TradeOverview;
 import com.aitrades.blockchain.eth.gateway.price.PriceClient;
 import com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract;
@@ -42,7 +43,7 @@ public class TakeProfitOrderStrategy {
 		if(CollectionUtils.isNotEmpty(types) && types.get(0) != null) {
 			for(Type type : types) {
 				balanceAsBigInt = (BigInteger)type.getValue();
-				balance = Convert.fromWei(balanceAsBigInt.toString(), Convert.Unit.ETHER).toString();
+				balance = Convert.fromWei(balanceAsBigInt.toString(), Convert.Unit.fromString(TradeConstants.DECIMAL_MAP.get(order.getTo().getTicker().getDecimals()))).toString();
 				balanceAsBigDec = new BigDecimal(balance);
 			}
 			
