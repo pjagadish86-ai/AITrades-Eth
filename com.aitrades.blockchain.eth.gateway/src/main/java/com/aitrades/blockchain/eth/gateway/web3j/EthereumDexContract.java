@@ -74,7 +74,7 @@ public class EthereumDexContract {
 								               Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
 		Transaction transaction = Transaction.createEthCallTransaction(owner, contractAddress, FunctionEncoder.encode(function));
 		EthCall ethCall = web3jServiceClientFactory.getWeb3jMap().get(route).getWeb3j()
-																	        .ethCall(transaction, DefaultBlockParameterName.LATEST)
+																	        .ethCall(transaction, DefaultBlockParameterName.EARLIEST)
 																	        .flowable()
 																	        .blockingSingle();
 		if(ethCall.hasError()) {

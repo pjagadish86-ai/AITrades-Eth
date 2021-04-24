@@ -4,7 +4,6 @@ import java.net.ConnectException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.Duration;
-import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
@@ -27,8 +26,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.web3j.protocol.Web3j;
-import org.web3j.protocol.http.HttpService;
-import org.web3j.protocol.websocket.WebSocketClient;
 import org.web3j.protocol.websocket.WebSocketService;
 import org.web3j.tx.response.NoOpProcessor;
 import org.web3j.tx.response.PollingTransactionReceiptProcessor;
@@ -40,9 +37,6 @@ import com.mongodb.reactivestreams.client.MongoClients;
 import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;
-import okhttp3.ConnectionPool;
-import okhttp3.Dispatcher;
-import okhttp3.OkHttpClient;
 import reactor.netty.http.client.HttpClient;
 
 @SpringBootApplication(scanBasePackages = { "com.aitrades.blockchain.eth.gateway" })
@@ -53,9 +47,6 @@ public class Application {
 
 	private static final int _40 = 40;
 
-	private static final String ETH_ENDPOINT = "https://cool-sparkling-dawn.quiknode.pro/d5ffadd5dde5cbfe5e2c1d919316cf4ab383858d/";
-	private static final String BSC_ENDPOINT ="https://bold-bold-leaf.bsc.quiknode.pro/cf39e2ea6fd28d8e720c5cb0a548fa58cec6debe/";
-	
 	private static final String ETH_ENDPOINT_WSS = "wss://cool-sparkling-dawn.quiknode.pro/d5ffadd5dde5cbfe5e2c1d919316cf4ab383858d/";
 	private static final String BSC_ENDPOINT_WSS ="wss://bold-bold-leaf.bsc.quiknode.pro/cf39e2ea6fd28d8e720c5cb0a548fa58cec6debe/";
 	
