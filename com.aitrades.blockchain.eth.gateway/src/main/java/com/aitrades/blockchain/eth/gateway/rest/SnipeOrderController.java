@@ -1,6 +1,8 @@
 package com.aitrades.blockchain.eth.gateway.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,13 +40,18 @@ public class SnipeOrderController {
 		logger.info("New Order id->", id);
 		RestExceptionMessage restExceptionMessage = snipeOrderValidator.validateSnipeOrder(snipeTransactionRequest);
 		if(restExceptionMessage != null) {
-			return restExceptionMessage;
+			return new ResponseEntity<RestExceptionMessage>(restExceptionMessage, HttpStatus.BAD_REQUEST);
 		}
 		return snipeOrderMutator.snipeOrder(snipeTransactionRequest);
 	}
 	
 	@PostMapping("/retriggerOrder")
 	public Object retriggerOrder(@RequestBody RetriggerSnipeOrder retriggerOrder) throws Exception {
+		System.out.println("in retrigger");
+		RestExceptionMessage restExceptionMessage = snipeOrderValidator.validateRetriggerOrderSnipeOrder(retriggerOrder);
+		if(restExceptionMessage != null) {
+			return new ResponseEntity<RestExceptionMessage>(restExceptionMessage, HttpStatus.BAD_REQUEST);
+		}
 		return retriggerOrderPreparer.retriggerOrder(retriggerOrder);
 	}
 	

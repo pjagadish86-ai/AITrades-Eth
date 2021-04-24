@@ -33,7 +33,7 @@ public class SnipeOrderHistoryRepository {
 
 	public SnipeTransactionRequest fetchAndRemoveSnipeOrderById(String parentOrderId) {
 		Query query = new Query();
-        query.addCriteria(Criteria.where(PUBLIC_KEY).in(parentOrderId));
+        query.addCriteria(Criteria.where(ID).in(parentOrderId));
         final SnipeTransactionRequest snipeTransactionRequest = snipeOrderHistoryReactiveMongoTemplate.find(query, SnipeTransactionRequest.class).blockFirst();
 		if(snipeTransactionRequest != null) {
 			delete(snipeTransactionRequest);

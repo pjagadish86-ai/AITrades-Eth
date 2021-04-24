@@ -7,6 +7,7 @@ import java.util.Set;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 
+import com.aitrades.blockchain.eth.gateway.domain.RetriggerSnipeOrder;
 import com.aitrades.blockchain.eth.gateway.domain.SnipeTransactionRequest;
 
 @Component
@@ -60,6 +61,15 @@ public class SnipeOrderValidator {
 			return new RestExceptionMessage(snipeTransactionRequest.getId(), INVALID_GAS_GAS_PRICE_AMOUNT);
 		}
 
+		return null;
+	}
+
+	public RestExceptionMessage validateRetriggerOrderSnipeOrder(RetriggerSnipeOrder retriggerOrder) {
+		if(retriggerOrder == null
+				|| retriggerOrder.getParentSnipeOrderId() == null
+				|| retriggerOrder.getParentSnipeOrderId().isEmpty()) {
+			return new RestExceptionMessage("Invalid retrigger parent id", "Invalid retrigger parent id");
+		}
 		return null;
 	}
 	
