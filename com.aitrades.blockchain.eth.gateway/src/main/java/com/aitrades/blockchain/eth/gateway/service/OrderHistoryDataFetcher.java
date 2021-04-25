@@ -64,20 +64,22 @@ public class OrderHistoryDataFetcher {
 		try {
 			return erc20Contract.symbol().flowable().subscribeOn(Schedulers.io()).blockingFirst();
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 		return address;
 	}
 
 	@SuppressWarnings("rawtypes")
 	public String getBalance(Order order, String address) throws Exception {
-		List<Type> types =  ethereumDexContract.getBalance(order.getId(), order.getPublicKey(), address, order.getRoute());
-		 if(CollectionUtils.isNotEmpty(types) && types.get(0) != null) {
-			for(Type type : types) {
-				BigInteger balanceAsBigInt = (BigInteger)type.getValue();
-				return Convert.fromWei(balanceAsBigInt.toString(), Convert.Unit.fromString(TradeConstants.DECIMAL_MAP.get(order.getTo().getTicker().getDecimals()))).toString();
-			}
-		 }
+		try {
+			List<Type> types =  ethereumDexContract.getBalance(order.getId(), order.getPublicKey(), address, order.getRoute());
+			 if(CollectionUtils.isNotEmpty(types) && types.get(0) != null) {
+				for(Type type : types) {
+					BigInteger balanceAsBigInt = (BigInteger)type.getValue();
+					return Convert.fromWei(balanceAsBigInt.toString(), Convert.Unit.fromString(TradeConstants.DECIMAL_MAP.get(order.getTo().getTicker().getDecimals()))).toString();
+				}
+			 }
+		} catch (Exception e) {
+		}
 		 return null;
 	}
 	
@@ -113,16 +115,22 @@ public class OrderHistoryDataFetcher {
 	}
 
 	public String getApprovedHashStatus(Order order) {
-		String address  = order.getOrderEntity().getOrderSide().equalsIgnoreCase(BUY) ? order.getTo().getTicker().getAddress() : order.getFrom().getTicker().getAddress();
-		ApproveTransaction approveTransaction = approveTransactionRepository.find(order.getWalletInfo().getPublicKey().toLowerCase().trim() + TILDA + order.getRoute().trim() +TILDA + address.toLowerCase().trim()); // id should -> publickey ~ router ~ contractaddresss
-        Optional<TransactionReceipt> transactionRecieptOptional =orderProcessorPrechecker.checkTransactionHashSuccess(approveTransaction.getApprovedHash(), order.getRoute());
-		
-        if(transactionRecieptOptional.isPresent()) {
-			if(StringUtils.equalsIgnoreCase(transactionRecieptOptional.get().getStatus(), _0X0)) {
-				return FAILED;
-			}else {
-				return SUCCESS;
+		try {
+			String address  = order.getOrderEntity().getOrderSide().equalsIgnoreCase(BUY) ? order.getTo().getTicker().getAddress() : order.getFrom().getTicker().getAddress();
+			ApproveTransaction approveTransaction = approveTransactionRepository.find(order.getWalletInfo().getPublicKey().toLowerCase().trim() + TILDA + order.getRoute().trim() +TILDA + address.toLowerCase().trim()); // id should -> publickey ~ router ~ contractaddresss
+			Optional<TransactionReceipt> transactionRecieptOptional =orderProcessorPrechecker.checkTransactionHashSuccess(approveTransaction.getApprovedHash(), order.getRoute());
+			
+			if(transactionRecieptOptional.isPresent()) {
+				if(StringUtils.equalsIgnoreCase(transactionRecieptOptional.get().getStatus(), _0X0)) {
+					return FAILED;
+				}else {
+					return SUCCESS;
+				}
 			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return STRING;
 	}
@@ -132,18 +140,22 @@ public class OrderHistoryDataFetcher {
 	}
 
 	public Tuple2<String, BigInteger> getSnipeSwappedHashStatus(SnipeTransactionRequest snipeTransactionRequest) {
-		 Optional<TransactionReceipt> transactionRecieptOptional =orderProcessorPrechecker.checkTransactionHashSuccess(snipeTransactionRequest.getSwappedHash(), snipeTransactionRequest.getRoute());
-		String status = STRING;	
-		BigInteger blockNbr = null;
-		 if(transactionRecieptOptional.isPresent()) {
-				if(StringUtils.equalsIgnoreCase(transactionRecieptOptional.get().getStatus(), _0X0)) {
-					status= FAILED;
-				}else {
-					status= SUCCESS;
+		 try {
+			Optional<TransactionReceipt> transactionRecieptOptional =orderProcessorPrechecker.checkTransactionHashSuccess(snipeTransactionRequest.getSwappedHash(), snipeTransactionRequest.getRoute());
+			String status = STRING;	
+			BigInteger blockNbr = null;
+			 if(transactionRecieptOptional.isPresent()) {
+					if(StringUtils.equalsIgnoreCase(transactionRecieptOptional.get().getStatus(), _0X0)) {
+						status= FAILED;
+					}else {
+						status= SUCCESS;
+					}
+					blockNbr = transactionRecieptOptional.get().getBlockNumber();
 				}
-				blockNbr = transactionRecieptOptional.get().getBlockNumber();
-			}
-			return new Tuple2<>(status, blockNbr);
+				return new Tuple2<>(status, blockNbr);
+		} catch (Exception e) {
+		}
+		return null;
 	}
 
 	public String getErrorMessage(Order order) {
@@ -151,8 +163,8 @@ public class OrderHistoryDataFetcher {
 	}
 
 	public String getTickerSymbolSnipe(SnipeTransactionRequest snipe, String toAddress) {
-		ERC20 erc20Contract = ERC20.load(snipe.getToAddress(), web3jServiceClientFactory.getWeb3jMap().get(snipe.getRoute()).getWeb3j(), snipe.getCredentials(), new DefaultGasProvider());
 		try {
+			ERC20 erc20Contract = ERC20.load(snipe.getToAddress(), web3jServiceClientFactory.getWeb3jMap().get(snipe.getRoute()).getWeb3j(), snipe.getCredentials(), new DefaultGasProvider());
 			return erc20Contract.symbol().flowable().subscribeOn(Schedulers.io()).blockingFirst();
 		} catch (Exception e) {
 		}
@@ -161,14 +173,17 @@ public class OrderHistoryDataFetcher {
 
 	@SuppressWarnings("rawtypes")
 	public String getBalance(SnipeTransactionRequest snipe, String toAddress) throws Exception {
-		//String id, String owner, String contractAddress, String route
-		List<Type> types =  ethereumDexContract.getBalance(snipe.getId(), snipe.getPublicKey(), toAddress, snipe.getRoute());
-		 if(CollectionUtils.isNotEmpty(types) && types.get(0) != null) {
-			for(Type type : types) {
-				BigInteger balanceAsBigInt = (BigInteger)type.getValue();
-				return Convert.fromWei(balanceAsBigInt.toString(), Convert.Unit.fromString(TradeConstants.DECIMAL_MAP.get(snipe.getToAddressDecimals()))).toString();
-			}
-		 }
+		try {
+			//String id, String owner, String contractAddress, String route
+			List<Type> types =  ethereumDexContract.getBalance(snipe.getId(), snipe.getPublicKey(), toAddress, snipe.getRoute());
+			 if(CollectionUtils.isNotEmpty(types) && types.get(0) != null) {
+				for(Type type : types) {
+					BigInteger balanceAsBigInt = (BigInteger)type.getValue();
+					return Convert.fromWei(balanceAsBigInt.toString(), Convert.Unit.fromString(TradeConstants.DECIMAL_MAP.get(snipe.getToAddressDecimals()))).toString();
+				}
+			 }
+		} catch (Exception e) {
+		}
 		 return null;
 	}
 
@@ -183,15 +198,18 @@ public class OrderHistoryDataFetcher {
 	}
 
 	public String transactionHashStatus(String approvedHash, String route) {
-		 Optional<TransactionReceipt> transactionRecieptOptional =orderProcessorPrechecker.checkTransactionHashSuccess(approvedHash, route);
-			if(transactionRecieptOptional.isPresent()) {
-				if(StringUtils.equalsIgnoreCase(transactionRecieptOptional.get().getStatus(), _0X0)) {
-					return FAILED;
-				}else {
-					return SUCCESS;
+		 try {
+			Optional<TransactionReceipt> transactionRecieptOptional =orderProcessorPrechecker.checkTransactionHashSuccess(approvedHash, route);
+				if(transactionRecieptOptional.isPresent()) {
+					if(StringUtils.equalsIgnoreCase(transactionRecieptOptional.get().getStatus(), _0X0)) {
+						return FAILED;
+					}else {
+						return SUCCESS;
+					}
 				}
-			}
-			return STRING;
+		} catch (Exception e) {
+		}
+		 return STRING;
 	}
 
 	public String getSnipeApprovedHash(SnipeTransactionRequest snipeTransactionRequest) {
