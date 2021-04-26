@@ -1,0 +1,317 @@
+2021-04-23 13:05:02,870 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-5] validation occured for history request 
+2021-04-23 13:05:24,417 ERROR org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/aitrades/eth-gateway].[dispatcherServlet] [http-nio-8080-exec-9] Servlet.service() for servlet [dispatcherServlet] in context with path [/aitrades/eth-gateway] threw exception [Request processing failed; nested exception is java.lang.IllegalArgumentException: Object to insert must not be null!] with root cause
+java.lang.IllegalArgumentException: Object to insert must not be null!
+	at org.springframework.util.Assert.notNull(Assert.java:201)
+	at org.springframework.data.mongodb.core.ReactiveMongoTemplate.insert(ReactiveMongoTemplate.java:1319)
+	at com.aitrades.blockchain.eth.gateway.repository.SnipeOrderRepository.insert(SnipeOrderRepository.java:36)
+	at com.aitrades.blockchain.eth.gateway.repository.SnipeOrderRepository$$FastClassBySpringCGLIB$$f7b5152a.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:779)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:137)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:692)
+	at com.aitrades.blockchain.eth.gateway.repository.SnipeOrderRepository$$EnhancerBySpringCGLIB$$39fa2e67.insert(<generated>)
+	at com.aitrades.blockchain.eth.gateway.service.RetriggerSnipeOrderProcessor.saveSnipeOrder(RetriggerSnipeOrderProcessor.java:24)
+	at com.aitrades.blockchain.eth.gateway.service.RetriggerSnipeOrderPreparer.retriggerOrder(RetriggerSnipeOrderPreparer.java:39)
+	at com.aitrades.blockchain.eth.gateway.rest.SnipeOrderController.retriggerOrder(SnipeOrderController.java:48)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:197)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:141)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:894)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1060)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:962)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:652)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:888)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1597)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2021-04-23 13:05:24,731 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-9] started processing addSnipeOrderToRabbitMq
+2021-04-23 13:05:24,731 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-9] started processing addSnipeOrderToRabbitMq for snipeorder id=1822D210A45611EBB792A694B1FC94E4
+2021-04-23 13:05:24,732 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-9] Sending order to snipe downstreams id=1822D210A45611EBB792A694B1FC94E4
+2021-04-23 13:05:24,732 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-9] started processing sendOrderToSnipe
+2021-04-23 13:05:24,735 INFO com.aitrades.blockchain.eth.gateway.mq.RabbitMQSnipeOrderSender [task-scheduler-9] sniperorder sent to queue succesfully
+2021-04-23 13:05:27,452 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-8] validation occured for history request 
+2021-04-23 13:06:37,798 INFO com.aitrades.blockchain.eth.gateway.Application [main] Starting Application using Java 11.0.10 on JayMSI with PID 7548 (C:\Users\jay\Desktop\Sreelekha_Documents\New folder\com.blockchain.bot\com.aitrades.blockchain.eth.gateway\target\classes started by jay in C:\Users\jay\Desktop\Sreelekha_Documents\New folder\com.blockchain.bot\com.aitrades.blockchain.eth.gateway)
+2021-04-23 13:06:37,804 DEBUG com.aitrades.blockchain.eth.gateway.Application [main] Running with Spring Boot v2.4.2, Spring v5.3.3
+2021-04-23 13:06:37,804 INFO com.aitrades.blockchain.eth.gateway.Application [main] No active profile set, falling back to default profiles: default
+2021-04-23 13:06:42,793 INFO com.aitrades.blockchain.eth.gateway.Application [main] Started Application in 5.369 seconds (JVM running for 6.698)
+2021-04-23 13:06:54,041 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-23 13:07:04,069 ERROR org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/aitrades/eth-gateway].[dispatcherServlet] [http-nio-8080-exec-3] Servlet.service() for servlet [dispatcherServlet] in context with path [/aitrades/eth-gateway] threw exception [Request processing failed; nested exception is java.lang.IllegalArgumentException: Object to insert must not be null!] with root cause
+java.lang.IllegalArgumentException: Object to insert must not be null!
+	at org.springframework.util.Assert.notNull(Assert.java:201)
+	at org.springframework.data.mongodb.core.ReactiveMongoTemplate.insert(ReactiveMongoTemplate.java:1319)
+	at com.aitrades.blockchain.eth.gateway.repository.SnipeOrderRepository.insert(SnipeOrderRepository.java:36)
+	at com.aitrades.blockchain.eth.gateway.repository.SnipeOrderRepository$$FastClassBySpringCGLIB$$f7b5152a.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:779)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:137)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:692)
+	at com.aitrades.blockchain.eth.gateway.repository.SnipeOrderRepository$$EnhancerBySpringCGLIB$$39fa2e67.insert(<generated>)
+	at com.aitrades.blockchain.eth.gateway.service.RetriggerSnipeOrderProcessor.saveSnipeOrder(RetriggerSnipeOrderProcessor.java:24)
+	at com.aitrades.blockchain.eth.gateway.service.RetriggerSnipeOrderPreparer.retriggerOrder(RetriggerSnipeOrderPreparer.java:39)
+	at com.aitrades.blockchain.eth.gateway.rest.SnipeOrderController.retriggerOrder(SnipeOrderController.java:48)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:197)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:141)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:894)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1060)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:962)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:652)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:888)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1597)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2021-04-23 13:07:04,719 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-1] started processing addSnipeOrderToRabbitMq
+2021-04-23 13:07:04,722 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-1] started processing addSnipeOrderToRabbitMq for snipeorder id=538219B0A45611EB9B8B5EDAB9B03E03
+2021-04-23 13:07:04,722 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-1] Sending order to snipe downstreams id=538219B0A45611EB9B8B5EDAB9B03E03
+2021-04-23 13:07:04,722 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-1] started processing sendOrderToSnipe
+2021-04-23 13:07:04,813 INFO com.aitrades.blockchain.eth.gateway.mq.RabbitMQSnipeOrderSender [task-scheduler-1] sniperorder sent to queue succesfully
+2021-04-23 13:07:05,612 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-4] validation occured for history request 
+2021-04-23 13:08:42,275 INFO com.aitrades.blockchain.eth.gateway.Application [main] Starting Application using Java 11.0.10 on JayMSI with PID 21712 (C:\Users\jay\Desktop\Sreelekha_Documents\New folder\com.blockchain.bot\com.aitrades.blockchain.eth.gateway\target\classes started by jay in C:\Users\jay\Desktop\Sreelekha_Documents\New folder\com.blockchain.bot\com.aitrades.blockchain.eth.gateway)
+2021-04-23 13:08:42,281 DEBUG com.aitrades.blockchain.eth.gateway.Application [main] Running with Spring Boot v2.4.2, Spring v5.3.3
+2021-04-23 13:08:42,281 INFO com.aitrades.blockchain.eth.gateway.Application [main] No active profile set, falling back to default profiles: default
+2021-04-23 13:08:47,258 INFO com.aitrades.blockchain.eth.gateway.Application [main] Started Application in 5.322 seconds (JVM running for 6.627)
+2021-04-23 13:08:49,362 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-23 13:09:08,315 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-23 13:09:12,179 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-10] started processing addSnipeOrderToRabbitMq
+2021-04-23 13:09:12,180 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-10] started processing addSnipeOrderToRabbitMq for snipeorder id=9F706CA0A45611EB96711364B6FFFA1E
+2021-04-23 13:09:12,181 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-10] Sending order to snipe downstreams id=9F706CA0A45611EB96711364B6FFFA1E
+2021-04-23 13:09:12,181 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-10] started processing sendOrderToSnipe
+2021-04-23 13:09:12,272 INFO com.aitrades.blockchain.eth.gateway.mq.RabbitMQSnipeOrderSender [task-scheduler-10] sniperorder sent to queue succesfully
+2021-04-23 13:25:10,037 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-9] validation occured for history request 
+2021-04-23 13:25:10,170 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-9] exception occurred for getBalance order/snipe id =9F706CA0A45611EB96711364B6FFFA1E, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=archive request limit reached - upgrade your account at quiknode.io
+2021-04-23 13:25:13,997 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-1] started processing addSnipeOrderToRabbitMq
+2021-04-23 13:25:13,997 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-1] started processing addSnipeOrderToRabbitMq for snipeorder id=DD2726E0A45811EB96711364B6FFFA1E
+2021-04-23 13:25:13,998 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-1] Sending order to snipe downstreams id=DD2726E0A45811EB96711364B6FFFA1E
+2021-04-23 13:25:13,998 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-1] started processing sendOrderToSnipe
+2021-04-23 13:25:14,002 INFO com.aitrades.blockchain.eth.gateway.mq.RabbitMQSnipeOrderSender [task-scheduler-1] sniperorder sent to queue succesfully
+2021-04-23 13:25:16,111 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-10] validation occured for history request 
+2021-04-23 13:25:19,853 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-23 13:25:22,023 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-23 13:25:22,676 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-4] validation occured for history request 
+2021-04-23 13:25:24,018 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-3] started processing addSnipeOrderToRabbitMq
+2021-04-23 13:25:24,019 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-3] started processing addSnipeOrderToRabbitMq for snipeorder id=E323BEA0A45811EB96711364B6FFFA1E
+2021-04-23 13:25:24,019 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-3] Sending order to snipe downstreams id=E323BEA0A45811EB96711364B6FFFA1E
+2021-04-23 13:25:24,019 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-3] started processing sendOrderToSnipe
+2021-04-23 13:25:24,023 INFO com.aitrades.blockchain.eth.gateway.mq.RabbitMQSnipeOrderSender [task-scheduler-3] sniperorder sent to queue succesfully
+2021-04-23 13:25:25,408 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-7] validation occured for history request 
+2021-04-23 13:25:27,733 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-9] validation occured for history request 
+2021-04-23 13:25:29,037 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-6] validation occured for history request 
+2021-04-23 13:25:31,054 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-8] validation occured for history request 
+2021-04-23 13:28:19,981 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-23 13:45:50,774 INFO com.aitrades.blockchain.eth.gateway.Application [main] Starting Application using Java 11.0.10 on JayMSI with PID 19844 (C:\Users\jay\Desktop\Sreelekha_Documents\New folder\com.blockchain.bot\com.aitrades.blockchain.eth.gateway\target\classes started by jay in C:\Users\jay\Desktop\Sreelekha_Documents\New folder\com.blockchain.bot\com.aitrades.blockchain.eth.gateway)
+2021-04-23 13:45:50,775 DEBUG com.aitrades.blockchain.eth.gateway.Application [main] Running with Spring Boot v2.4.2, Spring v5.3.3
+2021-04-23 13:45:50,776 INFO com.aitrades.blockchain.eth.gateway.Application [main] No active profile set, falling back to default profiles: default
+2021-04-23 13:45:57,347 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-23 13:45:57,402 INFO com.aitrades.blockchain.eth.gateway.Application [main] Started Application in 6.897 seconds (JVM running for 7.966)
+2021-04-23 13:45:58,653 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-1] exception occurred for getBalance order/snipe id =E323BEA0A45811EB96711364B6FFFA1E, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=archive request limit reached - upgrade your account at quiknode.io
+2021-04-23 13:47:23,770 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-23 13:47:24,000 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-3] exception occurred for getBalance order/snipe id =E323BEA0A45811EB96711364B6FFFA1E, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=archive request limit reached - upgrade your account at quiknode.io
+2021-04-23 13:47:25,988 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-2] validation occured for history request 
+2021-04-23 13:47:26,514 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-2] exception occurred for getBalance order/snipe id =E323BEA0A45811EB96711364B6FFFA1E, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=archive request limit reached - upgrade your account at quiknode.io
+2021-04-23 13:52:45,324 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-8] validation occured for history request 
+2021-04-23 13:52:45,648 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-8] exception occurred for getBalance order/snipe id =E323BEA0A45811EB96711364B6FFFA1E, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=archive request limit reached - upgrade your account at quiknode.io
+2021-04-23 13:53:10,568 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-9] validation occured for history request 
+2021-04-23 13:53:11,341 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-9] exception occurred for getBalance order/snipe id =E323BEA0A45811EB96711364B6FFFA1E, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=archive request limit reached - upgrade your account at quiknode.io
+2021-04-23 13:53:21,974 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-10] validation occured for history request 
+2021-04-23 13:53:22,144 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-10] exception occurred for getBalance order/snipe id =E323BEA0A45811EB96711364B6FFFA1E, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=archive request limit reached - upgrade your account at quiknode.io
+2021-04-23 14:02:24,971 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-6] validation occured for history request 
+2021-04-23 14:02:25,413 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-6] exception occurred for getBalance order/snipe id =E323BEA0A45811EB96711364B6FFFA1E, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=archive request limit reached - upgrade your account at quiknode.io
+2021-04-23 14:05:05,704 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-4] validation occured for history request 
+2021-04-23 14:05:05,909 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-4] exception occurred for getBalance order/snipe id =E323BEA0A45811EB96711364B6FFFA1E, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=archive request limit reached - upgrade your account at quiknode.io
+2021-04-23 14:11:49,410 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-2] validation occured for history request 
+2021-04-23 14:11:49,611 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-2] exception occurred for getBalance order/snipe id =E323BEA0A45811EB96711364B6FFFA1E, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=archive request limit reached - upgrade your account at quiknode.io
+2021-04-23 14:12:38,037 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-7] started processing addSnipeOrderToRabbitMq
+2021-04-23 14:12:38,038 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-7] started processing addSnipeOrderToRabbitMq for snipeorder id=7C4D4820A45F11EB9F92C2E3AD3D21B5
+2021-04-23 14:12:38,038 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-7] Sending order to snipe downstreams id=7C4D4820A45F11EB9F92C2E3AD3D21B5
+2021-04-23 14:12:38,038 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-7] started processing sendOrderToSnipe
+2021-04-23 14:12:38,122 INFO com.aitrades.blockchain.eth.gateway.mq.RabbitMQSnipeOrderSender [task-scheduler-7] sniperorder sent to queue succesfully
+2021-04-23 14:12:41,225 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-23 14:12:49,140 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-1] exception occurred for getBalance order/snipe id =7C4D4820A45F11EB9F92C2E3AD3D21B5, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=archive request limit reached - upgrade your account at quiknode.io
+2021-04-23 14:15:42,655 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-6] validation occured for history request 
+2021-04-23 14:15:43,009 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-6] exception occurred for getBalance order/snipe id =7C4D4820A45F11EB9F92C2E3AD3D21B5, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=archive request limit reached - upgrade your account at quiknode.io
+2021-04-23 14:16:56,079 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-4] validation occured for history request 
+2021-04-23 14:16:56,212 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-4] exception occurred for getBalance order/snipe id =7C4D4820A45F11EB9F92C2E3AD3D21B5, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=archive request limit reached - upgrade your account at quiknode.io
+2021-04-23 14:18:27,111 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-2] validation occured for history request 
+2021-04-23 14:18:27,954 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-2] exception occurred for getBalance order/snipe id =7C4D4820A45F11EB9F92C2E3AD3D21B5, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=archive request limit reached - upgrade your account at quiknode.io
+2021-04-23 14:21:04,553 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-8] validation occured for history request 
+2021-04-23 14:21:04,992 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-8] exception occurred for getBalance order/snipe id =7C4D4820A45F11EB9F92C2E3AD3D21B5, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=archive request limit reached - upgrade your account at quiknode.io
+2021-04-23 14:21:41,771 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-10] validation occured for history request 
+2021-04-23 14:21:42,352 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-10] exception occurred for getBalance order/snipe id =7C4D4820A45F11EB9F92C2E3AD3D21B5, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=archive request limit reached - upgrade your account at quiknode.io
+2021-04-23 14:22:25,064 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-6] validation occured for history request 
+2021-04-23 14:22:25,426 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-6] exception occurred for getBalance order/snipe id =7C4D4820A45F11EB9F92C2E3AD3D21B5, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=archive request limit reached - upgrade your account at quiknode.io
+2021-04-23 14:23:02,852 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-4] validation occured for history request 
+2021-04-23 14:23:03,001 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-4] exception occurred for getBalance order/snipe id =7C4D4820A45F11EB9F92C2E3AD3D21B5, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=archive request limit reached - upgrade your account at quiknode.io
+2021-04-23 14:23:35,483 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-2] validation occured for history request 
+2021-04-23 14:23:35,680 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-2] exception occurred for getBalance order/snipe id =7C4D4820A45F11EB9F92C2E3AD3D21B5, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=archive request limit reached - upgrade your account at quiknode.io
+2021-04-23 14:25:32,911 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-8] validation occured for history request 
+2021-04-23 14:25:33,492 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-8] exception occurred for getBalance order/snipe id =7C4D4820A45F11EB9F92C2E3AD3D21B5, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=archive request limit reached - upgrade your account at quiknode.io
+2021-04-23 14:29:51,827 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-10] validation occured for history request 
+2021-04-23 14:29:52,024 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-10] exception occurred for getBalance order/snipe id =7C4D4820A45F11EB9F92C2E3AD3D21B5, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=archive request limit reached - upgrade your account at quiknode.io
+2021-04-23 14:30:49,515 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-7] validation occured for history request 
+2021-04-23 14:30:50,368 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-7] exception occurred for getBalance order/snipe id =7C4D4820A45F11EB9F92C2E3AD3D21B5, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=archive request limit reached - upgrade your account at quiknode.io
+2021-04-23 14:36:53,041 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-23 14:36:53,190 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-1] exception occurred for getBalance order/snipe id =7C4D4820A45F11EB9F92C2E3AD3D21B5, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=archive request limit reached - upgrade your account at quiknode.io
+2021-04-23 14:37:19,998 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-23 14:37:20,427 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-3] exception occurred for getBalance order/snipe id =7C4D4820A45F11EB9F92C2E3AD3D21B5, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=archive request limit reached - upgrade your account at quiknode.io
+2021-04-23 14:37:58,707 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-5] validation occured for history request 
+2021-04-23 14:37:58,813 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-5] exception occurred for getBalance order/snipe id =7C4D4820A45F11EB9F92C2E3AD3D21B5, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=archive request limit reached - upgrade your account at quiknode.io
+2021-04-23 14:38:27,981 INFO com.aitrades.blockchain.eth.gateway.CustomWebSocketClient [WebSocketConnectReadThread-35] Reconnecting WebSocket connection to wss://cool-sparkling-dawn.quiknode.pro/d5ffadd5dde5cbfe5e2c1d919316cf4ab383858d/, because of disconnection reason: ''.
+2021-04-23 14:38:33,989 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-9] validation occured for history request 
+2021-04-23 14:38:34,101 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-9] exception occurred for getBalance order/snipe id =7C4D4820A45F11EB9F92C2E3AD3D21B5, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=archive request limit reached - upgrade your account at quiknode.io
+2021-04-23 14:38:51,392 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-10] validation occured for history request 
+2021-04-23 14:38:51,567 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-10] exception occurred for getBalance order/snipe id =7C4D4820A45F11EB9F92C2E3AD3D21B5, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=archive request limit reached - upgrade your account at quiknode.io
+2021-04-23 14:38:52,855 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-7] validation occured for history request 
+2021-04-23 14:38:52,985 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-7] exception occurred for getBalance order/snipe id =7C4D4820A45F11EB9F92C2E3AD3D21B5, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=archive request limit reached - upgrade your account at quiknode.io
+2021-04-23 14:39:54,220 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-23 14:39:54,396 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-1] exception occurred for getBalance order/snipe id =7C4D4820A45F11EB9F92C2E3AD3D21B5, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=archive request limit reached - upgrade your account at quiknode.io
+2021-04-23 14:42:44,648 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-23 14:42:45,432 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-3] exception occurred for getBalance order/snipe id =7C4D4820A45F11EB9F92C2E3AD3D21B5, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=archive request limit reached - upgrade your account at quiknode.io
+2021-04-23 14:43:20,304 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-23 14:43:20,444 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-3] exception occurred for getBalance order/snipe id =7C4D4820A45F11EB9F92C2E3AD3D21B5, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=archive request limit reached - upgrade your account at quiknode.io
+2021-04-23 17:27:32,463 INFO com.aitrades.blockchain.eth.gateway.CustomWebSocketClient [WebSocketConnectReadThread-42] Reconnecting WebSocket connection to wss://bold-bold-leaf.bsc.quiknode.pro/cf39e2ea6fd28d8e720c5cb0a548fa58cec6debe/, because of disconnection reason: ''.
+2021-04-23 17:52:30,817 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-8] validation occured for history request 
+2021-04-23 17:52:31,239 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-8] exception occurred for getBalance order/snipe id =7C4D4820A45F11EB9F92C2E3AD3D21B5, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=header not found
+2021-04-23 17:53:36,529 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-10] validation occured for history request 
+2021-04-23 17:53:36,663 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-10] exception occurred for getBalance order/snipe id =7C4D4820A45F11EB9F92C2E3AD3D21B5, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=header not found
+2021-04-23 18:00:46,262 INFO com.aitrades.blockchain.eth.gateway.Application [main] Starting Application using Java 11.0.10 on JayMSI with PID 21192 (C:\Users\jay\Desktop\Sreelekha_Documents\New folder\com.blockchain.bot\com.aitrades.blockchain.eth.gateway\target\classes started by jay in C:\Users\jay\Desktop\Sreelekha_Documents\New folder\com.blockchain.bot\com.aitrades.blockchain.eth.gateway)
+2021-04-23 18:00:46,268 DEBUG com.aitrades.blockchain.eth.gateway.Application [main] Running with Spring Boot v2.4.2, Spring v5.3.3
+2021-04-23 18:00:46,268 INFO com.aitrades.blockchain.eth.gateway.Application [main] No active profile set, falling back to default profiles: default
+2021-04-23 18:00:51,434 INFO com.aitrades.blockchain.eth.gateway.Application [main] Started Application in 5.499 seconds (JVM running for 6.771)
+2021-04-23 18:00:57,657 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-23 18:00:58,222 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-1] exception occurred for getBalance order/snipe id =7C4D4820A45F11EB9F92C2E3AD3D21B5, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=header not found
+2021-04-23 18:01:21,667 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-2] validation occured for history request 
+2021-04-23 18:01:21,800 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-2] exception occurred for getBalance order/snipe id =7C4D4820A45F11EB9F92C2E3AD3D21B5, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=header not found
+2021-04-23 18:08:03,803 INFO com.aitrades.blockchain.eth.gateway.Application [main] Starting Application using Java 11.0.10 on JayMSI with PID 1496 (C:\Users\jay\Desktop\Sreelekha_Documents\New folder\com.blockchain.bot\com.aitrades.blockchain.eth.gateway\target\classes started by jay in C:\Users\jay\Desktop\Sreelekha_Documents\New folder\com.blockchain.bot\com.aitrades.blockchain.eth.gateway)
+2021-04-23 18:08:03,807 DEBUG com.aitrades.blockchain.eth.gateway.Application [main] Running with Spring Boot v2.4.2, Spring v5.3.3
+2021-04-23 18:08:03,808 INFO com.aitrades.blockchain.eth.gateway.Application [main] No active profile set, falling back to default profiles: default
+2021-04-23 18:08:08,594 INFO com.aitrades.blockchain.eth.gateway.Application [main] Started Application in 5.12 seconds (JVM running for 6.39)
+2021-04-23 18:08:16,441 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-23 18:08:16,995 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-1] exception occurred for getBalance order/snipe id =7C4D4820A45F11EB9F92C2E3AD3D21B5, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=header not found
+2021-04-23 18:12:12,196 INFO com.aitrades.blockchain.eth.gateway.Application [main] Starting Application using Java 11.0.10 on JayMSI with PID 15304 (C:\Users\jay\Desktop\Sreelekha_Documents\New folder\com.blockchain.bot\com.aitrades.blockchain.eth.gateway\target\classes started by jay in C:\Users\jay\Desktop\Sreelekha_Documents\New folder\com.blockchain.bot\com.aitrades.blockchain.eth.gateway)
+2021-04-23 18:12:12,198 DEBUG com.aitrades.blockchain.eth.gateway.Application [main] Running with Spring Boot v2.4.2, Spring v5.3.3
+2021-04-23 18:12:12,198 INFO com.aitrades.blockchain.eth.gateway.Application [main] No active profile set, falling back to default profiles: default
+2021-04-23 18:12:16,266 INFO com.aitrades.blockchain.eth.gateway.Application [main] Started Application in 4.343 seconds (JVM running for 5.427)
+2021-04-23 18:12:30,442 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-23 18:12:30,944 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-1] exception occurred for getBalance order/snipe id =7C4D4820A45F11EB9F92C2E3AD3D21B5, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=header not found
+2021-04-23 18:13:33,327 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-6] started processing addSnipeOrderToRabbitMq
+2021-04-23 18:13:33,328 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-6] started processing addSnipeOrderToRabbitMq for snipeorder id=2431C4F0A48111EB822D5CEF2D7B852A
+2021-04-23 18:13:33,328 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-6] Sending order to snipe downstreams id=2431C4F0A48111EB822D5CEF2D7B852A
+2021-04-23 18:13:33,328 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-6] started processing sendOrderToSnipe
+2021-04-23 18:13:33,403 INFO com.aitrades.blockchain.eth.gateway.mq.RabbitMQSnipeOrderSender [task-scheduler-6] sniperorder sent to queue succesfully
+2021-04-23 18:13:41,105 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-8] validation occured for history request 
+2021-04-23 18:16:05,286 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-23 18:16:13,491 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-23 18:16:13,715 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-10] started processing addSnipeOrderToRabbitMq
+2021-04-23 18:16:13,715 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-10] started processing addSnipeOrderToRabbitMq for snipeorder id=83DA2460A48111EB822D5CEF2D7B852A
+2021-04-23 18:16:13,716 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-10] Sending order to snipe downstreams id=83DA2460A48111EB822D5CEF2D7B852A
+2021-04-23 18:16:13,716 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-10] started processing sendOrderToSnipe
+2021-04-23 18:16:13,719 INFO com.aitrades.blockchain.eth.gateway.mq.RabbitMQSnipeOrderSender [task-scheduler-10] sniperorder sent to queue succesfully
+2021-04-23 18:16:18,415 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-6] validation occured for history request 
+2021-04-23 18:16:19,911 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-7] validation occured for history request 
+2021-04-23 18:16:22,481 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-8] validation occured for history request 
+2021-04-23 20:05:35,981 INFO com.aitrades.blockchain.eth.gateway.Application [main] Starting Application using Java 11.0.10 on JayMSI with PID 2152 (C:\Users\jay\Desktop\Sreelekha_Documents\New folder\com.blockchain.bot\com.aitrades.blockchain.eth.gateway\target\classes started by jay in C:\Users\jay\Desktop\Sreelekha_Documents\New folder\com.blockchain.bot\com.aitrades.blockchain.eth.gateway)
+2021-04-23 20:05:35,985 DEBUG com.aitrades.blockchain.eth.gateway.Application [main] Running with Spring Boot v2.4.2, Spring v5.3.3
+2021-04-23 20:05:35,985 INFO com.aitrades.blockchain.eth.gateway.Application [main] No active profile set, falling back to default profiles: default
+2021-04-23 20:05:42,019 INFO com.aitrades.blockchain.eth.gateway.Application [main] Started Application in 6.422 seconds (JVM running for 7.786)
+2021-04-23 20:08:17,728 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-4] validation occured for history request 
+2021-04-23 20:08:18,338 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-4] exception occurred for getBalance order/snipe id =83DA2460A48111EB822D5CEF2D7B852A, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=header not found
+2021-04-23 20:08:23,501 INFO com.aitrades.blockchain.eth.gateway.rest.SnipeOrderController [http-nio-8080-exec-3] New Order id->
+2021-04-23 20:08:23,502 INFO com.aitrades.blockchain.eth.gateway.service.SnipeOrderMutator [http-nio-8080-exec-3] in snipeorder mutator
+2021-04-23 20:08:23,503 INFO com.aitrades.blockchain.eth.gateway.service.SnipeOrderProcessor [http-nio-8080-exec-3] in SnipeOrderProcessor mutator
+2021-04-23 20:08:24,215 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-2] started processing addSnipeOrderToRabbitMq
+2021-04-23 20:08:24,216 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-2] started processing addSnipeOrderToRabbitMq for snipeorder id=2F4227D0A49111EB8F12971FBE60974E
+2021-04-23 20:08:24,216 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-2] Sending order to snipe downstreams id=2F4227D0A49111EB8F12971FBE60974E
+2021-04-23 20:08:24,217 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-2] started processing sendOrderToSnipe
+2021-04-23 20:08:24,296 INFO com.aitrades.blockchain.eth.gateway.mq.RabbitMQSnipeOrderSender [task-scheduler-2] sniperorder sent to queue succesfully
+2021-04-23 20:08:25,090 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-8] validation occured for history request 
+2021-04-23 20:08:25,412 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-8] exception occurred for getBalance order/snipe id =83DA2460A48111EB822D5CEF2D7B852A, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=header not found
+2021-04-23 20:08:30,221 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-7] validation occured for history request 
+2021-04-23 20:08:30,358 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-7] exception occurred for getBalance order/snipe id =83DA2460A48111EB822D5CEF2D7B852A, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=header not found
+2021-04-23 20:10:05,251 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-6] validation occured for history request 
+2021-04-23 20:10:05,462 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-6] exception occurred for getBalance order/snipe id =83DA2460A48111EB822D5CEF2D7B852A, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x3ee2200efb3400fabb9aacf31297cbdd1d435d47, route=PANCAKE, exception=header not found

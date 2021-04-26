@@ -51,6 +51,7 @@ public class ApprovedTransactionProcessor {
 	@Autowired
 	private OrderHistoryRepository orderHistoryRepository;
 	
+	@SuppressWarnings("unused")
 	@Autowired
 	private SnipeOrderRepository snipeOrderRepository;
 	
@@ -108,7 +109,7 @@ public class ApprovedTransactionProcessor {
 						approveTransactionRepository.delete(approveTransaction);
 						snipeTransactionRequest.setErrorMessage("APPROVE FAILED");
 						snipeOrderHistoryRepository.save(snipeTransactionRequest);
-						snipeOrderRepository.delete(snipeTransactionRequest);
+						//snipeOrderRepository.delete(snipeTransactionRequest);
 					}else {
 						approveTransaction.setStatus(_0X1);
 						approveTransactionRepository.update(approveTransaction);
@@ -126,7 +127,7 @@ public class ApprovedTransactionProcessor {
 				approveTrnx.setContractAddressInteracted(snipeTransactionRequest.getToAddress().trim());
 				approveTrnx.setPublicKey(snipeTransactionRequest.getWalletInfo().getPublicKey().trim());
 				approveTrnx.setApprovedHash(hash);
-				snipeOrderRepository.updateApprovedHash(snipeTransactionRequest, hash);
+				snipeOrderHistoryRepository.updateApprovedHash(snipeTransactionRequest, hash);
 				approveTransactionRepository.insert(approveTrnx);
 			}
 		}

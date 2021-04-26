@@ -214,7 +214,7 @@ public class OrderHistoryDataFetcher {
 
 	public String getSnipeApprovedHash(SnipeTransactionRequest snipeTransactionRequest) {
 		ApproveTransaction approveTransaction = approveTransactionRepository.find(snipeTransactionRequest.getWalletInfo().getPublicKey().toLowerCase().trim() + TILDA + snipeTransactionRequest.getRoute().trim() +TILDA + snipeTransactionRequest.getToAddress().toLowerCase().trim()); // id should -> publickey ~ router ~ contractaddresss
-		return approveTransaction.getApprovedHash();
+		return approveTransaction != null ? approveTransaction.getApprovedHash() : "NA";
 	}
 
 }

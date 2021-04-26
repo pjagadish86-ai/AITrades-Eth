@@ -15,6 +15,7 @@ import com.aitrades.blockchain.eth.gateway.domain.Order;
 import com.aitrades.blockchain.eth.gateway.domain.SnipeTransactionRequest;
 import com.aitrades.blockchain.eth.gateway.domain.orderhistory.OrderHistories;
 import com.aitrades.blockchain.eth.gateway.domain.orderhistory.OrderHistory;
+import com.aitrades.blockchain.eth.gateway.service.ApproveProcessor;
 import com.aitrades.blockchain.eth.gateway.service.OrderHistoryDataFetcher;
 
 @Service
@@ -31,6 +32,9 @@ public class HistoryTransformer {
 	@Autowired
 	private OrderHistoryDataFetcher web3jDataFetcher;
 
+	@Autowired
+	private ApproveProcessor approveProcessor;
+	
 	public OrderHistories transformToHistories(List<Order> orders, List<SnipeTransactionRequest> snipes) throws Exception {
 		OrderHistories orderHistories = new OrderHistories();
 		List<OrderHistory> histories = new ArrayList<>();
@@ -73,10 +77,17 @@ public class HistoryTransformer {
 		history.setExecutedprice(web3jDataFetcher.getExecutedPrice(snipe)) ;
 		String snipeApprovedHash = web3jDataFetcher.getSnipeApprovedHash(snipe);
 		history.setApprovedhash(snipeApprovedHash) ;
-		history.setApprovedhashStatus(web3jDataFetcher.transactionHashStatus(snipeApprovedHash, snipe.getRoute())) ;
+		String apporvedHash = web3jDataFetcher.transactionHashStatus(snipeApprovedHash, snipe.getRoute());
+		history.setApprovedhashStatus(apporvedHash) ;
 		history.setSwappedhash(snipe.getSwappedHash()) ;
 		Tuple2<String, BigInteger> tuple = web3jDataFetcher.getSnipeSwappedHashStatus(snipe);
-		history.setSwappedhashStatus(tuple.component1()) ;
+		String swapStatus = tuple.component1();
+		//ApproveProcessor
+		if(!StringUtils.equalsIgnoreCase(apporvedHash, "SUCCESS") && StringUtils.equalsIgnoreCase("SUCCESS", swapStatus)) {
+			approveProcessor.approve(snipe.getId());
+		}
+		
+		history.setSwappedhashStatus(swapStatus) ;
 		history.setOrderstate(snipe.getSnipeStatus()) ;
 		String balance = web3jDataFetcher.getBalanceAtBlock(snipe, snipe.getToAddress(), tuple.component2());
 		history.setOutput(StringUtils.contains(balance, E) ? _0: balance) ;

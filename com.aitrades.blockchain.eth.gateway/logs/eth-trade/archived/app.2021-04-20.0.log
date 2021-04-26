@@ -1,0 +1,888 @@
+2021-04-20 12:54:56,174 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-5] validation occured for history request 
+2021-04-20 12:56:39,087 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-9] validation occured for history request 
+2021-04-20 12:59:39,712 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-10] validation occured for history request 
+2021-04-20 12:59:50,936 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-7] validation occured for history request 
+2021-04-20 12:59:52,856 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-20 12:59:54,784 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-2] validation occured for history request 
+2021-04-20 12:59:56,688 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-20 12:59:58,312 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-4] validation occured for history request 
+2021-04-20 12:59:59,457 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-5] validation occured for history request 
+2021-04-20 13:00:55,906 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-6] validation occured for history request 
+2021-04-20 13:00:57,442 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-9] validation occured for history request 
+2021-04-20 13:02:24,601 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-10] validation occured for history request 
+2021-04-20 13:03:01,652 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-20 13:03:01,670 ERROR org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/aitrades/eth-gateway].[dispatcherServlet] [http-nio-8080-exec-1] Servlet.service() for servlet [dispatcherServlet] in context with path [/aitrades/eth-gateway] threw exception [Request processing failed; nested exception is org.java_websocket.exceptions.WebsocketNotConnectedException] with root cause
+org.java_websocket.exceptions.WebsocketNotConnectedException: null
+	at org.java_websocket.WebSocketImpl.send(WebSocketImpl.java:608)
+	at org.java_websocket.WebSocketImpl.send(WebSocketImpl.java:585)
+	at org.java_websocket.client.WebSocketClient.send(WebSocketClient.java:309)
+	at org.web3j.protocol.websocket.WebSocketService.sendRequest(WebSocketService.java:235)
+	at org.web3j.protocol.websocket.WebSocketService.sendAsync(WebSocketService.java:186)
+	at org.web3j.protocol.websocket.WebSocketService.send(WebSocketService.java:165)
+	at org.web3j.protocol.core.Request.send(Request.java:87)
+	at org.web3j.protocol.core.RemoteCall.send(RemoteCall.java:42)
+	at io.reactivex.internal.operators.flowable.FlowableFromCallable.subscribeActual(FlowableFromCallable.java:39)
+	at io.reactivex.Flowable.subscribe(Flowable.java:14935)
+	at io.reactivex.Flowable.subscribe(Flowable.java:14882)
+	at io.reactivex.internal.operators.flowable.FlowableSubscribeOn$SubscribeOnSubscriber.run(FlowableSubscribeOn.java:82)
+	at io.reactivex.internal.schedulers.ScheduledRunnable.run(ScheduledRunnable.java:66)
+	at io.reactivex.internal.schedulers.ScheduledRunnable.call(ScheduledRunnable.java:57)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2021-04-20 13:03:23,464 INFO com.aitrades.blockchain.eth.gateway.Application [main] Starting Application using Java 11.0.10 on JayMSI with PID 6152 (C:\Users\jay\Desktop\Sreelekha_Documents\New folder\com.blockchain.bot\com.aitrades.blockchain.eth.gateway\target\classes started by jay in C:\Users\jay\Desktop\Sreelekha_Documents\New folder\com.blockchain.bot\com.aitrades.blockchain.eth.gateway)
+2021-04-20 13:03:23,468 DEBUG com.aitrades.blockchain.eth.gateway.Application [main] Running with Spring Boot v2.4.2, Spring v5.3.3
+2021-04-20 13:03:23,468 INFO com.aitrades.blockchain.eth.gateway.Application [main] No active profile set, falling back to default profiles: default
+2021-04-20 13:03:30,244 INFO com.aitrades.blockchain.eth.gateway.Application [main] Started Application in 7.12 seconds (JVM running for 8.427)
+2021-04-20 13:03:34,136 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-4] started processing addSnipeOrderToRabbitMq
+2021-04-20 13:03:34,138 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-4] started processing addSnipeOrderToRabbitMq for snipeorder id=BD950540A1D811EB9F6240B930F173B6
+2021-04-20 13:03:34,139 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-4] Sending order to snipe downstreams id=BD950540A1D811EB9F6240B930F173B6
+2021-04-20 13:03:34,139 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-4] started processing sendOrderToSnipe
+2021-04-20 13:03:34,373 INFO com.aitrades.blockchain.eth.gateway.mq.RabbitMQSnipeOrderSender [task-scheduler-4] sniperorder sent to queue succesfully
+2021-04-20 13:03:38,385 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-1] started processing addSnipeOrderToRabbitMq
+2021-04-20 13:03:38,385 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-1] started processing addSnipeOrderToRabbitMq for snipeorder id=BD950540A1D811EB9F6240B930F173B6
+2021-04-20 13:03:38,385 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-1] Sending order to snipe downstreams id=BD950540A1D811EB9F6240B930F173B6
+2021-04-20 13:03:38,386 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-1] started processing sendOrderToSnipe
+2021-04-20 13:03:38,390 INFO com.aitrades.blockchain.eth.gateway.mq.RabbitMQSnipeOrderSender [task-scheduler-1] sniperorder sent to queue succesfully
+2021-04-20 13:03:44,559 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-20 13:03:57,688 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-2] validation occured for history request 
+2021-04-20 13:03:59,263 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-20 13:04:17,761 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-4] validation occured for history request 
+2021-04-20 13:04:47,240 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-5] validation occured for history request 
+2021-04-20 13:05:21,817 ERROR org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/aitrades/eth-gateway].[dispatcherServlet] [http-nio-8080-exec-4] Servlet.service() for servlet [dispatcherServlet] in context with path [/aitrades/eth-gateway] threw exception [Request processing failed; nested exception is java.lang.RuntimeException: java.io.IOException: Request with id 30 timed out] with root cause
+java.io.IOException: Request with id 30 timed out
+	at org.web3j.protocol.websocket.WebSocketService.lambda$setRequestTimeout$3(WebSocketService.java:253)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2021-04-20 13:10:45,577 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-7] validation occured for history request 
+2021-04-20 13:33:53,468 INFO com.aitrades.blockchain.eth.gateway.Application [main] Starting Application using Java 11.0.10 on JayMSI with PID 6632 (C:\Users\jay\Desktop\Sreelekha_Documents\New folder\com.blockchain.bot\com.aitrades.blockchain.eth.gateway\target\classes started by jay in C:\Users\jay\Desktop\Sreelekha_Documents\New folder\com.blockchain.bot\com.aitrades.blockchain.eth.gateway)
+2021-04-20 13:33:53,471 DEBUG com.aitrades.blockchain.eth.gateway.Application [main] Running with Spring Boot v2.4.2, Spring v5.3.3
+2021-04-20 13:33:53,471 INFO com.aitrades.blockchain.eth.gateway.Application [main] No active profile set, falling back to default profiles: default
+2021-04-20 13:33:59,238 INFO com.aitrades.blockchain.eth.gateway.Application [main] Started Application in 6.059 seconds (JVM running for 7.056)
+2021-04-20 13:34:45,015 INFO com.aitrades.blockchain.eth.gateway.rest.SnipeOrderController [http-nio-8080-exec-1] New Order id->
+2021-04-20 13:34:45,019 INFO com.aitrades.blockchain.eth.gateway.service.SnipeOrderMutator [http-nio-8080-exec-1] in snipeorder mutator
+2021-04-20 13:34:45,021 INFO com.aitrades.blockchain.eth.gateway.service.SnipeOrderProcessor [http-nio-8080-exec-1] in SnipeOrderProcessor mutator
+2021-04-20 13:34:45,987 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-2] validation occured for history request 
+2021-04-20 13:34:46,217 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-7] started processing addSnipeOrderToRabbitMq
+2021-04-20 13:34:46,218 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-7] started processing addSnipeOrderToRabbitMq for snipeorder id=B24DCB60A1FE11EB98DF4C42C06C09F2
+2021-04-20 13:34:46,218 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-7] Sending order to snipe downstreams id=B24DCB60A1FE11EB98DF4C42C06C09F2
+2021-04-20 13:34:46,218 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-7] started processing sendOrderToSnipe
+2021-04-20 13:34:46,291 INFO com.aitrades.blockchain.eth.gateway.mq.RabbitMQSnipeOrderSender [task-scheduler-7] sniperorder sent to queue succesfully
+2021-04-20 13:34:47,297 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-2] exception occurred for getBalance order/snipe id =BD950540A1D811EB9F6240B930F173B6, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x22168882276e5d5e1da694343b41dd7726eeb288, route=PANCAKE, exception=header not found
+2021-04-20 13:34:58,748 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-20 13:34:59,399 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-3] exception occurred for getBalance order/snipe id =BD950540A1D811EB9F6240B930F173B6, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x22168882276e5d5e1da694343b41dd7726eeb288, route=PANCAKE, exception=header not found
+2021-04-20 13:35:01,970 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-4] validation occured for history request 
+2021-04-20 13:35:02,633 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-4] exception occurred for getBalance order/snipe id =BD950540A1D811EB9F6240B930F173B6, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x22168882276e5d5e1da694343b41dd7726eeb288, route=PANCAKE, exception=header not found
+2021-04-20 13:35:03,433 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-5] validation occured for history request 
+2021-04-20 13:35:04,134 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-5] exception occurred for getBalance order/snipe id =BD950540A1D811EB9F6240B930F173B6, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x22168882276e5d5e1da694343b41dd7726eeb288, route=PANCAKE, exception=header not found
+2021-04-20 13:35:13,004 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-6] validation occured for history request 
+2021-04-20 13:35:13,659 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-6] exception occurred for getBalance order/snipe id =BD950540A1D811EB9F6240B930F173B6, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x22168882276e5d5e1da694343b41dd7726eeb288, route=PANCAKE, exception=header not found
+2021-04-20 13:35:41,402 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-3] started processing addSnipeOrderToRabbitMq
+2021-04-20 13:35:41,402 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-3] started processing addSnipeOrderToRabbitMq for snipeorder id=B24DCB60A1FE11EB98DF4C42C06C09F2
+2021-04-20 13:35:41,402 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-3] Sending order to snipe downstreams id=B24DCB60A1FE11EB98DF4C42C06C09F2
+2021-04-20 13:35:41,402 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-3] started processing sendOrderToSnipe
+2021-04-20 13:35:41,406 INFO com.aitrades.blockchain.eth.gateway.mq.RabbitMQSnipeOrderSender [task-scheduler-3] sniperorder sent to queue succesfully
+2021-04-20 13:35:45,672 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-7] validation occured for history request 
+2021-04-20 13:35:46,263 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-7] exception occurred for getBalance order/snipe id =BD950540A1D811EB9F6240B930F173B6, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x22168882276e5d5e1da694343b41dd7726eeb288, route=PANCAKE, exception=header not found
+2021-04-20 13:35:47,116 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-9] validation occured for history request 
+2021-04-20 13:35:47,716 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-9] exception occurred for getBalance order/snipe id =BD950540A1D811EB9F6240B930F173B6, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x22168882276e5d5e1da694343b41dd7726eeb288, route=PANCAKE, exception=header not found
+2021-04-20 13:36:38,038 INFO com.aitrades.blockchain.eth.gateway.rest.SnipeOrderController [http-nio-8080-exec-10] New Order id->
+2021-04-20 13:36:38,038 INFO com.aitrades.blockchain.eth.gateway.service.SnipeOrderMutator [http-nio-8080-exec-10] in snipeorder mutator
+2021-04-20 13:36:38,038 INFO com.aitrades.blockchain.eth.gateway.service.SnipeOrderProcessor [http-nio-8080-exec-10] in SnipeOrderProcessor mutator
+2021-04-20 13:36:38,521 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-6] started processing addSnipeOrderToRabbitMq
+2021-04-20 13:36:38,521 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-6] started processing addSnipeOrderToRabbitMq for snipeorder id=F5ABE360A1FE11EB98DF4C42C06C09F2
+2021-04-20 13:36:38,521 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-6] Sending order to snipe downstreams id=F5ABE360A1FE11EB98DF4C42C06C09F2
+2021-04-20 13:36:38,522 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-6] started processing sendOrderToSnipe
+2021-04-20 13:36:38,524 INFO com.aitrades.blockchain.eth.gateway.mq.RabbitMQSnipeOrderSender [task-scheduler-6] sniperorder sent to queue succesfully
+2021-04-20 13:36:39,232 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-20 13:36:40,617 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-1] exception occurred for getBalance order/snipe id =BD950540A1D811EB9F6240B930F173B6, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x22168882276e5d5e1da694343b41dd7726eeb288, route=PANCAKE, exception=header not found
+2021-04-20 13:36:45,793 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-2] validation occured for history request 
+2021-04-20 13:36:47,155 ERROR com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract [http-nio-8080-exec-2] exception occurred for getBalance order/snipe id =BD950540A1D811EB9F6240B930F173B6, owner=0xF007afdB97c3744762F953C07CD45Dd237663C3F, contractAddress=0x22168882276e5d5e1da694343b41dd7726eeb288, route=PANCAKE, exception=header not found
+2021-04-20 13:37:36,474 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-20 13:37:37,624 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-4] validation occured for history request 
+2021-04-20 13:37:38,030 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-5] validation occured for history request 
+2021-04-20 13:37:38,418 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-8] validation occured for history request 
+2021-04-20 13:38:23,564 INFO com.aitrades.blockchain.eth.gateway.Application [main] Starting Application using Java 11.0.10 on JayMSI with PID 14936 (C:\Users\jay\Desktop\Sreelekha_Documents\New folder\com.blockchain.bot\com.aitrades.blockchain.eth.gateway\target\classes started by jay in C:\Users\jay\Desktop\Sreelekha_Documents\New folder\com.blockchain.bot\com.aitrades.blockchain.eth.gateway)
+2021-04-20 13:38:23,568 DEBUG com.aitrades.blockchain.eth.gateway.Application [main] Running with Spring Boot v2.4.2, Spring v5.3.3
+2021-04-20 13:38:23,568 INFO com.aitrades.blockchain.eth.gateway.Application [main] No active profile set, falling back to default profiles: default
+2021-04-20 13:38:30,577 INFO com.aitrades.blockchain.eth.gateway.Application [main] Started Application in 7.396 seconds (JVM running for 8.708)
+2021-04-20 13:38:56,533 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-20 13:38:58,860 INFO com.aitrades.blockchain.eth.gateway.rest.SnipeOrderController [http-nio-8080-exec-2] New Order id->
+2021-04-20 13:38:58,861 INFO com.aitrades.blockchain.eth.gateway.service.SnipeOrderMutator [http-nio-8080-exec-2] in snipeorder mutator
+2021-04-20 13:38:58,862 INFO com.aitrades.blockchain.eth.gateway.service.SnipeOrderProcessor [http-nio-8080-exec-2] in SnipeOrderProcessor mutator
+2021-04-20 13:38:59,519 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-3] started processing addSnipeOrderToRabbitMq
+2021-04-20 13:38:59,520 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-3] started processing addSnipeOrderToRabbitMq for snipeorder id=499B50A0A1FF11EBB4B49B78CBE6100A
+2021-04-20 13:38:59,520 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-3] Sending order to snipe downstreams id=499B50A0A1FF11EBB4B49B78CBE6100A
+2021-04-20 13:38:59,520 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-3] started processing sendOrderToSnipe
+2021-04-20 13:38:59,607 INFO com.aitrades.blockchain.eth.gateway.mq.RabbitMQSnipeOrderSender [task-scheduler-3] sniperorder sent to queue succesfully
+2021-04-20 13:38:59,993 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-20 13:39:09,249 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-4] validation occured for history request 
+2021-04-20 13:39:10,864 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-5] validation occured for history request 
+2021-04-20 13:39:12,537 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-6] validation occured for history request 
+2021-04-20 13:39:13,794 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-7] validation occured for history request 
+2021-04-20 13:39:14,658 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-8] validation occured for history request 
+2021-04-20 13:39:15,684 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-9] validation occured for history request 
+2021-04-20 13:39:16,647 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-10] validation occured for history request 
+2021-04-20 13:39:34,687 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-5] started processing addSnipeOrderToRabbitMq
+2021-04-20 13:39:34,687 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-5] started processing addSnipeOrderToRabbitMq for snipeorder id=499B50A0A1FF11EBB4B49B78CBE6100A
+2021-04-20 13:39:34,687 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-5] Sending order to snipe downstreams id=499B50A0A1FF11EBB4B49B78CBE6100A
+2021-04-20 13:39:34,688 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-5] started processing sendOrderToSnipe
+2021-04-20 13:39:34,692 INFO com.aitrades.blockchain.eth.gateway.mq.RabbitMQSnipeOrderSender [task-scheduler-5] sniperorder sent to queue succesfully
+2021-04-20 13:39:54,731 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-8] started processing addSnipeOrderToRabbitMq
+2021-04-20 13:39:54,732 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-8] started processing addSnipeOrderToRabbitMq for snipeorder id=499B50A0A1FF11EBB4B49B78CBE6100A
+2021-04-20 13:39:54,732 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-8] Sending order to snipe downstreams id=499B50A0A1FF11EBB4B49B78CBE6100A
+2021-04-20 13:39:54,732 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-8] started processing sendOrderToSnipe
+2021-04-20 13:39:54,735 INFO com.aitrades.blockchain.eth.gateway.mq.RabbitMQSnipeOrderSender [task-scheduler-8] sniperorder sent to queue succesfully
+2021-04-20 13:40:51,992 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-20 13:40:54,430 INFO com.aitrades.blockchain.eth.gateway.rest.SnipeOrderController [http-nio-8080-exec-4] New Order id->
+2021-04-20 13:40:54,430 INFO com.aitrades.blockchain.eth.gateway.service.SnipeOrderMutator [http-nio-8080-exec-4] in snipeorder mutator
+2021-04-20 13:40:54,430 INFO com.aitrades.blockchain.eth.gateway.service.SnipeOrderProcessor [http-nio-8080-exec-4] in SnipeOrderProcessor mutator
+2021-04-20 13:40:54,848 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-5] started processing addSnipeOrderToRabbitMq
+2021-04-20 13:40:54,848 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-5] started processing addSnipeOrderToRabbitMq for snipeorder id=8E7E33E0A1FF11EBB4B49B78CBE6100A
+2021-04-20 13:40:54,849 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-5] Sending order to snipe downstreams id=8E7E33E0A1FF11EBB4B49B78CBE6100A
+2021-04-20 13:40:54,849 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-5] started processing sendOrderToSnipe
+2021-04-20 13:40:54,856 INFO com.aitrades.blockchain.eth.gateway.mq.RabbitMQSnipeOrderSender [task-scheduler-5] sniperorder sent to queue succesfully
+2021-04-20 13:44:08,460 INFO com.aitrades.blockchain.eth.gateway.rest.SnipeOrderController [http-nio-8080-exec-7] New Order id->
+2021-04-20 13:44:08,460 INFO com.aitrades.blockchain.eth.gateway.service.SnipeOrderMutator [http-nio-8080-exec-7] in snipeorder mutator
+2021-04-20 13:44:08,460 INFO com.aitrades.blockchain.eth.gateway.service.SnipeOrderProcessor [http-nio-8080-exec-7] in SnipeOrderProcessor mutator
+2021-04-20 13:44:09,262 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-2] started processing addSnipeOrderToRabbitMq
+2021-04-20 13:44:09,263 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-2] started processing addSnipeOrderToRabbitMq for snipeorder id=0224D4C0A20011EBB4B49B78CBE6100A
+2021-04-20 13:44:09,263 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-2] Sending order to snipe downstreams id=0224D4C0A20011EBB4B49B78CBE6100A
+2021-04-20 13:44:09,263 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-2] started processing sendOrderToSnipe
+2021-04-20 13:44:09,266 INFO com.aitrades.blockchain.eth.gateway.mq.RabbitMQSnipeOrderSender [task-scheduler-2] sniperorder sent to queue succesfully
+2021-04-20 13:47:32,993 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-9] validation occured for history request 
+2021-04-20 15:29:22,321 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-20 15:29:25,537 INFO com.aitrades.blockchain.eth.gateway.rest.SnipeOrderController [http-nio-8080-exec-2] New Order id->
+2021-04-20 15:29:25,537 INFO com.aitrades.blockchain.eth.gateway.service.SnipeOrderMutator [http-nio-8080-exec-2] in snipeorder mutator
+2021-04-20 15:29:25,538 INFO com.aitrades.blockchain.eth.gateway.service.SnipeOrderProcessor [http-nio-8080-exec-2] in SnipeOrderProcessor mutator
+2021-04-20 15:29:26,287 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-8] started processing addSnipeOrderToRabbitMq
+2021-04-20 15:29:26,287 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-8] started processing addSnipeOrderToRabbitMq for snipeorder id=B76A4910A20E11EBB4B49B78CBE6100A
+2021-04-20 15:29:26,287 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-8] Sending order to snipe downstreams id=B76A4910A20E11EBB4B49B78CBE6100A
+2021-04-20 15:29:26,287 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-8] started processing sendOrderToSnipe
+2021-04-20 15:29:26,290 INFO com.aitrades.blockchain.eth.gateway.mq.RabbitMQSnipeOrderSender [task-scheduler-8] sniperorder sent to queue succesfully
+2021-04-20 15:29:26,964 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-20 15:29:26,985 ERROR org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/aitrades/eth-gateway].[dispatcherServlet] [http-nio-8080-exec-3] Servlet.service() for servlet [dispatcherServlet] in context with path [/aitrades/eth-gateway] threw exception [Request processing failed; nested exception is org.java_websocket.exceptions.WebsocketNotConnectedException] with root cause
+org.java_websocket.exceptions.WebsocketNotConnectedException: null
+	at org.java_websocket.WebSocketImpl.send(WebSocketImpl.java:608)
+	at org.java_websocket.WebSocketImpl.send(WebSocketImpl.java:585)
+	at org.java_websocket.client.WebSocketClient.send(WebSocketClient.java:309)
+	at org.web3j.protocol.websocket.WebSocketService.sendRequest(WebSocketService.java:235)
+	at org.web3j.protocol.websocket.WebSocketService.sendAsync(WebSocketService.java:186)
+	at org.web3j.protocol.websocket.WebSocketService.send(WebSocketService.java:165)
+	at org.web3j.protocol.core.Request.send(Request.java:87)
+	at org.web3j.protocol.core.RemoteCall.send(RemoteCall.java:42)
+	at io.reactivex.internal.operators.flowable.FlowableFromCallable.subscribeActual(FlowableFromCallable.java:39)
+	at io.reactivex.Flowable.subscribe(Flowable.java:14935)
+	at io.reactivex.Flowable.subscribe(Flowable.java:14882)
+	at io.reactivex.internal.operators.flowable.FlowableSubscribeOn$SubscribeOnSubscriber.run(FlowableSubscribeOn.java:82)
+	at io.reactivex.internal.schedulers.ScheduledRunnable.run(ScheduledRunnable.java:66)
+	at io.reactivex.internal.schedulers.ScheduledRunnable.call(ScheduledRunnable.java:57)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2021-04-20 15:29:46,929 INFO com.aitrades.blockchain.eth.gateway.Application [main] Starting Application using Java 11.0.10 on JayMSI with PID 21920 (C:\Users\jay\Desktop\Sreelekha_Documents\New folder\com.blockchain.bot\com.aitrades.blockchain.eth.gateway\target\classes started by jay in C:\Users\jay\Desktop\Sreelekha_Documents\New folder\com.blockchain.bot\com.aitrades.blockchain.eth.gateway)
+2021-04-20 15:29:46,934 DEBUG com.aitrades.blockchain.eth.gateway.Application [main] Running with Spring Boot v2.4.2, Spring v5.3.3
+2021-04-20 15:29:46,934 INFO com.aitrades.blockchain.eth.gateway.Application [main] No active profile set, falling back to default profiles: default
+2021-04-20 15:29:53,945 INFO com.aitrades.blockchain.eth.gateway.Application [main] Started Application in 7.353 seconds (JVM running for 8.622)
+2021-04-20 15:30:00,856 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-7] started processing addSnipeOrderToRabbitMq
+2021-04-20 15:30:00,858 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-7] started processing addSnipeOrderToRabbitMq for snipeorder id=B76A4910A20E11EBB4B49B78CBE6100A
+2021-04-20 15:30:00,860 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-7] Sending order to snipe downstreams id=B76A4910A20E11EBB4B49B78CBE6100A
+2021-04-20 15:30:00,860 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-7] started processing sendOrderToSnipe
+2021-04-20 15:30:01,070 INFO com.aitrades.blockchain.eth.gateway.mq.RabbitMQSnipeOrderSender [task-scheduler-7] sniperorder sent to queue succesfully
+2021-04-20 15:30:44,172 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-3] started processing addSnipeOrderToRabbitMq
+2021-04-20 15:30:44,172 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-3] started processing addSnipeOrderToRabbitMq for snipeorder id=B76A4910A20E11EBB4B49B78CBE6100A
+2021-04-20 15:30:44,172 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-3] Sending order to snipe downstreams id=B76A4910A20E11EBB4B49B78CBE6100A
+2021-04-20 15:30:44,173 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-3] started processing sendOrderToSnipe
+2021-04-20 15:30:44,178 INFO com.aitrades.blockchain.eth.gateway.mq.RabbitMQSnipeOrderSender [task-scheduler-3] sniperorder sent to queue succesfully
+2021-04-20 15:32:51,438 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-5] started processing addSnipeOrderToRabbitMq
+2021-04-20 15:32:51,438 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-5] started processing addSnipeOrderToRabbitMq for snipeorder id=B76A4910A20E11EBB4B49B78CBE6100A
+2021-04-20 15:32:51,438 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-5] Sending order to snipe downstreams id=B76A4910A20E11EBB4B49B78CBE6100A
+2021-04-20 15:32:51,438 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-5] started processing sendOrderToSnipe
+2021-04-20 15:32:51,442 INFO com.aitrades.blockchain.eth.gateway.mq.RabbitMQSnipeOrderSender [task-scheduler-5] sniperorder sent to queue succesfully
+2021-04-20 15:34:35,626 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-8] started processing addSnipeOrderToRabbitMq
+2021-04-20 15:34:35,627 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-8] started processing addSnipeOrderToRabbitMq for snipeorder id=B76A4910A20E11EBB4B49B78CBE6100A
+2021-04-20 15:34:35,627 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-8] Sending order to snipe downstreams id=B76A4910A20E11EBB4B49B78CBE6100A
+2021-04-20 15:34:35,627 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-8] started processing sendOrderToSnipe
+2021-04-20 15:34:35,631 INFO com.aitrades.blockchain.eth.gateway.mq.RabbitMQSnipeOrderSender [task-scheduler-8] sniperorder sent to queue succesfully
+2021-04-20 15:37:43,989 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-5] started processing addSnipeOrderToRabbitMq
+2021-04-20 15:37:43,990 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-5] started processing addSnipeOrderToRabbitMq for snipeorder id=B76A4910A20E11EBB4B49B78CBE6100A
+2021-04-20 15:37:43,990 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-5] Sending order to snipe downstreams id=B76A4910A20E11EBB4B49B78CBE6100A
+2021-04-20 15:37:43,990 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-5] started processing sendOrderToSnipe
+2021-04-20 15:37:43,993 INFO com.aitrades.blockchain.eth.gateway.mq.RabbitMQSnipeOrderSender [task-scheduler-5] sniperorder sent to queue succesfully
+2021-04-20 15:38:33,077 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-6] started processing addSnipeOrderToRabbitMq
+2021-04-20 15:38:33,077 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-6] started processing addSnipeOrderToRabbitMq for snipeorder id=B76A4910A20E11EBB4B49B78CBE6100A
+2021-04-20 15:38:33,077 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-6] Sending order to snipe downstreams id=B76A4910A20E11EBB4B49B78CBE6100A
+2021-04-20 15:38:33,077 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-6] started processing sendOrderToSnipe
+2021-04-20 15:38:33,081 INFO com.aitrades.blockchain.eth.gateway.mq.RabbitMQSnipeOrderSender [task-scheduler-6] sniperorder sent to queue succesfully
+2021-04-20 15:39:49,207 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-9] started processing addSnipeOrderToRabbitMq
+2021-04-20 15:39:49,208 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-9] started processing addSnipeOrderToRabbitMq for snipeorder id=B76A4910A20E11EBB4B49B78CBE6100A
+2021-04-20 15:39:49,208 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-9] Sending order to snipe downstreams id=B76A4910A20E11EBB4B49B78CBE6100A
+2021-04-20 15:39:49,208 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-9] started processing sendOrderToSnipe
+2021-04-20 15:39:49,212 INFO com.aitrades.blockchain.eth.gateway.mq.RabbitMQSnipeOrderSender [task-scheduler-9] sniperorder sent to queue succesfully
+2021-04-20 15:47:08,239 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-20 16:23:27,045 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-4] validation occured for history request 
+2021-04-20 16:23:29,447 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-5] validation occured for history request 
+2021-04-20 16:23:45,854 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-7] started processing addSnipeOrderToRabbitMq
+2021-04-20 16:23:45,854 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-7] started processing addSnipeOrderToRabbitMq for snipeorder id=B76A4910A20E11EBB4B49B78CBE6100A
+2021-04-20 16:23:45,854 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-7] Sending order to snipe downstreams id=B76A4910A20E11EBB4B49B78CBE6100A
+2021-04-20 16:23:45,854 INFO com.aitrades.blockchain.eth.gateway.integration.snipe.SnipeOrderGatewayEndpoint [task-scheduler-7] started processing sendOrderToSnipe
+2021-04-20 16:23:45,858 INFO com.aitrades.blockchain.eth.gateway.mq.RabbitMQSnipeOrderSender [task-scheduler-7] sniperorder sent to queue succesfully
+2021-04-20 21:42:26,159 INFO com.aitrades.blockchain.eth.gateway.Application [main] Starting Application using Java 11.0.10 on JayMSI with PID 88 (C:\Users\jay\Desktop\Sreelekha_Documents\New folder\com.blockchain.bot\com.aitrades.blockchain.eth.gateway\target\classes started by jay in C:\Users\jay\Desktop\Sreelekha_Documents\New folder\com.blockchain.bot\com.aitrades.blockchain.eth.gateway)
+2021-04-20 21:42:26,164 DEBUG com.aitrades.blockchain.eth.gateway.Application [main] Running with Spring Boot v2.4.2, Spring v5.3.3
+2021-04-20 21:42:26,165 INFO com.aitrades.blockchain.eth.gateway.Application [main] No active profile set, falling back to default profiles: default
+2021-04-20 21:42:32,740 INFO com.aitrades.blockchain.eth.gateway.Application [main] Started Application in 6.922 seconds (JVM running for 8.21)
+2021-04-20 21:43:52,354 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-20 21:44:04,180 INFO com.aitrades.blockchain.eth.gateway.rest.OrderController [http-nio-8080-exec-4] in create order=com.aitrades.blockchain.eth.gateway.domain.Order@39282bd3[id=0DBADA30A24311EB858265BF04CFDA38,route=PANCAKE,walletInfo=com.aitrades.blockchain.eth.gateway.domain.WalletInfo@61ae1c91[publicKey=0xF007afdB97c3744762F953C07CD45Dd237663C3F,privateKey=1e8f380ef0c2e2d950c2c256329b3a505fa9d46a74a5dc140607c24474486f04],from=com.aitrades.blockchain.eth.gateway.domain.TickerEntity@6e33c966[ticker=com.aitrades.blockchain.eth.gateway.domain.Ticker@4a18cca8[symbol=<null>,address=0x68e374f856bf25468d365e539b700b648bf94b67,decimals=<null>,addionalProperties=<null>],amount=88,amountAsBigInteger=88000000000000000000,amountAsBigDecimal=88.00,addionalProperties=<null>],to=com.aitrades.blockchain.eth.gateway.domain.TickerEntity@1d67c932[ticker=com.aitrades.blockchain.eth.gateway.domain.Ticker@6def5b01[symbol=<null>,address=0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2,decimals=<null>,addionalProperties=<null>],amount=<null>,amountAsBigInteger=<null>,amountAsBigDecimal=<null>,addionalProperties=<null>],gasMode=CUSTOM,gasPrice=com.aitrades.blockchain.eth.gateway.domain.Gas@611ea798[mode=<null>,value=10,valueBigInteger=10000000000,valueBigDecimal=<null>,AdditionalProperty=<null>],gasLimit=com.aitrades.blockchain.eth.gateway.domain.Gas@67244ee8[mode=<null>,value=456456,valueBigInteger=456456,valueBigDecimal=<null>,AdditionalProperty=<null>],slippage=com.aitrades.blockchain.eth.gateway.domain.Slipage@44a93567[slipagePercent=1,slipagePercentAsBigInteger=<null>,slipageInBips=0,slipageInBipsInDouble=0.01,slipapagePercentAsBigDecimal=1.00,addionalProperties=<null>],pairData=<null>,orderEntity=com.aitrades.blockchain.eth.gateway.domain.OrderEntity@47bf162e[orderSide=SELL,orderState=WORKING,orderType=MARKET,limitOrder=<null>,stopOrder=<null>,stopLimitOrder=<null>,trailingStopOrder=<null>,limitTrailingStop=<null>,addionalProperties=<null>],eventState=<null>,additionalProperty=<null>,orderCode=<null>,approvedHash=<null>,read=<null>,errorMessage=<null>,approveStatusCheck=false,isFee=false,parentSnipeId=<null>,autoSnipeLimitSellTrailPercent=<null>,auditInformation=<null>,publicKey=<null>,swappedHash=<null>,executionPrice=<null>]
+2021-04-20 21:44:04,223 INFO com.aitrades.blockchain.eth.gateway.service.OrderMutator [http-nio-8080-exec-4] in order mutator
+2021-04-20 21:44:04,225 INFO com.aitrades.blockchain.eth.gateway.service.OrderProcessor [http-nio-8080-exec-4] in order processor 
+2021-04-20 21:44:04,227 INFO com.aitrades.blockchain.eth.gateway.service.OrderProcessor [http-nio-8080-exec-4] in order processor checking for sellorder approved hash
+2021-04-20 21:44:04,632 INFO com.aitrades.blockchain.eth.gateway.integration.createorder.OrderGatewayEndpoint [task-scheduler-3] started processing addNewOrderToRabbitMq
+2021-04-20 21:44:04,634 INFO com.aitrades.blockchain.eth.gateway.integration.createorder.OrderGatewayEndpoint [task-scheduler-3]  Transaction has been approved for order id=0DBADA30A24311EB858265BF04CFDA38, approvedhash =0xf283c9908aa89cefef49772da040a62a1a4c4750cac1c5ea20918ed54ca73559
+2021-04-20 21:44:04,671 INFO com.aitrades.blockchain.eth.gateway.web3j.OrderProcessorPrechecker [task-scheduler-3] order id=0DBADA30A24311EB858265BF04CFDA38, pairaddress =Optional[0x4f43ffe9e31e0299b4fd6614838eff628be43ff4]
+2021-04-20 21:44:04,671 INFO com.aitrades.blockchain.eth.gateway.integration.createorder.OrderGatewayEndpoint [task-scheduler-3] Pair data available for orderid=0DBADA30A24311EB858265BF04CFDA38, pairdata=com.aitrades.blockchain.eth.gateway.domain.PairData@32a957e4[pairAddress=com.aitrades.blockchain.eth.gateway.domain.Ticker@42d25bbb[symbol=<null>,address=0x4f43ffe9e31e0299b4fd6614838eff628be43ff4,decimals=<null>,addionalProperties=<null>]]
+2021-04-20 21:44:04,671 INFO com.aitrades.blockchain.eth.gateway.integration.createorder.OrderGatewayEndpoint [task-scheduler-3]  started processing verifyOrderEligibleToSendToQueue for order id=0DBADA30A24311EB858265BF04CFDA38
+2021-04-20 21:44:04,671 INFO com.aitrades.blockchain.eth.gateway.integration.createorder.OrderGatewayEndpoint [task-scheduler-3] this is pure virgin sell order id =0DBADA30A24311EB858265BF04CFDA38
+2021-04-20 21:44:04,701 INFO com.aitrades.blockchain.eth.gateway.integration.createorder.OrderGatewayEndpoint [task-scheduler-3] Has account has balance to sell id=0DBADA30A24311EB858265BF04CFDA38, hasValidBalanceToSell=true
+2021-04-20 21:44:04,701 INFO com.aitrades.blockchain.eth.gateway.integration.createorder.OrderGatewayEndpoint [task-scheduler-3] sending message to  process order queue for order id=0DBADA30A24311EB858265BF04CFDA38
+2021-04-20 21:44:04,701 INFO com.aitrades.blockchain.eth.gateway.integration.createorder.OrderGatewayEndpoint [task-scheduler-3] started processing sendToQueueAndUpdateLock for order=com.aitrades.blockchain.eth.gateway.domain.Order@19e711d[id=0DBADA30A24311EB858265BF04CFDA38,route=PANCAKE,walletInfo=com.aitrades.blockchain.eth.gateway.domain.WalletInfo@3c0ed84c[publicKey=0xF007afdB97c3744762F953C07CD45Dd237663C3F,privateKey=1e8f380ef0c2e2d950c2c256329b3a505fa9d46a74a5dc140607c24474486f04],from=com.aitrades.blockchain.eth.gateway.domain.TickerEntity@44e0ae5e[ticker=com.aitrades.blockchain.eth.gateway.domain.Ticker@143f2afa[symbol=<null>,address=0x68e374f856bf25468d365e539b700b648bf94b67,decimals=<null>,addionalProperties=<null>],amount=88,amountAsBigInteger=88000000000000000000,amountAsBigDecimal=88.00,addionalProperties=<null>],to=com.aitrades.blockchain.eth.gateway.domain.TickerEntity@665bb7f9[ticker=com.aitrades.blockchain.eth.gateway.domain.Ticker@2c5ddfc6[symbol=<null>,address=0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2,decimals=<null>,addionalProperties=<null>],amount=<null>,amountAsBigInteger=<null>,amountAsBigDecimal=<null>,addionalProperties=<null>],gasMode=CUSTOM,gasPrice=com.aitrades.blockchain.eth.gateway.domain.Gas@6d8e164d[mode=<null>,value=10,valueBigInteger=10000000000,valueBigDecimal=<null>,AdditionalProperty=<null>],gasLimit=com.aitrades.blockchain.eth.gateway.domain.Gas@8b89fc[mode=<null>,value=456456,valueBigInteger=456456,valueBigDecimal=<null>,AdditionalProperty=<null>],slippage=com.aitrades.blockchain.eth.gateway.domain.Slipage@3b54126b[slipagePercent=1,slipagePercentAsBigInteger=<null>,slipageInBips=0,slipageInBipsInDouble=0.01,slipapagePercentAsBigDecimal=1.00,addionalProperties=<null>],pairData=com.aitrades.blockchain.eth.gateway.domain.PairData@32a957e4[pairAddress=com.aitrades.blockchain.eth.gateway.domain.Ticker@42d25bbb[symbol=<null>,address=0x4f43ffe9e31e0299b4fd6614838eff628be43ff4,decimals=<null>,addionalProperties=<null>]],orderEntity=com.aitrades.blockchain.eth.gateway.domain.OrderEntity@79355928[orderSide=SELL,orderState=WORKING,orderType=MARKET,limitOrder=<null>,stopOrder=<null>,stopLimitOrder=<null>,trailingStopOrder=<null>,limitTrailingStop=<null>,addionalProperties=<null>],eventState=<null>,additionalProperty=<null>,orderCode=83,approvedHash=0xf283c9908aa89cefef49772da040a62a1a4c4750cac1c5ea20918ed54ca73559,read=AVAL,errorMessage=<null>,approveStatusCheck=true,isFee=false,parentSnipeId=<null>,autoSnipeLimitSellTrailPercent=<null>,auditInformation=com.aitrades.blockchain.eth.gateway.domain.AuditInformation@6414043d,publicKey=<null>,swappedHash=<null>,executionPrice=<null>]
+2021-04-20 21:44:04,803 INFO com.aitrades.blockchain.eth.gateway.mq.RabbitMQCreateOrderSender [task-scheduler-3] message sent to queue
+2021-04-20 21:44:05,096 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-5] validation occured for history request 
+2021-04-20 21:44:07,416 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-6] validation occured for history request 
+2021-04-20 21:44:31,677 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-20 21:44:31,716 ERROR org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/aitrades/eth-gateway].[dispatcherServlet] [http-nio-8080-exec-3] Servlet.service() for servlet [dispatcherServlet] in context with path [/aitrades/eth-gateway] threw exception [Request processing failed; nested exception is org.java_websocket.exceptions.WebsocketNotConnectedException] with root cause
+org.java_websocket.exceptions.WebsocketNotConnectedException: null
+	at org.java_websocket.WebSocketImpl.send(WebSocketImpl.java:608)
+	at org.java_websocket.WebSocketImpl.send(WebSocketImpl.java:585)
+	at org.java_websocket.client.WebSocketClient.send(WebSocketClient.java:309)
+	at org.web3j.protocol.websocket.WebSocketService.sendRequest(WebSocketService.java:235)
+	at org.web3j.protocol.websocket.WebSocketService.sendAsync(WebSocketService.java:186)
+	at org.web3j.protocol.websocket.WebSocketService.send(WebSocketService.java:165)
+	at org.web3j.protocol.core.Request.send(Request.java:87)
+	at org.web3j.protocol.core.RemoteCall.send(RemoteCall.java:42)
+	at io.reactivex.internal.operators.flowable.FlowableFromCallable.subscribeActual(FlowableFromCallable.java:39)
+	at io.reactivex.Flowable.subscribe(Flowable.java:14935)
+	at io.reactivex.internal.operators.flowable.FlowableSingleSingle.subscribeActual(FlowableSingleSingle.java:39)
+	at io.reactivex.Single.subscribe(Single.java:3666)
+	at io.reactivex.Single.blockingGet(Single.java:2869)
+	at io.reactivex.Flowable.blockingSingle(Flowable.java:6001)
+	at com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract.getBalance(EthereumDexContract.java:78)
+	at com.aitrades.blockchain.eth.gateway.service.OrderHistoryDataFetcher.getBalance(OrderHistoryDataFetcher.java:73)
+	at com.aitrades.blockchain.eth.gateway.orderhistory.transformer.HistoryTransformer.mapOrderToHistory(HistoryTransformer.java:114)
+	at com.aitrades.blockchain.eth.gateway.orderhistory.transformer.HistoryTransformer.transformToHistories(HistoryTransformer.java:36)
+	at com.aitrades.blockchain.eth.gateway.service.OrderHistoriesRetriever.fetchOrderHistories(OrderHistoriesRetriever.java:56)
+	at com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController.fetchOrderHistories(OrderHistoryController.java:36)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:197)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:141)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:894)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1060)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:962)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:652)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:888)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1597)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2021-04-20 21:44:33,413 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-2] validation occured for history request 
+2021-04-20 21:44:33,425 ERROR org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/aitrades/eth-gateway].[dispatcherServlet] [http-nio-8080-exec-2] Servlet.service() for servlet [dispatcherServlet] in context with path [/aitrades/eth-gateway] threw exception [Request processing failed; nested exception is org.java_websocket.exceptions.WebsocketNotConnectedException] with root cause
+org.java_websocket.exceptions.WebsocketNotConnectedException: null
+	at org.java_websocket.WebSocketImpl.send(WebSocketImpl.java:608)
+	at org.java_websocket.WebSocketImpl.send(WebSocketImpl.java:585)
+	at org.java_websocket.client.WebSocketClient.send(WebSocketClient.java:309)
+	at org.web3j.protocol.websocket.WebSocketService.sendRequest(WebSocketService.java:235)
+	at org.web3j.protocol.websocket.WebSocketService.sendAsync(WebSocketService.java:186)
+	at org.web3j.protocol.websocket.WebSocketService.send(WebSocketService.java:165)
+	at org.web3j.protocol.core.Request.send(Request.java:87)
+	at org.web3j.protocol.core.RemoteCall.send(RemoteCall.java:42)
+	at io.reactivex.internal.operators.flowable.FlowableFromCallable.subscribeActual(FlowableFromCallable.java:39)
+	at io.reactivex.Flowable.subscribe(Flowable.java:14935)
+	at io.reactivex.internal.operators.flowable.FlowableSingleSingle.subscribeActual(FlowableSingleSingle.java:39)
+	at io.reactivex.Single.subscribe(Single.java:3666)
+	at io.reactivex.Single.blockingGet(Single.java:2869)
+	at io.reactivex.Flowable.blockingSingle(Flowable.java:6001)
+	at com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract.getBalance(EthereumDexContract.java:78)
+	at com.aitrades.blockchain.eth.gateway.service.OrderHistoryDataFetcher.getBalance(OrderHistoryDataFetcher.java:73)
+	at com.aitrades.blockchain.eth.gateway.orderhistory.transformer.HistoryTransformer.mapOrderToHistory(HistoryTransformer.java:114)
+	at com.aitrades.blockchain.eth.gateway.orderhistory.transformer.HistoryTransformer.transformToHistories(HistoryTransformer.java:36)
+	at com.aitrades.blockchain.eth.gateway.service.OrderHistoriesRetriever.fetchOrderHistories(OrderHistoriesRetriever.java:56)
+	at com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController.fetchOrderHistories(OrderHistoryController.java:36)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:197)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:141)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:894)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1060)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:962)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:652)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:888)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1597)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2021-04-20 21:45:00,184 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-7] validation occured for history request 
+2021-04-20 21:45:00,194 ERROR org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/aitrades/eth-gateway].[dispatcherServlet] [http-nio-8080-exec-7] Servlet.service() for servlet [dispatcherServlet] in context with path [/aitrades/eth-gateway] threw exception [Request processing failed; nested exception is org.java_websocket.exceptions.WebsocketNotConnectedException] with root cause
+org.java_websocket.exceptions.WebsocketNotConnectedException: null
+	at org.java_websocket.WebSocketImpl.send(WebSocketImpl.java:608)
+	at org.java_websocket.WebSocketImpl.send(WebSocketImpl.java:585)
+	at org.java_websocket.client.WebSocketClient.send(WebSocketClient.java:309)
+	at org.web3j.protocol.websocket.WebSocketService.sendRequest(WebSocketService.java:235)
+	at org.web3j.protocol.websocket.WebSocketService.sendAsync(WebSocketService.java:186)
+	at org.web3j.protocol.websocket.WebSocketService.send(WebSocketService.java:165)
+	at org.web3j.protocol.core.Request.send(Request.java:87)
+	at org.web3j.protocol.core.RemoteCall.send(RemoteCall.java:42)
+	at io.reactivex.internal.operators.flowable.FlowableFromCallable.subscribeActual(FlowableFromCallable.java:39)
+	at io.reactivex.Flowable.subscribe(Flowable.java:14935)
+	at io.reactivex.internal.operators.flowable.FlowableSingleSingle.subscribeActual(FlowableSingleSingle.java:39)
+	at io.reactivex.Single.subscribe(Single.java:3666)
+	at io.reactivex.Single.blockingGet(Single.java:2869)
+	at io.reactivex.Flowable.blockingSingle(Flowable.java:6001)
+	at com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract.getBalance(EthereumDexContract.java:78)
+	at com.aitrades.blockchain.eth.gateway.service.OrderHistoryDataFetcher.getBalance(OrderHistoryDataFetcher.java:73)
+	at com.aitrades.blockchain.eth.gateway.orderhistory.transformer.HistoryTransformer.mapOrderToHistory(HistoryTransformer.java:114)
+	at com.aitrades.blockchain.eth.gateway.orderhistory.transformer.HistoryTransformer.transformToHistories(HistoryTransformer.java:36)
+	at com.aitrades.blockchain.eth.gateway.service.OrderHistoriesRetriever.fetchOrderHistories(OrderHistoriesRetriever.java:56)
+	at com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController.fetchOrderHistories(OrderHistoryController.java:36)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:197)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:141)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:894)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1060)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:962)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:652)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:888)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1597)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2021-04-20 21:52:59,472 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-8] validation occured for history request 
+2021-04-20 21:52:59,486 ERROR org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/aitrades/eth-gateway].[dispatcherServlet] [http-nio-8080-exec-8] Servlet.service() for servlet [dispatcherServlet] in context with path [/aitrades/eth-gateway] threw exception [Request processing failed; nested exception is org.java_websocket.exceptions.WebsocketNotConnectedException] with root cause
+org.java_websocket.exceptions.WebsocketNotConnectedException: null
+	at org.java_websocket.WebSocketImpl.send(WebSocketImpl.java:608)
+	at org.java_websocket.WebSocketImpl.send(WebSocketImpl.java:585)
+	at org.java_websocket.client.WebSocketClient.send(WebSocketClient.java:309)
+	at org.web3j.protocol.websocket.WebSocketService.sendRequest(WebSocketService.java:235)
+	at org.web3j.protocol.websocket.WebSocketService.sendAsync(WebSocketService.java:186)
+	at org.web3j.protocol.websocket.WebSocketService.send(WebSocketService.java:165)
+	at org.web3j.protocol.core.Request.send(Request.java:87)
+	at org.web3j.protocol.core.RemoteCall.send(RemoteCall.java:42)
+	at io.reactivex.internal.operators.flowable.FlowableFromCallable.subscribeActual(FlowableFromCallable.java:39)
+	at io.reactivex.Flowable.subscribe(Flowable.java:14935)
+	at io.reactivex.internal.operators.flowable.FlowableSingleSingle.subscribeActual(FlowableSingleSingle.java:39)
+	at io.reactivex.Single.subscribe(Single.java:3666)
+	at io.reactivex.Single.blockingGet(Single.java:2869)
+	at io.reactivex.Flowable.blockingSingle(Flowable.java:6001)
+	at com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract.getBalance(EthereumDexContract.java:78)
+	at com.aitrades.blockchain.eth.gateway.service.OrderHistoryDataFetcher.getBalance(OrderHistoryDataFetcher.java:73)
+	at com.aitrades.blockchain.eth.gateway.orderhistory.transformer.HistoryTransformer.mapOrderToHistory(HistoryTransformer.java:114)
+	at com.aitrades.blockchain.eth.gateway.orderhistory.transformer.HistoryTransformer.transformToHistories(HistoryTransformer.java:36)
+	at com.aitrades.blockchain.eth.gateway.service.OrderHistoriesRetriever.fetchOrderHistories(OrderHistoriesRetriever.java:56)
+	at com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController.fetchOrderHistories(OrderHistoryController.java:36)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:197)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:141)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:894)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1060)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:962)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:652)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:888)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1597)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2021-04-20 21:54:05,187 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-10] validation occured for history request 
+2021-04-20 22:05:55,056 ERROR org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/aitrades/eth-gateway].[dispatcherServlet] [http-nio-8080-exec-10] Servlet.service() for servlet [dispatcherServlet] in context with path [/aitrades/eth-gateway] threw exception [Request processing failed; nested exception is org.java_websocket.exceptions.WebsocketNotConnectedException] with root cause
+org.java_websocket.exceptions.WebsocketNotConnectedException: null
+	at org.java_websocket.WebSocketImpl.send(WebSocketImpl.java:608)
+	at org.java_websocket.WebSocketImpl.send(WebSocketImpl.java:585)
+	at org.java_websocket.client.WebSocketClient.send(WebSocketClient.java:309)
+	at org.web3j.protocol.websocket.WebSocketService.sendRequest(WebSocketService.java:235)
+	at org.web3j.protocol.websocket.WebSocketService.sendAsync(WebSocketService.java:186)
+	at org.web3j.protocol.websocket.WebSocketService.send(WebSocketService.java:165)
+	at org.web3j.protocol.core.Request.send(Request.java:87)
+	at org.web3j.protocol.core.RemoteCall.send(RemoteCall.java:42)
+	at io.reactivex.internal.operators.flowable.FlowableFromCallable.subscribeActual(FlowableFromCallable.java:39)
+	at io.reactivex.Flowable.subscribe(Flowable.java:14935)
+	at io.reactivex.internal.operators.flowable.FlowableSingleSingle.subscribeActual(FlowableSingleSingle.java:39)
+	at io.reactivex.Single.subscribe(Single.java:3666)
+	at io.reactivex.Single.blockingGet(Single.java:2869)
+	at io.reactivex.Flowable.blockingSingle(Flowable.java:6001)
+	at com.aitrades.blockchain.eth.gateway.web3j.EthereumDexContract.getBalance(EthereumDexContract.java:78)
+	at com.aitrades.blockchain.eth.gateway.service.OrderHistoryDataFetcher.getBalance(OrderHistoryDataFetcher.java:73)
+	at com.aitrades.blockchain.eth.gateway.orderhistory.transformer.HistoryTransformer.mapOrderToHistory(HistoryTransformer.java:114)
+	at com.aitrades.blockchain.eth.gateway.orderhistory.transformer.HistoryTransformer.transformToHistories(HistoryTransformer.java:36)
+	at com.aitrades.blockchain.eth.gateway.service.OrderHistoriesRetriever.fetchOrderHistories(OrderHistoriesRetriever.java:56)
+	at com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController.fetchOrderHistories(OrderHistoryController.java:36)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:197)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:141)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:894)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1060)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:962)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:652)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:888)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1597)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+2021-04-20 22:05:55,061 ERROR org.apache.catalina.core.ContainerBase.[Tomcat].[localhost] [http-nio-8080-exec-10] Exception Processing ErrorPage[errorCode=0, location=/error]
+org.apache.catalina.connector.ClientAbortException: java.io.IOException: An established connection was aborted by the software in your host machine
+	at org.apache.catalina.connector.OutputBuffer.doFlush(OutputBuffer.java:309)
+	at org.apache.catalina.connector.OutputBuffer.flush(OutputBuffer.java:272)
+	at org.apache.catalina.connector.CoyoteOutputStream.flush(CoyoteOutputStream.java:118)
+	at java.base/java.io.FilterOutputStream.flush(FilterOutputStream.java:153)
+	at com.fasterxml.jackson.core.json.UTF8JsonGenerator.flush(UTF8JsonGenerator.java:1178)
+	at com.fasterxml.jackson.databind.ObjectWriter.writeValue(ObjectWriter.java:1008)
+	at org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter.writeInternal(AbstractJackson2HttpMessageConverter.java:345)
+	at org.springframework.http.converter.AbstractGenericHttpMessageConverter.write(AbstractGenericHttpMessageConverter.java:104)
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:277)
+	at org.springframework.web.servlet.mvc.method.annotation.HttpEntityMethodProcessor.handleReturnValue(HttpEntityMethodProcessor.java:219)
+	at org.springframework.web.method.support.HandlerMethodReturnValueHandlerComposite.handleReturnValue(HandlerMethodReturnValueHandlerComposite.java:78)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:124)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:894)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1060)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:962)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:652)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:103)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:103)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:712)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:461)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:384)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:312)
+	at org.apache.catalina.core.StandardHostValve.custom(StandardHostValve.java:398)
+	at org.apache.catalina.core.StandardHostValve.status(StandardHostValve.java:257)
+	at org.apache.catalina.core.StandardHostValve.throwable(StandardHostValve.java:352)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:177)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:888)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1597)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: java.io.IOException: An established connection was aborted by the software in your host machine
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:51)
+	at java.base/sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:113)
+	at java.base/sun.nio.ch.IOUtil.write(IOUtil.java:79)
+	at java.base/sun.nio.ch.IOUtil.write(IOUtil.java:50)
+	at java.base/sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:466)
+	at org.apache.tomcat.util.net.NioChannel.write(NioChannel.java:138)
+	at org.apache.tomcat.util.net.NioBlockingSelector.write(NioBlockingSelector.java:101)
+	at org.apache.tomcat.util.net.NioSelectorPool.write(NioSelectorPool.java:152)
+	at org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper.doWrite(NioEndpoint.java:1253)
+	at org.apache.tomcat.util.net.SocketWrapperBase.doWrite(SocketWrapperBase.java:764)
+	at org.apache.tomcat.util.net.SocketWrapperBase.flushBlocking(SocketWrapperBase.java:717)
+	at org.apache.tomcat.util.net.SocketWrapperBase.flush(SocketWrapperBase.java:707)
+	at org.apache.coyote.http11.Http11OutputBuffer$SocketOutputBuffer.flush(Http11OutputBuffer.java:572)
+	at org.apache.coyote.http11.filters.ChunkedOutputFilter.flush(ChunkedOutputFilter.java:157)
+	at org.apache.coyote.http11.Http11OutputBuffer.flush(Http11OutputBuffer.java:220)
+	at org.apache.coyote.http11.Http11Processor.flush(Http11Processor.java:1195)
+	at org.apache.coyote.AbstractProcessor.action(AbstractProcessor.java:402)
+	at org.apache.coyote.Response.action(Response.java:209)
+	at org.apache.catalina.connector.OutputBuffer.doFlush(OutputBuffer.java:305)
+	... 53 common frames omitted
+2021-04-20 22:06:29,681 INFO com.aitrades.blockchain.eth.gateway.Application [main] Starting Application using Java 11.0.10 on JayMSI with PID 21612 (C:\Users\jay\Desktop\Sreelekha_Documents\New folder\com.blockchain.bot\com.aitrades.blockchain.eth.gateway\target\classes started by jay in C:\Users\jay\Desktop\Sreelekha_Documents\New folder\com.blockchain.bot\com.aitrades.blockchain.eth.gateway)
+2021-04-20 22:06:29,686 DEBUG com.aitrades.blockchain.eth.gateway.Application [main] Running with Spring Boot v2.4.2, Spring v5.3.3
+2021-04-20 22:06:29,686 INFO com.aitrades.blockchain.eth.gateway.Application [main] No active profile set, falling back to default profiles: default
+2021-04-20 22:06:34,514 INFO com.aitrades.blockchain.eth.gateway.Application [main] Started Application in 5.172 seconds (JVM running for 6.482)
+2021-04-20 22:07:20,711 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-2] validation occured for history request 
+2021-04-20 22:07:51,468 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-20 22:08:26,969 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-20 22:11:28,955 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-5] validation occured for history request 
+2021-04-20 22:11:48,679 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-6] validation occured for history request 
+2021-04-20 22:18:32,756 INFO com.aitrades.blockchain.eth.gateway.Application [main] Starting Application using Java 11.0.10 on JayMSI with PID 6172 (C:\Users\jay\Desktop\Sreelekha_Documents\New folder\com.blockchain.bot\com.aitrades.blockchain.eth.gateway\target\classes started by jay in C:\Users\jay\Desktop\Sreelekha_Documents\New folder\com.blockchain.bot\com.aitrades.blockchain.eth.gateway)
+2021-04-20 22:18:32,758 DEBUG com.aitrades.blockchain.eth.gateway.Application [main] Running with Spring Boot v2.4.2, Spring v5.3.3
+2021-04-20 22:18:32,758 INFO com.aitrades.blockchain.eth.gateway.Application [main] No active profile set, falling back to default profiles: default
+2021-04-20 22:18:36,781 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-20 22:18:36,813 INFO com.aitrades.blockchain.eth.gateway.Application [main] Started Application in 4.318 seconds (JVM running for 5.249)
+2021-04-20 22:18:38,383 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-2] validation occured for history request 
+2021-04-20 22:18:39,794 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-20 22:18:40,960 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-4] validation occured for history request 
+2021-04-20 22:18:42,117 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-5] validation occured for history request 
+2021-04-20 22:18:43,244 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-6] validation occured for history request 
+2021-04-20 22:18:44,476 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-7] validation occured for history request 
+2021-04-20 22:18:45,617 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-8] validation occured for history request 
+2021-04-20 22:18:46,743 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-9] validation occured for history request 
+2021-04-20 22:18:47,894 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-10] validation occured for history request 
+2021-04-20 22:22:28,837 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-2] validation occured for history request 
+2021-04-20 22:22:30,231 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-20 22:22:31,406 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-4] validation occured for history request 
+2021-04-20 22:22:32,541 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-5] validation occured for history request 
+2021-04-20 22:22:33,679 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-6] validation occured for history request 
+2021-04-20 22:22:34,821 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-7] validation occured for history request 
+2021-04-20 22:22:36,026 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-8] validation occured for history request 
+2021-04-20 22:22:37,179 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-9] validation occured for history request 
+2021-04-20 22:22:38,433 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-10] validation occured for history request 
+2021-04-20 22:22:39,587 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-20 22:22:40,789 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-2] validation occured for history request 
+2021-04-20 22:22:42,025 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-20 22:22:43,242 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-4] validation occured for history request 
+2021-04-20 22:22:44,445 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-5] validation occured for history request 
+2021-04-20 22:22:45,699 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-6] validation occured for history request 
+2021-04-20 22:22:46,838 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-7] validation occured for history request 
+2021-04-20 22:22:47,976 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-8] validation occured for history request 
+2021-04-20 22:22:49,119 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-9] validation occured for history request 
+2021-04-20 22:22:50,260 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-10] validation occured for history request 
+2021-04-20 22:22:51,462 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-20 22:22:52,649 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-2] validation occured for history request 
+2021-04-20 22:22:53,794 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-20 22:22:54,930 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-4] validation occured for history request 
+2021-04-20 22:22:56,086 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-5] validation occured for history request 
+2021-04-20 22:22:57,244 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-6] validation occured for history request 
+2021-04-20 22:22:58,369 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-7] validation occured for history request 
+2021-04-20 22:22:59,523 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-8] validation occured for history request 
+2021-04-20 22:23:00,709 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-9] validation occured for history request 
+2021-04-20 22:23:02,353 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-10] validation occured for history request 
+2021-04-20 22:23:03,525 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-20 22:23:04,695 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-2] validation occured for history request 
+2021-04-20 22:23:05,898 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-20 22:23:07,041 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-4] validation occured for history request 
+2021-04-20 22:23:08,193 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-5] validation occured for history request 
+2021-04-20 22:23:09,369 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-6] validation occured for history request 
+2021-04-20 22:23:10,490 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-7] validation occured for history request 
+2021-04-20 22:23:11,632 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-8] validation occured for history request 
+2021-04-20 22:23:12,854 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-9] validation occured for history request 
+2021-04-20 22:23:14,010 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-10] validation occured for history request 
+2021-04-20 22:23:15,176 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-20 22:23:16,635 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-2] validation occured for history request 
+2021-04-20 22:23:18,397 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-20 22:23:19,604 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-4] validation occured for history request 
+2021-04-20 22:23:20,745 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-5] validation occured for history request 
+2021-04-20 22:23:21,881 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-6] validation occured for history request 
+2021-04-20 22:23:23,118 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-7] validation occured for history request 
+2021-04-20 22:23:24,256 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-8] validation occured for history request 
+2021-04-20 22:23:25,667 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-9] validation occured for history request 
+2021-04-20 22:23:26,805 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-10] validation occured for history request 
+2021-04-20 22:23:27,948 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-20 22:23:29,130 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-2] validation occured for history request 
+2021-04-20 22:23:30,352 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-20 22:23:31,492 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-4] validation occured for history request 
+2021-04-20 22:23:32,678 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-5] validation occured for history request 
+2021-04-20 22:23:33,820 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-6] validation occured for history request 
+2021-04-20 22:23:34,981 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-7] validation occured for history request 
+2021-04-20 22:23:36,099 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-8] validation occured for history request 
+2021-04-20 22:24:02,971 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-10] validation occured for history request 
+2021-04-20 22:24:04,149 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-20 22:24:05,275 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-2] validation occured for history request 
+2021-04-20 22:24:06,447 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-20 22:24:07,555 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-4] validation occured for history request 
+2021-04-20 22:24:08,683 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-5] validation occured for history request 
+2021-04-20 22:24:09,822 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-6] validation occured for history request 
+2021-04-20 22:24:10,930 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-7] validation occured for history request 
+2021-04-20 22:24:12,088 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-8] validation occured for history request 
+2021-04-20 22:24:13,258 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-9] validation occured for history request 
+2021-04-20 22:24:14,399 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-10] validation occured for history request 
+2021-04-20 22:24:15,541 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-20 22:24:16,681 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-2] validation occured for history request 
+2021-04-20 22:24:18,118 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-20 22:24:19,244 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-4] validation occured for history request 
+2021-04-20 22:24:20,369 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-5] validation occured for history request 
+2021-04-20 22:24:21,508 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-6] validation occured for history request 
+2021-04-20 22:24:22,669 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-7] validation occured for history request 
+2021-04-20 22:24:23,789 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-8] validation occured for history request 
+2021-04-20 22:24:24,899 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-9] validation occured for history request 
+2021-04-20 22:24:26,311 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-10] validation occured for history request 
+2021-04-20 22:24:27,430 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-20 22:24:28,602 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-2] validation occured for history request 
+2021-04-20 22:24:29,733 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-20 22:24:30,852 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-4] validation occured for history request 
+2021-04-20 22:24:31,981 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-5] validation occured for history request 
+2021-04-20 22:24:33,149 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-6] validation occured for history request 
+2021-04-20 22:24:34,322 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-7] validation occured for history request 
+2021-04-20 22:24:35,431 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-8] validation occured for history request 
+2021-04-20 22:24:36,555 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-9] validation occured for history request 
+2021-04-20 22:24:37,727 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-10] validation occured for history request 
+2021-04-20 22:24:38,868 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-20 22:24:40,006 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-2] validation occured for history request 
+2021-04-20 22:24:41,130 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-20 22:24:42,258 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-4] validation occured for history request 
+2021-04-20 22:24:43,449 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-5] validation occured for history request 
+2021-04-20 22:24:44,586 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-6] validation occured for history request 
+2021-04-20 22:24:45,731 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-7] validation occured for history request 
+2021-04-20 22:24:46,898 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-8] validation occured for history request 
+2021-04-20 22:24:48,024 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-9] validation occured for history request 
+2021-04-20 22:24:49,148 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-10] validation occured for history request 
+2021-04-20 22:24:50,273 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-20 22:24:51,467 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-2] validation occured for history request 
+2021-04-20 22:24:52,634 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-20 22:24:53,774 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-4] validation occured for history request 
+2021-04-20 22:24:54,899 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-5] validation occured for history request 
+2021-04-20 22:24:56,085 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-6] validation occured for history request 
+2021-04-20 22:24:57,243 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-7] validation occured for history request 
+2021-04-20 22:24:58,366 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-8] validation occured for history request 
+2021-04-20 22:24:59,492 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-9] validation occured for history request 
+2021-04-20 22:25:00,665 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-10] validation occured for history request 
+2021-04-20 22:25:01,774 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-20 22:25:02,925 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-2] validation occured for history request 
+2021-04-20 22:25:04,039 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-20 22:25:05,148 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-4] validation occured for history request 
+2021-04-20 22:25:06,257 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-5] validation occured for history request 
+2021-04-20 22:25:07,802 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-6] validation occured for history request 
+2021-04-20 22:25:08,926 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-7] validation occured for history request 
+2021-04-20 22:25:10,053 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-8] validation occured for history request 
+2021-04-20 22:25:11,241 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-9] validation occured for history request 
+2021-04-20 22:25:12,351 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-10] validation occured for history request 
+2021-04-20 22:25:13,479 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-20 22:25:14,616 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-2] validation occured for history request 
+2021-04-20 22:25:16,074 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-20 22:25:17,209 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-4] validation occured for history request 
+2021-04-20 22:25:18,334 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-5] validation occured for history request 
+2021-04-20 22:25:19,480 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-6] validation occured for history request 
+2021-04-20 22:25:20,616 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-7] validation occured for history request 
+2021-04-20 22:25:21,726 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-8] validation occured for history request 
+2021-04-20 22:25:22,866 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-9] validation occured for history request 
+2021-04-20 22:25:23,994 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-10] validation occured for history request 
+2021-04-20 22:25:25,197 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-20 22:25:26,317 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-2] validation occured for history request 
+2021-04-20 22:25:27,458 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-20 22:25:28,646 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-4] validation occured for history request 
+2021-04-20 22:25:29,756 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-5] validation occured for history request 
+2021-04-20 22:25:30,883 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-6] validation occured for history request 
+2021-04-20 22:25:32,007 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-7] validation occured for history request 
+2021-04-20 22:25:33,150 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-8] validation occured for history request 
+2021-04-20 22:25:34,259 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-9] validation occured for history request 
+2021-04-20 22:26:37,114 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-20 22:26:38,279 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-2] validation occured for history request 
+2021-04-20 22:26:39,430 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-20 22:26:40,545 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-4] validation occured for history request 
+2021-04-20 22:26:41,733 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-5] validation occured for history request 
+2021-04-20 22:26:42,868 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-6] validation occured for history request 
+2021-04-20 22:26:44,025 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-7] validation occured for history request 
+2021-04-20 22:26:45,170 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-8] validation occured for history request 
+2021-04-20 22:26:46,320 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-9] validation occured for history request 
+2021-04-20 22:26:47,540 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-10] validation occured for history request 
+2021-04-20 22:26:48,649 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-20 22:26:49,763 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-2] validation occured for history request 
+2021-04-20 22:26:50,883 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-20 22:26:51,993 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-4] validation occured for history request 
+2021-04-20 22:26:53,150 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-5] validation occured for history request 
+2021-04-20 22:26:54,262 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-6] validation occured for history request 
+2021-04-20 22:26:55,382 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-7] validation occured for history request 
+2021-04-20 22:26:56,559 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-8] validation occured for history request 
+2021-04-20 22:26:57,697 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-9] validation occured for history request 
+2021-04-20 22:26:58,865 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-10] validation occured for history request 
+2021-04-20 22:26:59,991 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-1] validation occured for history request 
+2021-04-20 22:27:01,102 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-2] validation occured for history request 
+2021-04-20 22:27:02,259 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-3] validation occured for history request 
+2021-04-20 22:27:03,430 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-4] validation occured for history request 
+2021-04-20 22:27:04,554 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-5] validation occured for history request 
+2021-04-20 22:27:05,697 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-6] validation occured for history request 
+2021-04-20 22:27:06,821 ERROR com.aitrades.blockchain.eth.gateway.rest.OrderHistoryController [http-nio-8080-exec-7] validation occured for history request 

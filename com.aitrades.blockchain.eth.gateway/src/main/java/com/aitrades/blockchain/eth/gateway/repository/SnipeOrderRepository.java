@@ -41,7 +41,7 @@ public class SnipeOrderRepository {
         query.addCriteria(Criteria.where(ID).is(transactionRequest.getId()));
         DeleteResult deleteResult = snipeOrderReactiveMongoTemplate.remove(transactionRequest).block();
         if(deleteResult != null && deleteResult.getDeletedCount() == 0) {
-        	System.out.println("not deleted");
+        	System.out.println("not deleted or not available");
 		}else {
 			System.out.println("deleted");
 		}
