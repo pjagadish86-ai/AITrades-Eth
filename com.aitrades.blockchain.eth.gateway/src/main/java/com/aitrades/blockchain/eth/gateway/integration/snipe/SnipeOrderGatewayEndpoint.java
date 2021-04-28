@@ -58,9 +58,9 @@ public class SnipeOrderGatewayEndpoint {
 	}
 	
 	private boolean executionTimeMet(String executionTime) {
-	    LocalDateTime dateTime = LocalDateTime.parse(executionTime);
+	    LocalDateTime exeDateTimeldt = LocalDateTime.parse(executionTime);
 	    LocalDateTime now = LocalDateTime.now(ZoneId.systemDefault());
-		return now.isAfter(dateTime);
+		return now.isAfter(exeDateTimeldt);
 	}
 
 	private void  sendOrderToSnipe(SnipeTransactionRequest snipeOrder) {

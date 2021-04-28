@@ -1,6 +1,7 @@
 package com.aitrades.blockchain.eth.gateway.web3j;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.web3j.abi.datatypes.Type;
+import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.web3j.protocol.core.methods.response.EthGetBalance;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.utils.Convert;
 
@@ -73,13 +76,18 @@ public class OrderProcessorPrechecker {
 		return getBalance(order.getId(), order.getFrom().getAmountAsBigDecimal(), order.getWalletInfo().getPublicKey(), order.getFrom().getTicker().getAddress(), order.getRoute(), order.getFrom().getTicker().getDecimals());
 	}
 	
-	private boolean getBalance(String id, BigDecimal inputAmount, String publicKey, String address, String route, String decimals) throws Exception {
+	public boolean getBalance(String id, BigDecimal inputAmount, String publicKey, String address, String route, String decimals) throws Exception {
 		List<Type> types  = ethereumDexContract.getBalance(id, publicKey, address, route);
 		if(CollectionUtils.isNotEmpty(types) && types.get(0) != null) {
 			BigDecimal balance = Convert.fromWei(types.get(0).getValue().toString(), Convert.Unit.fromString(TradeConstants.DECIMAL_MAP.get(decimals)));
 			return inputAmount.compareTo(balance) <= 0;
 		}
 		return false;
+	}
+	
+	public boolean getNativeCoinBalance(String address, BigInteger inputAmount, String route) {
+		BigInteger ethOrNativeCoinGetBalance = web3jServiceClientFactory.getWeb3jMap().get(route).getWeb3j().ethGetBalance(address, DefaultBlockParameterName.LATEST).flowable().subscribeOn(Schedulers.io()).blockingSingle().getBalance();
+		return inputAmount.compareTo(ethOrNativeCoinGetBalance) <= 0;
 	}
 
 }

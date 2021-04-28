@@ -5,6 +5,7 @@ import java.math.BigInteger;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.aitrades.blockchain.eth.gateway.domain.RetriggerSnipeOrder;
@@ -23,7 +24,10 @@ public class SnipeOrderValidator {
 	private static final Set<String> GAS_MODES = Set.of("ULTRA", "FASTEST", "FAST", "STANDARD", "SAFELOW", "CUSTOM");
 	private static final String CUSTOM = "CUSTOM";
 
-	public RestExceptionMessage validateSnipeOrder(SnipeTransactionRequest snipeTransactionRequest) {
+	@Autowired
+	private BalanceValidator balanceValidator;
+
+	public RestExceptionMessage validateSnipeOrder(SnipeTransactionRequest snipeTransactionRequest) throws Exception {
 		
 		if(StringUtils.isBlank(snipeTransactionRequest.getFromAddress())) {
 			return new RestExceptionMessage(snipeTransactionRequest.getId(), INVALID_FROM_ADDRESS);
@@ -61,7 +65,7 @@ public class SnipeOrderValidator {
 			return new RestExceptionMessage(snipeTransactionRequest.getId(), INVALID_GAS_GAS_PRICE_AMOUNT);
 		}
 
-		return null;
+		return balanceValidator.validateSnipeTokenBalance(snipeTransactionRequest);
 	}
 
 	public RestExceptionMessage validateRetriggerOrderSnipeOrder(RetriggerSnipeOrder retriggerOrder) {
