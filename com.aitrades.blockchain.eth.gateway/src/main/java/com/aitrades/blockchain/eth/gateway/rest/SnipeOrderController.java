@@ -42,7 +42,7 @@ public class SnipeOrderController {
 		if(restExceptionMessage != null) {
 			return new ResponseEntity<RestExceptionMessage>(restExceptionMessage, HttpStatus.BAD_REQUEST);
 		}
-		return snipeOrderMutator.snipeOrder(snipeTransactionRequest);
+		return snipeOrderMutator.mutateSnipeOrder(snipeTransactionRequest);
 	}
 	
 	@PostMapping("/retriggerOrder")
