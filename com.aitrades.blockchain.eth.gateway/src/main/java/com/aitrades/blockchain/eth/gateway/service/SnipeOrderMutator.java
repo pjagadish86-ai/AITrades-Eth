@@ -28,7 +28,6 @@ public class SnipeOrderMutator {
 	
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 	
-	@SuppressWarnings("unlikely-arg-type")
 	public String mutateSnipeOrder(SnipeTransactionRequest snipeTransactionRequest) throws Exception {
 		logger.info("in snipeorder mutator", snipeTransactionRequest);
 		snipeTransactionRequest.setRead(AVAL);
@@ -37,7 +36,9 @@ public class SnipeOrderMutator {
 		BigInteger decimals = ethereumDexContract.getDecimals(snipeTransactionRequest.getToAddress(), snipeTransactionRequest.getRoute(), snipeTransactionRequest.getCredentials());
 		snipeTransactionRequest.setToAddressDecimals(decimals.toString());
 		final BigInteger outputTokens  = snipeTransactionRequest.getExpectedOutPutToken();
-		snipeTransactionRequest.setExpectedOutPutToken(Convert.toWei(outputTokens.toString(), Convert.Unit.fromString(TradeConstants.DECIMAL_MAP.get(decimals))).setScale(0, RoundingMode.DOWN).toBigInteger());
+		if(outputTokens != null && outputTokens.compareTo(BigInteger.ZERO) >0) {
+			snipeTransactionRequest.setExpectedOutPutToken(Convert.toWei(outputTokens.toString(), Convert.Unit.fromString(TradeConstants.DECIMAL_MAP.get(decimals.toString()))).setScale(0, RoundingMode.DOWN).toBigInteger());
+		}
 		snipeOrderProcessor.snipeOrder(snipeTransactionRequest);
 		return snipeTransactionRequest.getId();
 	}
