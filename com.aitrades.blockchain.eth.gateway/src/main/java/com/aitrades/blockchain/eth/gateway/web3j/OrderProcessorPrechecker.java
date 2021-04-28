@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.web3j.abi.datatypes.Type;
+import org.web3j.crypto.Credentials;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthGetBalance;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
@@ -91,5 +92,8 @@ public class OrderProcessorPrechecker {
 		BigInteger ethOrNativeCoinGetBalance = web3jServiceClientFactory.getWeb3jMap().get(route).getWeb3j().ethGetBalance(address, DefaultBlockParameterName.LATEST).flowable().subscribeOn(Schedulers.io()).blockingSingle().getBalance();
 		return inputAmount.compareTo(ethOrNativeCoinGetBalance) <= 0;
 	}
-
+	public boolean getBalanceUsingWrapper(String route, BigInteger inputAmount, String contractAddress, String owner, Credentials credentials ) throws Exception {
+		BigInteger balance = ethereumDexContract.getBalanceUsingWrappedApi(route, contractAddress, owner, credentials);
+		return inputAmount.compareTo(balance) <= 0;
+	}
 }

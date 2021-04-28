@@ -95,4 +95,9 @@ public class EthereumDexContract {
 	}
 	
 	
+	public BigInteger getBalanceUsingWrappedApi(String route, String contractAddress, String owner,  Credentials credentials){
+		EthereumDexContractReserves ethereumDexContractReserves = new EthereumDexContractReserves(contractAddress, web3jServiceClientFactory.getWeb3jMap().get(route).getWeb3j(), credentials);
+		return ethereumDexContractReserves.balanceOf(owner).flowable().blockingSingle();
+	}
+	
 }

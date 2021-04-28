@@ -48,7 +48,7 @@ public class Application {
 	private static final int _40 = 40;
 
 	private static final String ETH_ENDPOINT_WSS = "wss://cool-sparkling-dawn.quiknode.pro/d5ffadd5dde5cbfe5e2c1d919316cf4ab383858d/";
-	private static final String BSC_ENDPOINT_WSS ="wss://bold-bold-leaf.bsc.quiknode.pro/cf39e2ea6fd28d8e720c5cb0a548fa58cec6debe/";
+	private static final String BSC_ENDPOINT_WSS ="wss://holy-twilight-violet.bsc.quiknode.pro/9ccdc8c6748f92a972bc9c9c1b8b56de961c0fc6/";
 	
 	
 	private static final long WEBCLIENT_TIMEOUT= 20l;

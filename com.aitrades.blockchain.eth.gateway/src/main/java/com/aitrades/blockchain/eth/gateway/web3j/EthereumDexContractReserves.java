@@ -10,6 +10,7 @@ import org.web3j.abi.TypeReference;
 import org.web3j.abi.datatypes.Function;
 import org.web3j.abi.datatypes.Type;
 import org.web3j.abi.datatypes.generated.Uint112;
+import org.web3j.abi.datatypes.generated.Uint256;
 import org.web3j.abi.datatypes.generated.Uint32;
 import org.web3j.abi.datatypes.generated.Uint8;
 import org.web3j.crypto.Credentials;
@@ -25,7 +26,8 @@ public class EthereumDexContractReserves extends Contract {
 	private static final String FUNC_GETRESERVES = "getReserves";
 	public static final String FUNC_DEPOSIT = "deposit"; 
 	public static final String FUNC_DECIMALS = "decimals";
-	
+
+    public static final String FUNC_BALANCEOF = "balanceOf";
 	public EthereumDexContractReserves(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
 		super(BIN_NOT_PROVIDED, contractAddress, web3j, credentials, gasPrice, gasLimit);
 	}
@@ -66,6 +68,13 @@ public class EthereumDexContractReserves extends Contract {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_DECIMALS, 
                 Arrays.<Type>asList(), 
                 Arrays.<TypeReference<?>>asList(new TypeReference<Uint8>() {}));
+        return executeRemoteCallSingleValueReturn(function, BigInteger.class);
+    }
+    
+    public RemoteFunctionCall<BigInteger> balanceOf(String param0) {
+        final Function function = new Function(FUNC_BALANCEOF, 
+                Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(160, param0)), 
+                Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
         return executeRemoteCallSingleValueReturn(function, BigInteger.class);
     }
 
