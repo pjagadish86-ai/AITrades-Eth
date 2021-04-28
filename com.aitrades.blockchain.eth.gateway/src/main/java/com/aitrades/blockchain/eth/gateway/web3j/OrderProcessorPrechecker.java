@@ -18,6 +18,7 @@ import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.utils.Convert;
 
 import com.aitrades.blockchain.eth.gateway.domain.Order;
+import com.aitrades.blockchain.eth.gateway.domain.OrderSide;
 import com.aitrades.blockchain.eth.gateway.domain.PairData;
 import com.aitrades.blockchain.eth.gateway.domain.Ticker;
 import com.aitrades.blockchain.eth.gateway.domain.TradeConstants;
@@ -73,7 +74,8 @@ public class OrderProcessorPrechecker {
 	}
 	
 	public boolean getBalance(Order order) throws Exception {
-		return getBalance(order.getId(), order.getFrom().getAmountAsBigDecimal(), order.getWalletInfo().getPublicKey(), order.getFrom().getTicker().getAddress(), order.getRoute(), order.getFrom().getTicker().getDecimals());
+		String contractAddress = order.getOrderEntity().getOrderSide().equalsIgnoreCase(OrderSide.BUY.name()) ? TradeConstants.WETH_MAP.get(order.getRoute()) : order.getTo().getTicker().getAddress();
+		return getBalance(order.getId(), order.getFrom().getAmountAsBigDecimal(), order.getWalletInfo().getPublicKey(), contractAddress, order.getRoute(), order.getFrom().getTicker().getDecimals());
 	}
 	
 	public boolean getBalance(String id, BigDecimal inputAmount, String publicKey, String address, String route, String decimals) throws Exception {

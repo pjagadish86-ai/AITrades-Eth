@@ -50,7 +50,7 @@ public class OrderValidator {
 	private static final Set<String> ROUTES = Set.of("UNISWAP", "SUSHI", "PANCAKE");
 	
 	// we should check balance for buy and sell and skip only when we have parentid not null
-	public RestExceptionMessage validatorOrder(Order order) {
+	public RestExceptionMessage validatorOrder(Order order) throws Exception {
 		
 		if(order.getFrom() == null 
 				|| order.getFrom().getTicker() == null 
