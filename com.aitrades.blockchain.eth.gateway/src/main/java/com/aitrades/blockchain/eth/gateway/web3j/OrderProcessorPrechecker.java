@@ -75,10 +75,11 @@ public class OrderProcessorPrechecker {
 	}
 	
 	public boolean getBalance(Order order) throws Exception {
-		String contractAddress = order.getOrderEntity().getOrderSide().equalsIgnoreCase(OrderSide.BUY.name()) ? TradeConstants.WETH_MAP.get(order.getRoute()) : order.getTo().getTicker().getAddress();
-		return getBalance(order.getId(), order.getFrom().getAmountAsBigDecimal(), order.getWalletInfo().getPublicKey(), contractAddress, order.getRoute(), order.getFrom().getTicker().getDecimals());
+		String contractAddress = order.getOrderEntity().getOrderSide().equalsIgnoreCase(OrderSide.BUY.name()) ? TradeConstants.WETH_MAP.get(order.getRoute()) : order.getFrom().getTicker().getAddress();
+		return getBalanceUsingWrapper(order.getRoute(), order.getFrom().getAmountAsBigInteger(), contractAddress, order.getPublicKey(), order.getCredentials());
 	}
 	
+	@Deprecated
 	public boolean getBalance(String id, BigDecimal inputAmount, String publicKey, String address, String route, String decimals) throws Exception {
 		List<Type> types  = ethereumDexContract.getBalance(id, publicKey, address, route);
 		if(CollectionUtils.isNotEmpty(types) && types.get(0) != null) {

@@ -40,8 +40,8 @@ public class BalanceValidator {
 	
 	private boolean hasValidBalance(Order order) {
 		try {
-			String contractAddress = order.getOrderEntity().getOrderSide().equalsIgnoreCase(OrderSide.BUY.name()) ? TradeConstants.WETH_MAP.get(order.getRoute()) : order.getTo().getTicker().getAddress();
-			return orderProcessorPrechecker.getBalanceUsingWrapper(order.getRoute(), order.getTo().getAmountAsBigInteger(), contractAddress, order.getPublicKey(), order.getCredentials());
+			String contractAddress = order.getOrderEntity().getOrderSide().equalsIgnoreCase(OrderSide.BUY.name()) ? TradeConstants.WETH_MAP.get(order.getRoute()) : order.getFrom().getTicker().getAddress();
+			return orderProcessorPrechecker.getBalanceUsingWrapper(order.getRoute(), order.getFrom().getAmountAsBigInteger(), contractAddress, order.getPublicKey(), order.getCredentials());
 		} catch (Exception e) {
 		}
 		return false;
