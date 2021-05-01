@@ -23,6 +23,7 @@ import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.protocol.core.methods.response.EthCall;
 
 import com.aitrades.blockchain.eth.gateway.domain.TradeConstants;
+import com.aitrades.blockchain.eth.gateway.service.DexContractStaticCodeValuesService;
 import com.aitrades.blockchain.eth.gateway.service.Web3jServiceClientFactory;
 @SuppressWarnings("rawtypes")
 @Service
@@ -37,11 +38,16 @@ public class EthereumDexContract {
 	@Autowired 
 	private Web3jServiceClientFactory web3jServiceClientFactory;
 	
+	@Autowired
+	private DexContractStaticCodeValuesService dexContractStaticCodeValuesService;
+	
 	public List<Type> getPair(String tokenA, String tokenB, String route, String id) throws Exception{
 		final Function function = new Function(FUNC_GETPAIR, Arrays.asList(new Address(tokenA), new Address(tokenB)),
 											   Arrays.asList(new TypeReference<Address>() {
 											}));
-		Transaction transaction = Transaction.createEthCallTransaction(TradeConstants.FACTORY_MAP.get(route), TradeConstants.FACTORY_MAP.get(route), FunctionEncoder.encode(function));
+		
+		String facotry = dexContractStaticCodeValuesService.getDexContractAddress(route, TradeConstants.FACTORY);//TradeConstants.FACTORY_MAP.get(route);
+		Transaction transaction = Transaction.createEthCallTransaction(facotry, facotry, FunctionEncoder.encode(function));
 		EthCall ethCall = web3jServiceClientFactory.getWeb3jMap().get(route).getWeb3j()
 															     .ethCall(transaction, DefaultBlockParameterName.LATEST)
 															     .flowable()

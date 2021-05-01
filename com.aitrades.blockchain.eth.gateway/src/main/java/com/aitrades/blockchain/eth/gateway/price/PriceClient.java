@@ -25,14 +25,23 @@ import com.google.common.collect.ImmutableMap;
 import io.reactivex.schedulers.Schedulers;
 
 @Service
+//TODO: price url should be coming from mongodb.
 public class PriceClient {
 	
 	private static com.github.benmanes.caffeine.cache.Cache<String, Cryptonator> tokenCache;   
+	
 	private static final String BNB_USD_PRICE = "https://api.cryptonator.com/api/ticker/bnb-usd";
 	
 	private static final String ETH_USD_PRICE = "https://api.cryptonator.com/api/ticker/eth-usd";
-	private static final Map<String, String> BLOCKCHAIN_NATIVE_PRICE_ORACLE = ImmutableMap.of(TradeConstants.UNISWAP, ETH_USD_PRICE, TradeConstants.SUSHI, ETH_USD_PRICE, TradeConstants.PANCAKE, BNB_USD_PRICE);
+	
+	private static final String FTM_USD_PRICE = "https://api.cryptonator.com/api/ticker/ftm-usd";
+	
+	private static final Map<String, String> BLOCKCHAIN_NATIVE_PRICE_ORACLE = ImmutableMap.of(TradeConstants.UNISWAP, ETH_USD_PRICE, 
+			TradeConstants.SUSHI, ETH_USD_PRICE, 
+			TradeConstants.PANCAKE, BNB_USD_PRICE,
+			TradeConstants.FTM, FTM_USD_PRICE);
 
+	
 	@Resource(name="cryptonatorObjectReader")
 	private ObjectReader cryptonatorObjectReader;
 	

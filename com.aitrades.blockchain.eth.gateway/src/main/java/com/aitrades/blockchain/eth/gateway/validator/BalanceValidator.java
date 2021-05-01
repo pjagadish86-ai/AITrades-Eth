@@ -8,12 +8,16 @@ import com.aitrades.blockchain.eth.gateway.domain.Order;
 import com.aitrades.blockchain.eth.gateway.domain.OrderSide;
 import com.aitrades.blockchain.eth.gateway.domain.SnipeTransactionRequest;
 import com.aitrades.blockchain.eth.gateway.domain.TradeConstants;
+import com.aitrades.blockchain.eth.gateway.service.DexContractStaticCodeValuesService;
 import com.aitrades.blockchain.eth.gateway.web3j.OrderProcessorPrechecker;
 
 @Component
 public class BalanceValidator {
 
 	private static final String BALANCE_NOT_GOOD = "Insuffcient Balance!!!";
+	
+	@Autowired
+	private DexContractStaticCodeValuesService dexContractStaticCodeValuesService;
 	
 	@Autowired
 	private OrderProcessorPrechecker orderProcessorPrechecker;
@@ -40,7 +44,7 @@ public class BalanceValidator {
 	
 	private boolean hasValidBalance(Order order) {
 		try {
-			String contractAddress = order.getOrderEntity().getOrderSide().equalsIgnoreCase(OrderSide.BUY.name()) ? TradeConstants.WETH_MAP.get(order.getRoute()) : order.getFrom().getTicker().getAddress();
+			String contractAddress = order.getOrderEntity().getOrderSide().equalsIgnoreCase(OrderSide.BUY.name()) ? dexContractStaticCodeValuesService.getDexContractAddress(order.getRoute(), TradeConstants.WNATIVE) : order.getFrom().getTicker().getAddress();
 			return orderProcessorPrechecker.getBalanceUsingWrapper(order.getRoute(), order.getFrom().getAmountAsBigInteger(), contractAddress, order.getPublicKey(), order.getCredentials());
 		} catch (Exception e) {
 		}
@@ -49,7 +53,7 @@ public class BalanceValidator {
 	
 	//String id, BigDecimal inputAmount, String publicKey, String address, String route, String decimals
 	public RestExceptionMessage validateSnipeTokenBalance(SnipeTransactionRequest snipeTransactionRequest) throws Exception {
-		boolean tokenBalance = orderProcessorPrechecker.getBalanceUsingWrapper(snipeTransactionRequest.getRoute(), snipeTransactionRequest.getInputTokenValueAmountAsBigInteger(), TradeConstants.WETH_MAP.get(snipeTransactionRequest.getRoute()), snipeTransactionRequest.getPublicKey(), snipeTransactionRequest.getCredentials());
+		boolean tokenBalance = orderProcessorPrechecker.getBalanceUsingWrapper(snipeTransactionRequest.getRoute(), snipeTransactionRequest.getInputTokenValueAmountAsBigInteger(),  dexContractStaticCodeValuesService.getDexContractAddress(snipeTransactionRequest.getRoute(), TradeConstants.WNATIVE), snipeTransactionRequest.getPublicKey(), snipeTransactionRequest.getCredentials());
 		if(!tokenBalance) {
 			return new RestExceptionMessage(snipeTransactionRequest.getId(), BALANCE_NOT_GOOD);
 		}

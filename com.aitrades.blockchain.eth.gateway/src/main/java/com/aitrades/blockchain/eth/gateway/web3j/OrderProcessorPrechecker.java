@@ -23,6 +23,7 @@ import com.aitrades.blockchain.eth.gateway.domain.OrderSide;
 import com.aitrades.blockchain.eth.gateway.domain.PairData;
 import com.aitrades.blockchain.eth.gateway.domain.Ticker;
 import com.aitrades.blockchain.eth.gateway.domain.TradeConstants;
+import com.aitrades.blockchain.eth.gateway.service.DexContractStaticCodeValuesService;
 import com.aitrades.blockchain.eth.gateway.service.Web3jServiceClientFactory;
 
 import io.reactivex.schedulers.Schedulers;
@@ -38,6 +39,9 @@ public class OrderProcessorPrechecker {
 	
 	@Autowired
 	private EthereumDexContract ethereumDexContract;
+	
+	@Autowired
+	private DexContractStaticCodeValuesService dexContractStaticCodeValuesService;
 	
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 	
@@ -55,7 +59,7 @@ public class OrderProcessorPrechecker {
 		Optional<Type> pairAddress = Optional.empty();
 		try {
 			pairAddress = ethereumDexContract.getPair(order.getOrderEntity().getOrderSide().equalsIgnoreCase(BUY) ? order.getTo().getTicker().getAddress() : order.getFrom().getTicker().getAddress(), 
-											          TradeConstants.WETH_MAP.get(order.getRoute()), 
+													  dexContractStaticCodeValuesService.getDexContractAddress(order.getRoute(), TradeConstants.WNATIVE),
 											          order.getRoute().toUpperCase(),
 											          order.getId())
 											 .parallelStream()
@@ -75,7 +79,7 @@ public class OrderProcessorPrechecker {
 	}
 	
 	public boolean getBalance(Order order) throws Exception {
-		String contractAddress = order.getOrderEntity().getOrderSide().equalsIgnoreCase(OrderSide.BUY.name()) ? TradeConstants.WETH_MAP.get(order.getRoute()) : order.getFrom().getTicker().getAddress();
+		String contractAddress = order.getOrderEntity().getOrderSide().equalsIgnoreCase(OrderSide.BUY.name()) ?  dexContractStaticCodeValuesService.getDexContractAddress(order.getRoute(), TradeConstants.WNATIVE) : order.getFrom().getTicker().getAddress();
 		return getBalanceUsingWrapper(order.getRoute(), order.getFrom().getAmountAsBigInteger(), contractAddress, order.getPublicKey(), order.getCredentials());
 	}
 	
