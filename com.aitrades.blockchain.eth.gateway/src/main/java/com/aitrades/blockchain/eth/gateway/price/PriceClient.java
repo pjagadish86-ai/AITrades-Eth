@@ -51,7 +51,7 @@ public class PriceClient {
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	private Cryptonator nativeCoinPrice(String route) throws Exception {
-		return web3jServiceClientFactory.getWeb3jMap().get(route).getRestTemplate().getForEntity(BLOCKCHAIN_NATIVE_PRICE_ORACLE.get(route), Cryptonator.class).getBody();
+		return web3jServiceClientFactory.getWeb3jMap(route).getRestTemplate().getForEntity(BLOCKCHAIN_NATIVE_PRICE_ORACLE.get(route), Cryptonator.class).getBody();
 	}
 	
 	@Autowired
@@ -76,8 +76,8 @@ public class PriceClient {
         return getNtvPrice(route).getTicker().getPrice();
     }
 	
-	private Tuple3<BigInteger, BigInteger, BigInteger> getReserves(String pairAddress, String route,  Credentials credentials) {
-		EthereumDexContractReserves ethereumDexContractReserves = new EthereumDexContractReserves(pairAddress, web3jServiceClientFactory.getWeb3jMap().get(route).getWeb3j(), credentials);
+	private Tuple3<BigInteger, BigInteger, BigInteger> getReserves(String pairAddress, String route,  Credentials credentials) throws Exception {
+		EthereumDexContractReserves ethereumDexContractReserves = new EthereumDexContractReserves(pairAddress, web3jServiceClientFactory.getWeb3jMap(route).getWeb3j(), credentials);
 		return ethereumDexContractReserves.getReserves().flowable().subscribeOn(Schedulers.io()).blockingSingle();
 	}
 

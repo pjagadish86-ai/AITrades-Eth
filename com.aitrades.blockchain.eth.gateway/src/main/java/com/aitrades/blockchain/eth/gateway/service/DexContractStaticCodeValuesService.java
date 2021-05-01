@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang.StringUtils;
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +14,6 @@ import com.aitrades.blockchain.eth.gateway.domain.BlockchainExchange;
 import com.aitrades.blockchain.eth.gateway.domain.DexContractStaticCodeValue;
 import com.aitrades.blockchain.eth.gateway.domain.TradeConstants;
 import com.aitrades.blockchain.eth.gateway.repository.DexContractStaticCodeValueRepository;
-import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 
 @Service

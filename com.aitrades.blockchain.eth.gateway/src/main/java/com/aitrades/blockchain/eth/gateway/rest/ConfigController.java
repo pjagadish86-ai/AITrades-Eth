@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.aitrades.blockchain.eth.gateway.common.UUIDGenerator;
 import com.aitrades.blockchain.eth.gateway.domain.DexContractStaticCodeValue;
+import com.aitrades.blockchain.eth.gateway.domain.EndpointConfig;
+import com.aitrades.blockchain.eth.gateway.repository.EndpointConfigRepository;
 import com.aitrades.blockchain.eth.gateway.service.DexContractStaticCodeValuesService;
 
 /**
@@ -24,6 +26,9 @@ public class ConfigController {
 	@Autowired
 	private DexContractStaticCodeValuesService codeValuesService;
 
+	@Autowired
+	private EndpointConfigRepository endpointConfigRepository;
+	
 	@PostMapping("/route")
 	public void post(@RequestBody DexContractStaticCodeValue dexContractStaticCodeValue) {
 		dexContractStaticCodeValue.setId(UUIDGenerator.nextHex(UUIDGenerator.TYPE1));
@@ -54,4 +59,37 @@ public class ConfigController {
 		
 	}
 
+	@PostMapping("/endpointConfig")
+	public void post() {
+		
+		EndpointConfig endpointConfig = new EndpointConfig();
+		endpointConfig.setId(UUIDGenerator.nextHex(UUIDGenerator.TYPE1));
+		endpointConfig.setBlockchain("ETH");
+		endpointConfig.setExchange("UNISWAP");
+		endpointConfig.setUsername("AITRADES");
+		endpointConfig.setProviderName("QUICKNODE");
+		endpointConfig.setEnabled(true);
+		endpointConfig.setEndpointUrl("wss://cool-sparkling-dawn.quiknode.pro/d5ffadd5dde5cbfe5e2c1d919316cf4ab383858d/");
+		endpointConfigRepository.addSupportedBlockchainEndpointNodeConfigUrls(endpointConfig);
+		
+		endpointConfig = new EndpointConfig();
+		endpointConfig.setId(UUIDGenerator.nextHex(UUIDGenerator.TYPE1));
+		endpointConfig.setBlockchain("ETH");
+		endpointConfig.setExchange("SUSHI");
+		endpointConfig.setUsername("AITRADES");
+		endpointConfig.setProviderName("QUICKNODE");
+		endpointConfig.setEnabled(true);
+		endpointConfig.setEndpointUrl("wss://cool-sparkling-dawn.quiknode.pro/d5ffadd5dde5cbfe5e2c1d919316cf4ab383858d/");
+		endpointConfigRepository.addSupportedBlockchainEndpointNodeConfigUrls(endpointConfig);
+		
+		endpointConfig = new EndpointConfig();
+		endpointConfig.setId(UUIDGenerator.nextHex(UUIDGenerator.TYPE1));
+		endpointConfig.setBlockchain("BSC");
+		endpointConfig.setExchange("PANCAKE");
+		endpointConfig.setUsername("AITRADES");
+		endpointConfig.setProviderName("QUICKNODE");
+		endpointConfig.setEnabled(true);
+		endpointConfig.setEndpointUrl("wss://holy-twilight-violet.bsc.quiknode.pro/9ccdc8c6748f92a972bc9c9c1b8b56de961c0fc6/");
+		endpointConfigRepository.addSupportedBlockchainEndpointNodeConfigUrls(endpointConfig);
+	}
 }

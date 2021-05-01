@@ -31,6 +31,7 @@ public class OrderHistoryDataFetcher {
 	
 	private static final String FILLED = "FILLED";
 
+	@SuppressWarnings("unused")
 	private static final String WORKING = "WORKING";
 
 	private static final String STRING = "";
@@ -59,8 +60,8 @@ public class OrderHistoryDataFetcher {
 	private static final String _0X0 = "0x0";
 	private static final String BUY = "BUY";
 	
-	public String getTickerSymbol(Order order, String address) {
-		ERC20 erc20Contract = ERC20.load(address, web3jServiceClientFactory.getWeb3jMap().get(order.getRoute()).getWeb3j(), order.getCredentials(), new DefaultGasProvider());
+	public String getTickerSymbol(Order order, String address) throws Exception {
+		ERC20 erc20Contract = ERC20.load(address, web3jServiceClientFactory.getWeb3jMap(order.getRoute()).getWeb3j(), order.getCredentials(), new DefaultGasProvider());
 		try {
 			return erc20Contract.symbol().flowable().subscribeOn(Schedulers.io()).blockingFirst();
 		} catch (Exception e) {
@@ -164,7 +165,7 @@ public class OrderHistoryDataFetcher {
 
 	public String getTickerSymbolSnipe(SnipeTransactionRequest snipe, String toAddress) {
 		try {
-			ERC20 erc20Contract = ERC20.load(snipe.getToAddress(), web3jServiceClientFactory.getWeb3jMap().get(snipe.getRoute()).getWeb3j(), snipe.getCredentials(), new DefaultGasProvider());
+			ERC20 erc20Contract = ERC20.load(snipe.getToAddress(), web3jServiceClientFactory.getWeb3jMap(snipe.getRoute()).getWeb3j(), snipe.getCredentials(), new DefaultGasProvider());
 			return erc20Contract.symbol().flowable().subscribeOn(Schedulers.io()).blockingFirst();
 		} catch (Exception e) {
 		}

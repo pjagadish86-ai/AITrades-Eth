@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 import org.web3j.abi.datatypes.Type;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.core.DefaultBlockParameterName;
-import org.web3j.protocol.core.methods.response.EthGetBalance;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.utils.Convert;
 
@@ -45,8 +44,8 @@ public class OrderProcessorPrechecker {
 	
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 	
-	public Optional<TransactionReceipt> checkTransactionHashSuccess(String transactionHash, String route) {
-		return web3jServiceClientFactory.getWeb3jMap().get(route)
+	public Optional<TransactionReceipt> checkTransactionHashSuccess(String transactionHash, String route) throws Exception {
+		return web3jServiceClientFactory.getWeb3jMap(route)
 										.getWeb3j()
 									    .ethGetTransactionReceipt(transactionHash)
 									    .flowable()
@@ -93,8 +92,8 @@ public class OrderProcessorPrechecker {
 		return false;
 	}
 	
-	public boolean getNativeCoinBalance(String address, BigInteger inputAmount, String route) {
-		BigInteger ethOrNativeCoinGetBalance = web3jServiceClientFactory.getWeb3jMap().get(route).getWeb3j().ethGetBalance(address, DefaultBlockParameterName.LATEST).flowable().subscribeOn(Schedulers.io()).blockingSingle().getBalance();
+	public boolean getNativeCoinBalance(String address, BigInteger inputAmount, String route) throws Exception {
+		BigInteger ethOrNativeCoinGetBalance = web3jServiceClientFactory.getWeb3jMap(route).getWeb3j().ethGetBalance(address, DefaultBlockParameterName.LATEST).flowable().subscribeOn(Schedulers.io()).blockingSingle().getBalance();
 		return inputAmount.compareTo(ethOrNativeCoinGetBalance) <= 0;
 	}
 	public boolean getBalanceUsingWrapper(String route, BigInteger inputAmount, String contractAddress, String owner, Credentials credentials ) throws Exception {

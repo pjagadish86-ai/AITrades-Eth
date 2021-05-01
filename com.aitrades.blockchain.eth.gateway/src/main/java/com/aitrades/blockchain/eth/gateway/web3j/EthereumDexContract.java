@@ -48,7 +48,7 @@ public class EthereumDexContract {
 		
 		String facotry = dexContractStaticCodeValuesService.getDexContractAddress(route, TradeConstants.FACTORY);//TradeConstants.FACTORY_MAP.get(route);
 		Transaction transaction = Transaction.createEthCallTransaction(facotry, facotry, FunctionEncoder.encode(function));
-		EthCall ethCall = web3jServiceClientFactory.getWeb3jMap().get(route).getWeb3j()
+		EthCall ethCall = web3jServiceClientFactory.getWeb3jMap(route).getWeb3j()
 															     .ethCall(transaction, DefaultBlockParameterName.LATEST)
 															     .flowable()
 															     .blockingSingle();
@@ -64,7 +64,7 @@ public class EthereumDexContract {
 	               Arrays.asList(new Address(owner)), 
 	               Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
 		Transaction transaction = Transaction.createEthCallTransaction(owner, contractAddress, FunctionEncoder.encode(function));
-		EthCall ethCall = web3jServiceClientFactory.getWeb3jMap().get(route).getWeb3j()
+		EthCall ethCall = web3jServiceClientFactory.getWeb3jMap(route).getWeb3j()
 												        .ethCall(transaction, new DefaultBlockParameterNumber(blockNbr))
 												        .flowable()
 												        .blockingSingle();
@@ -79,7 +79,7 @@ public class EthereumDexContract {
 								               Arrays.asList(new Address(owner)), 
 								               Arrays.<TypeReference<?>>asList(new TypeReference<Uint256>() {}));
 		Transaction transaction = Transaction.createEthCallTransaction(owner, contractAddress, FunctionEncoder.encode(function));
-		EthCall ethCall = web3jServiceClientFactory.getWeb3jMap().get(route).getWeb3j()
+		EthCall ethCall = web3jServiceClientFactory.getWeb3jMap(route).getWeb3j()
 																	        .ethCall(transaction, DefaultBlockParameterName.EARLIEST)
 																	        .flowable()
 																	        .blockingSingle();
@@ -90,19 +90,20 @@ public class EthereumDexContract {
 		return FunctionReturnDecoder.decode(ethCall.getValue(), function.getOutputParameters());
 	}
 	
+	@SuppressWarnings("unused")
 	public List<Type> getSymbol(){
 		final Function function = new Function(FUNC_SYMBOL,  Arrays.<Type>asList(), Arrays.<TypeReference<?>>asList(new TypeReference<Utf8String>() {}));
 		return null;
 	}
 	
-	public BigInteger getDecimals(String addresss, String route, Credentials credentials){
-		EthereumDexContractReserves ethereumDexContractReserves = new EthereumDexContractReserves(addresss, web3jServiceClientFactory.getWeb3jMap().get(route).getWeb3j(), credentials);
+	public BigInteger getDecimals(String addresss, String route, Credentials credentials) throws Exception{
+		EthereumDexContractReserves ethereumDexContractReserves = new EthereumDexContractReserves(addresss, web3jServiceClientFactory.getWeb3jMap(route).getWeb3j(), credentials);
 		return ethereumDexContractReserves.decimals().flowable().blockingFirst();
 	}
 	
 	
-	public BigInteger getBalanceUsingWrappedApi(String route, String contractAddress, String owner,  Credentials credentials){
-		EthereumDexContractReserves ethereumDexContractReserves = new EthereumDexContractReserves(contractAddress, web3jServiceClientFactory.getWeb3jMap().get(route).getWeb3j(), credentials);
+	public BigInteger getBalanceUsingWrappedApi(String route, String contractAddress, String owner,  Credentials credentials) throws Exception{
+		EthereumDexContractReserves ethereumDexContractReserves = new EthereumDexContractReserves(contractAddress, web3jServiceClientFactory.getWeb3jMap(route).getWeb3j(), credentials);
 		return ethereumDexContractReserves.balanceOf(owner).flowable().blockingSingle();
 	}
 	

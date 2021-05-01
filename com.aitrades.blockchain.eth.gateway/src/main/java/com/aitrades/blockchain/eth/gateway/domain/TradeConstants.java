@@ -1,5 +1,6 @@
 package com.aitrades.blockchain.eth.gateway.domain;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +15,8 @@ public final class TradeConstants {
 	public static final String FACTORY = "FACTORY";
 	public static final String ROUTER = "ROUTER";
 	
+    public static final BigInteger MAX_UINT256 = new BigInteger("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", 16);
+
 	public static final String UNISWAP = "UNISWAP";
 	public static final String PANCAKE = "PANCAKE";
 	public static final String SUSHI = "SUSHI";

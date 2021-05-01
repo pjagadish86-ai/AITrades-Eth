@@ -3,8 +3,6 @@ package com.aitrades.blockchain.eth.gateway.web3j;
 import java.math.BigInteger;
 import java.util.Collections;
 
-import javax.annotation.Resource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,6 @@ import org.web3j.crypto.Credentials;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.tx.FastRawTransactionManager;
 import org.web3j.tx.response.NoOpProcessor;
-import org.web3j.tx.response.PollingTransactionReceiptProcessor;
 
 import com.aitrades.blockchain.eth.gateway.domain.GasModeEnum;
 import com.aitrades.blockchain.eth.gateway.domain.TradeConstants;
@@ -31,27 +28,18 @@ public class PreApproveProcosser {
  	@Autowired
 	private DexContractStaticCodeValuesService dexContractStaticCodeValuesService;
  
-    private BigInteger MAX_UINT256 = new BigInteger("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", 16);
-
-    
     @Autowired
     private Web3jServiceClientFactory  web3jServiceClientFactory;
-
-	@Resource(name = "pollingTransactionReceiptProcessor")
-	private PollingTransactionReceiptProcessor pollingTransactionReceiptProcessor;
-	
-	@Resource(name= "noOpProcessor")
-	private NoOpProcessor noOpProcessor;
 	
 	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	public String approve(String id, String route, Credentials credentials, String contractAddress, StrategyGasProvider customGasProvider,
 			  			  GasModeEnum gasModeEnum, BigInteger gasPrice, BigInteger gasLimit) throws Exception {
-		FastRawTransactionManager fastRawTxMgr = new FastRawTransactionManager(web3jServiceClientFactory.getWeb3jMap().get(route).getWeb3j(), 
+		FastRawTransactionManager fastRawTxMgr = new FastRawTransactionManager(web3jServiceClientFactory.getWeb3jMap(route).getWeb3j(), 
 																			   credentials,
-																			   noOpProcessor);
+																			   new NoOpProcessor(web3jServiceClientFactory.getWeb3jMap(route).getWeb3j()));
 		String data = FunctionEncoder.encode(new Function(TradeConstants.FUNC_APPROVE, 
-		         Lists.newArrayList(new Address(dexContractStaticCodeValuesService.getDexContractAddress(route, TradeConstants.FACTORY)), new Uint256(MAX_UINT256)),
+		         Lists.newArrayList(new Address(dexContractStaticCodeValuesService.getDexContractAddress(route, TradeConstants.FACTORY)), new Uint256(TradeConstants.MAX_UINT256)),
 					 Collections.emptyList()));
 		BigInteger gasLmt = gasModeEnum.name().equalsIgnoreCase(TradeConstants.CUSTOM) ? gasLimit : BigInteger.valueOf(21000l).add(BigInteger.valueOf(68l).multiply(BigInteger.valueOf(data.getBytes().length)));
 		EthSendTransaction ethSendTransaction = aprrov(route, contractAddress, customGasProvider, gasModeEnum, fastRawTxMgr, gasPrice, gasLmt, data);

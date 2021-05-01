@@ -33,7 +33,7 @@ public class BalanceValidator {
 		return null;
 	}
 	
-	public RestExceptionMessage validateNativeCoinBalance(SnipeTransactionRequest snipeTransactionRequest) {
+	public RestExceptionMessage validateNativeCoinBalance(SnipeTransactionRequest snipeTransactionRequest) throws Exception {
 		boolean nativeCoinBalance = orderProcessorPrechecker.getNativeCoinBalance(snipeTransactionRequest.getPublicKey(), snipeTransactionRequest.getInputTokenValueAmountAsBigInteger(), snipeTransactionRequest.getRoute());
 		if(!nativeCoinBalance) {
 			return new RestExceptionMessage(snipeTransactionRequest.getId(), BALANCE_NOT_GOOD);
