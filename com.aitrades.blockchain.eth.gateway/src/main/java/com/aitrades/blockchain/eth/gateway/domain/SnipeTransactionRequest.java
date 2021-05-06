@@ -90,6 +90,9 @@ public class SnipeTransactionRequest {
 	private String swappedHash;
 	private BigInteger earliestBlockNbr;
 	private BigDecimal balance;
+	
+	private String signedTransaction;
+	
 	public boolean isExeTimeCheck() {
 		return exeTimeCheck;
 	}
@@ -440,6 +443,14 @@ public class SnipeTransactionRequest {
 
 	public void setEarliestBlockNbr(BigInteger earliestBlockNbr) {
 		this.earliestBlockNbr = earliestBlockNbr;
+	}
+	
+	public String getSignedTransaction() {
+		return signedTransaction;
+	}
+
+	public void setSignedTransaction(String signedTransaction) {
+		this.signedTransaction = signedTransaction;
 	}
 
 	@Override
