@@ -88,7 +88,7 @@ public class SnipeTransactionRequest {
 	
 	private String publicKey;
 	private String swappedHash;
-	
+	private BigInteger earliestBlockNbr;
 	private BigDecimal balance;
 	public boolean isExeTimeCheck() {
 		return exeTimeCheck;
@@ -432,6 +432,14 @@ public class SnipeTransactionRequest {
 
 	public void setToAddressDecimals(String toAddressDecimals) {
 		this.toAddressDecimals = toAddressDecimals;
+	}
+
+	public BigInteger getEarliestBlockNbr() {
+		return earliestBlockNbr;
+	}
+
+	public void setEarliestBlockNbr(BigInteger earliestBlockNbr) {
+		this.earliestBlockNbr = earliestBlockNbr;
 	}
 
 	@Override

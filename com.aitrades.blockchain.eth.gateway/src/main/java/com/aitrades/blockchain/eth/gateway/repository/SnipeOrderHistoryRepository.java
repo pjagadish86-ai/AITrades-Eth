@@ -54,7 +54,7 @@ public class SnipeOrderHistoryRepository {
         query.addCriteria(Criteria.where(ID).in(parentOrderId));
         final SnipeTransactionRequest snipeTransactionRequest = snipeOrderHistoryReactiveMongoTemplate.find(query, SnipeTransactionRequest.class).blockFirst();
 		if(snipeTransactionRequest != null) {
-			delete(snipeTransactionRequest);
+			//delete(snipeTransactionRequest);
 		}	
 		return snipeTransactionRequest;
 	}
