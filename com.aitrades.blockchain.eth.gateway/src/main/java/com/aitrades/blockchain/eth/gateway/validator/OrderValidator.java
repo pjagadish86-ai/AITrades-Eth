@@ -117,10 +117,10 @@ public class OrderValidator {
 			return new RestExceptionMessage(order.getId(), INVALID_ORDER_STATE);
 		}
 		
-		if(StringUtils.isEmpty(order.getRoute()) 
-				|| !ROUTES.contains(order.getRoute())) {
-			return new RestExceptionMessage(order.getId(), INVALID_ROUTE_MODE);
-		}
+//		if(StringUtils.isEmpty(order.getRoute()) 
+//				|| !ROUTES.contains(order.getRoute())) {
+//			return new RestExceptionMessage(order.getId(), INVALID_ROUTE_MODE);
+//		}
 		
 		// Limit Order 
 		if(StringUtils.equalsIgnoreCase(order.getOrderEntity().getOrderType() , LIMIT)) {
