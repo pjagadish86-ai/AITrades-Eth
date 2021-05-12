@@ -72,7 +72,7 @@ public class HistoryTransformer {
 				history.setFromTickerSymbol(web3jDataFetcher.getTickerSymbolSnipe(snipe, snipe.getFromAddress())) ;
 			}
 		}
-		
+		history.setToTickerAddress(snipe.getToAddress());
 		history.setInput(snipe.getInputTokenValueAmountAsBigDecimal().toString()) ;
 		history.setExecutedprice(web3jDataFetcher.getExecutedPrice(snipe)) ;
 		String snipeApprovedHash = web3jDataFetcher.getSnipeApprovedHash(snipe);
@@ -106,7 +106,7 @@ public class HistoryTransformer {
 		history.setOrderId(order.getId());
 		history.setRoute(order.getRoute());
 		history.setTradetype(order.getOrderEntity().getOrderType()) ;
-		if(order.getRoute().equalsIgnoreCase(PANCAKE)) {
+		if(order.getRoute().equalsIgnoreCase("3")) {
 			if(order.getOrderEntity().getOrderSide().equalsIgnoreCase(BUY)) {
 				history.setFromTickerSymbol(WBNB) ;
 				history.setToTickerSymbol(web3jDataFetcher.getTickerSymbol(order, order.getTo().getTicker().getAddress())) ;
@@ -114,7 +114,7 @@ public class HistoryTransformer {
 				history.setFromTickerSymbol(web3jDataFetcher.getTickerSymbol(order, order.getFrom().getTicker().getAddress())) ;
 				history.setToTickerSymbol(WBNB) ;
 			}
-		}else {
+		}else if(order.getRoute().equalsIgnoreCase("1") || order.getRoute().equalsIgnoreCase("2")) {
 			if(order.getOrderEntity().getOrderSide().equalsIgnoreCase(BUY)) {
 				history.setFromTickerSymbol(WETH) ;
 				history.setToTickerSymbol(web3jDataFetcher.getTickerSymbol(order, order.getTo().getTicker().getAddress())) ;
@@ -124,7 +124,26 @@ public class HistoryTransformer {
 				history.setFromTickerSymbol(web3jDataFetcher.getTickerSymbol(order, order.getFrom().getTicker().getAddress())) ;
 			}
 		}
-		
+		else if(order.getRoute().equalsIgnoreCase("9") || order.getRoute().equalsIgnoreCase("9")) {
+			if(order.getOrderEntity().getOrderSide().equalsIgnoreCase(BUY)) {
+				history.setFromTickerSymbol(WETH) ;
+				history.setToTickerSymbol(web3jDataFetcher.getTickerSymbol(order, order.getTo().getTicker().getAddress())) ;
+
+			}else if(order.getOrderEntity().getOrderSide().equalsIgnoreCase(SELL)){
+				history.setToTickerSymbol(WETH) ;
+				history.setFromTickerSymbol(web3jDataFetcher.getTickerSymbol(order, order.getFrom().getTicker().getAddress())) ;
+			}
+		}else {
+			if(order.getOrderEntity().getOrderSide().equalsIgnoreCase(BUY)) {
+				history.setFromTickerSymbol("WFTM") ;
+				history.setToTickerSymbol(web3jDataFetcher.getTickerSymbol(order, order.getTo().getTicker().getAddress())) ;
+
+			}else if(order.getOrderEntity().getOrderSide().equalsIgnoreCase(SELL)){
+				history.setToTickerSymbol("WFTM") ;
+				history.setFromTickerSymbol(web3jDataFetcher.getTickerSymbol(order, order.getFrom().getTicker().getAddress())) ;
+			}
+		}
+		//history.setToTickerAddress(order.getTo().getTicker().getAddress());
 		history.setInput(order.getFrom().getAmount()) ;
 		
  		String balance = web3jDataFetcher.getBalance(order, order.getTo().getTicker().getAddress());

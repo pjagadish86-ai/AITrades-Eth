@@ -25,6 +25,7 @@ public class OrderHistory {
 	private String slipage;
 	private String gasLimit;
 	private String gasPrice;
+	private String toTickerAddress;
 	
 	public String getId() {
 		return id;
@@ -150,6 +151,14 @@ public class OrderHistory {
 
 	public void setGasPrice(String gasPrice) {
 		this.gasPrice = gasPrice;
+	}
+
+	public String getToTickerAddress() {
+		return toTickerAddress;
+	}
+
+	public void setToTickerAddress(String toTickerAddress) {
+		this.toTickerAddress = toTickerAddress;
 	}
 
 	@Override
