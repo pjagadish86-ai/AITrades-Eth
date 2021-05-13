@@ -92,7 +92,7 @@ public class SnipeTransactionRequest {
 	private BigDecimal balance;
 	
 	private String signedTransaction;
-	
+	private boolean liquidityCheck;
 	public boolean isExeTimeCheck() {
 		return exeTimeCheck;
 	}
@@ -187,6 +187,14 @@ public class SnipeTransactionRequest {
 
 	public void setWalletInfo(WalletInfo walletInfo) {
 		this.walletInfo = walletInfo;
+	}
+
+	public boolean isLiquidityCheck() {
+		return liquidityCheck;
+	}
+
+	public void setLiquidityCheck(boolean liquidityCheck) {
+		this.liquidityCheck = liquidityCheck;
 	}
 
 	public BigInteger getGasPrice() {
