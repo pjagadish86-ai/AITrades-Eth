@@ -39,6 +39,7 @@ public class SnipeTransactionRequest {
 	private WalletInfo walletInfo;
 	private String toAddressDecimals;
 	private BigInteger gasPrice;
+	private String gasPriceStr;
 	private BigInteger gasLimit;
 	
 	private List<String> memoryPath;
@@ -459,6 +460,14 @@ public class SnipeTransactionRequest {
 
 	public void setSignedTransaction(String signedTransaction) {
 		this.signedTransaction = signedTransaction;
+	}
+
+	public String getGasPriceStr() {
+		return gasPriceStr;
+	}
+
+	public void setGasPriceStr(String gasPriceStr) {
+		this.gasPriceStr = gasPriceStr;
 	}
 
 	@Override

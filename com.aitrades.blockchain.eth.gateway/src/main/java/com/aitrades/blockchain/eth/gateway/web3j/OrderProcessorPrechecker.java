@@ -100,4 +100,14 @@ public class OrderProcessorPrechecker {
 		BigInteger balance = ethereumDexContract.getBalanceUsingWrappedApi(route, contractAddress, owner, credentials);
 		return inputAmount.compareTo(balance) <= 0;
 	}
+	
+	public BigInteger getAccountBalance(String route, String owner) throws Exception {
+		 return web3jServiceClientFactory.getWeb3jMap(route)
+									     .getWeb3j()
+										 .ethGetBalance(owner, DefaultBlockParameterName.LATEST)
+										 .flowable()
+										 .subscribeOn(Schedulers.io())
+										 .blockingSingle()
+										 .getBalance();
+	}
 }
