@@ -24,7 +24,7 @@ public class SnipeOrderProcessor {
 	
 	public String snipeOrder(SnipeTransactionRequest snipeTransactionRequest) throws Exception {
 		logger.info("in SnipeOrderProcessor mutator", snipeTransactionRequest);
-		//approvedTransactionProcessor.checkAndProcessSnipeApproveTransaction(snipeTransactionRequest);
+		approvedTransactionProcessor.checkAndProcessSnipeApproveTransaction(snipeTransactionRequest);
 		Mono<SnipeTransactionRequest> insertedRecord = snipeOrderRepository.insert(snipeTransactionRequest);
 		return insertedRecord.block().getId();
 	}

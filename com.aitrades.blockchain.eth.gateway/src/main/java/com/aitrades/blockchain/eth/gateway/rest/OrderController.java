@@ -44,7 +44,7 @@ public class OrderController {
 		RestExceptionMessage exceptionMessage  = orderValidator.validatorOrder(order);// we should check balance for buy and sell and skip only when we have parentid not null
 		if(exceptionMessage != null) {
 			logger.error(" order is invalid for create order={}, validation message={}", order, exceptionMessage);
-			return new ResponseEntity<RestExceptionMessage>(exceptionMessage, HttpStatus.BAD_REQUEST);
+			//return new ResponseEntity<RestExceptionMessage>(exceptionMessage, HttpStatus.BAD_REQUEST);
 		}
 		return orderMutator.createOrder(order);
 	}

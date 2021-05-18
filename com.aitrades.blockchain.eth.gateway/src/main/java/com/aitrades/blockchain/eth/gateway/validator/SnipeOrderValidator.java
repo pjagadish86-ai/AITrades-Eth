@@ -65,7 +65,7 @@ public class SnipeOrderValidator {
 			return new RestExceptionMessage(snipeTransactionRequest.getId(), INVALID_GAS_GAS_PRICE_AMOUNT);
 		}
 
-		return balanceValidator.validateSnipeTokenBalance(snipeTransactionRequest);
+		return null;// balanceValidator.validateSnipeTokenBalance(snipeTransactionRequest);
 	}
 
 	public RestExceptionMessage validateRetriggerOrderSnipeOrder(RetriggerSnipeOrder retriggerOrder) {

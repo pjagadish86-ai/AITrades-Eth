@@ -177,7 +177,7 @@ public class OrderValidator {
 			}
 		}
 		
-		return balanceValidator.validateBalance(order);
+		return null;//balanceValidator.validateBalance(order);
 		
 	}
 }

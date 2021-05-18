@@ -83,9 +83,9 @@ public class HistoryTransformer {
 		Tuple2<String, BigInteger> tuple = web3jDataFetcher.getSnipeSwappedHashStatus(snipe);
 		String swapStatus = tuple.component1();
 		//ApproveProcessor
-		if(!StringUtils.equalsIgnoreCase(apporvedHash, "SUCCESS") && StringUtils.equalsIgnoreCase("SUCCESS", swapStatus)) {
-			approveProcessor.approve(snipe.getId());
-		}
+//		if(!StringUtils.equalsIgnoreCase(apporvedHash, "SUCCESS") && StringUtils.equalsIgnoreCase("SUCCESS", swapStatus)) {
+//			approveProcessor.approve(snipe.getId());
+//		}
 		
 		history.setSwappedhashStatus(swapStatus) ;
 		history.setOrderstate(snipe.getSnipeStatus()) ;

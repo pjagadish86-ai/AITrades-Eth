@@ -39,7 +39,7 @@ public class BalanceValidator {
 					gasPriceInEither, 
 					order.getGasLimit().getValueBigInteger());
 			if(!hasValidAccountBal) {
-				return new RestExceptionMessage(order.getId(), ACCOUNT_BALANCE_NOT_GOOD);
+				//return new RestExceptionMessage(order.getId(), ACCOUNT_BALANCE_NOT_GOOD);
 			}
 		}
 		return null;
