@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.aitrades.blockchain.eth.gateway.domain.Order;
+import com.google.common.collect.ImmutableSet;
 @Component
 public class OrderValidator {
 
@@ -39,15 +40,15 @@ public class OrderValidator {
 	private static final String TO_TICKER_ENTITY_IS_EMPTY = "To Ticker Entity is Empty";
 	private static final String FROM_TICKER_ENTITY_IS_EMPTY = "From Ticker Entity is Empty";
 
-	private static final Set<String> GAS_MODES = Set.of("ULTRA", "FASTEST", "FAST", "STANDARD", "SAFELOW", CUSTOM);
+	private static final Set<String> GAS_MODES = ImmutableSet.of("ULTRA", "FASTEST", "FAST", "STANDARD", "SAFELOW", CUSTOM);
 	
-	private static final Set<String> ORDER_SIDE = Set.of("BUY", "SELL");
+	private static final Set<String> ORDER_SIDE = ImmutableSet.of("BUY", "SELL");
 	
-	private static final Set<String> ORDER_TYPE = Set.of("SNIPE", "MARKET", LIMIT, STOPLOSS, STOPLIMIT, TRAILLING_STOP, LIMIT_TRAILLING_STOP);
+	private static final Set<String> ORDER_TYPE = ImmutableSet.of("SNIPE", "MARKET", LIMIT, STOPLOSS, STOPLIMIT, TRAILLING_STOP, LIMIT_TRAILLING_STOP);
 
-	private static final Set<String> ORDER_STATE = Set.of("FILLED", "PARTIAL_FILLED", "WORKING", "CANCELLED");
+	private static final Set<String> ORDER_STATE = ImmutableSet.of("FILLED", "PARTIAL_FILLED", "WORKING", "CANCELLED");
 
-	private static final Set<String> ROUTES = Set.of("UNISWAP", "SUSHI", "PANCAKE");
+	private static final Set<String> ROUTES = ImmutableSet.of("UNISWAP", "SUSHI", "PANCAKE");
 	
 	// we should check balance for buy and sell and skip only when we have parentid not null
 	public RestExceptionMessage validatorOrder(Order order) throws Exception {

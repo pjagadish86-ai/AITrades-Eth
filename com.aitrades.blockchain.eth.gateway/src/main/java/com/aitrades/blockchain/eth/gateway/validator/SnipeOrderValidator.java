@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.aitrades.blockchain.eth.gateway.domain.RetriggerSnipeOrder;
 import com.aitrades.blockchain.eth.gateway.domain.SnipeTransactionRequest;
+import com.google.common.collect.ImmutableSet;
 
 @Component
 public class SnipeOrderValidator {
@@ -21,7 +22,7 @@ public class SnipeOrderValidator {
 	private static final String INVALID_SLIPAGE_AMOUNT = "Invalid Slipage Amount";
 	private static final String INVALID_TO_ADDRESS = "Invalid To Address";
 	private static final String INVALID_FROM_ADDRESS = "Invalid From Address";
-	private static final Set<String> GAS_MODES = Set.of("ULTRA", "FASTEST", "FAST", "STANDARD", "SAFELOW", "CUSTOM");
+	private static final Set<String> GAS_MODES = ImmutableSet.of("ULTRA", "FASTEST", "FAST", "STANDARD", "SAFELOW", "CUSTOM");
 	private static final String CUSTOM = "CUSTOM";
 
 	@Autowired

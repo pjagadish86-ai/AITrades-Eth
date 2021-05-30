@@ -1,5 +1,6 @@
 package com.aitrades.blockchain.eth.gateway.service;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
@@ -37,7 +38,13 @@ public class SnipeOrderMutator {
 		snipeTransactionRequest.setToAddressDecimals(decimals.toString());
 		final BigInteger outputTokens  = snipeTransactionRequest.getExpectedOutPutToken();
 		if(outputTokens != null && outputTokens.compareTo(BigInteger.ZERO) >0) {
-			snipeTransactionRequest.setExpectedOutPutToken(Convert.toWei(outputTokens.toString(), Convert.Unit.fromString(TradeConstants.DECIMAL_MAP.get(decimals.toString()))).setScale(0, RoundingMode.DOWN).toBigInteger());
+			try {
+				snipeTransactionRequest.setExpectedOutPutToken(Convert.toWei(outputTokens.toString(), Convert.Unit.fromString(TradeConstants.DECIMAL_MAP.get(decimals.toString()))).setScale(0, RoundingMode.DOWN).toBigInteger());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				snipeTransactionRequest.setExpectedOutPutToken(BigInteger.ONE);
+			}
 		}
 		snipeOrderProcessor.snipeOrder(snipeTransactionRequest);
 		return snipeTransactionRequest.getId();
