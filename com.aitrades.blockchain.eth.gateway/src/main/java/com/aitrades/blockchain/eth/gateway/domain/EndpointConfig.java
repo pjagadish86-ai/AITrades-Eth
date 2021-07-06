@@ -11,6 +11,7 @@ public class EndpointConfig {
 	protected boolean enabled;
 	protected String rpcProtocol;
 	private Integer code;
+	protected String chainId;
 	private String explorerUri;
 	private String subCode;
 	
@@ -80,4 +81,11 @@ public class EndpointConfig {
 	public void setSubCode(String subCode) {
 		this.subCode = subCode;
 	}
+	public String getChainId() {
+		return chainId;
+	}
+	public void setChainId(String chainId) {
+		this.chainId = chainId;
+	}
+	
 }
