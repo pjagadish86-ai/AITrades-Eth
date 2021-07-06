@@ -87,5 +87,5 @@ public class EndpointConfig {
 	public void setChainId(String chainId) {
 		this.chainId = chainId;
 	}
-	
+	 
 }
