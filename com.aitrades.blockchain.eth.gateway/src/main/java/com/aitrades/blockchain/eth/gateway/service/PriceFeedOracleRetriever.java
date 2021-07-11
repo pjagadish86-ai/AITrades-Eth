@@ -83,9 +83,7 @@ public class PriceFeedOracleRetriever {
 												.blockingSingle();
 		final List<Type> response  = FunctionReturnDecoder.decode(resp.getValue(), function.getOutputParameters());
 		final BigInteger amountsOut = (BigInteger)(((DynamicArray<Type>)response.get(0)).getValue().get(0).getValue());
-		System.out.println(amountsOut);
 		double rep = USDC_MWEI.doubleValue() / amountsOut.doubleValue();
-		System.out.println(rep);
 		return BigDecimal.valueOf(rep).setScale(2, RoundingMode.DOWN);
 	}
 

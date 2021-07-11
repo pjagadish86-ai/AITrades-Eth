@@ -17,10 +17,8 @@ public class RetriggerSnipeOrderPreparer {
 
 	public RetriggerSnipeOrder retriggerOrder(RetriggerSnipeOrder retriggerSnipeOrder) {
 		SnipeTransactionRequest snipeOrder = retriggerOrderProcessor.fetchParentSnipeOrderById(retriggerSnipeOrder.getParentSnipeOrderId());
-		System.out.println("Parent snipe orderid-> "+ retriggerSnipeOrder.getParentSnipeOrderId());
 		if(snipeOrder != null) {
 			String id = UUIDGenerator.nextHex(UUIDGenerator.TYPE1);
-			System.out.println("Retriggered new order id-> "+ id);
 			snipeOrder.setId(id);
 			snipeOrder.setSnipe(false);
 			snipeOrder.setSnipeStatus(WORKING);

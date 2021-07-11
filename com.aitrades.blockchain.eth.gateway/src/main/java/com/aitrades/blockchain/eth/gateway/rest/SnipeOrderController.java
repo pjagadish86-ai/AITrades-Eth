@@ -47,7 +47,6 @@ public class SnipeOrderController {
 	
 	@PostMapping("/retriggerOrder")
 	public Object retriggerOrder(@RequestBody RetriggerSnipeOrder retriggerOrder) throws Exception {
-		System.out.println("in retrigger");
 		RestExceptionMessage restExceptionMessage = snipeOrderValidator.validateRetriggerOrderSnipeOrder(retriggerOrder);
 		if(restExceptionMessage != null) {
 			return new ResponseEntity<RestExceptionMessage>(restExceptionMessage, HttpStatus.BAD_REQUEST);
