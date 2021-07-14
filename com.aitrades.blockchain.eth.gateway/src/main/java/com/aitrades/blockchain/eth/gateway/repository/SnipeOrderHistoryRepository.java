@@ -46,7 +46,6 @@ public class SnipeOrderHistoryRepository {
         Update update = new Update();
         update.set(APPROVED_HASH, apporvedHash);
         snipeOrderHistoryReactiveMongoTemplate.updateFirst(query, update, Order.class).block();
-		
 	}
 
 	public SnipeTransactionRequest fetchAndRemoveSnipeOrderById(String parentOrderId) {

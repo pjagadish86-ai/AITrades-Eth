@@ -101,6 +101,12 @@ public class EthereumDexContract {
 		return ethereumDexContractReserves.decimals().flowable().blockingFirst();
 	}
 	
+	public BigInteger getName(String addresss, String route, Credentials credentials) throws Exception{
+		EthereumDexContractReserves ethereumDexContractReserves = new EthereumDexContractReserves(addresss, web3jServiceClientFactory.getWeb3jMap(route).getWeb3j(), credentials);
+		return ethereumDexContractReserves.decimals().flowable().blockingFirst();
+	}
+	
+	
 	
 	public BigInteger getBalanceUsingWrappedApi(String route, String contractAddress, String owner,  Credentials credentials) throws Exception{
 		EthereumDexContractReserves ethereumDexContractReserves = new EthereumDexContractReserves(contractAddress, web3jServiceClientFactory.getWeb3jMap(route).getWeb3j(), credentials);
