@@ -78,7 +78,9 @@ public class OrderProcessorPrechecker {
 	}
 	
 	public boolean getBalance(Order order) throws Exception {
-		String contractAddress = order.getOrderEntity().getOrderSide().equalsIgnoreCase(OrderSide.BUY.name()) ?  dexContractStaticCodeValuesService.getDexContractAddress(order.getRoute(), TradeConstants.WNATIVE) : order.getFrom().getTicker().getAddress();
+		String contractAddress = order.getOrderEntity().getOrderSide().equalsIgnoreCase(OrderSide.BUY.name()) 
+																						?  dexContractStaticCodeValuesService.getDexContractAddress(order.getRoute(), TradeConstants.WNATIVE)
+																						: order.getFrom().getTicker().getAddress();
 		return getBalanceUsingWrapper(order.getRoute(), order.getFrom().getAmountAsBigInteger(), contractAddress, order.getPublicKey(), order.getCredentials());
 	}
 	

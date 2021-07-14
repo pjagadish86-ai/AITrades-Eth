@@ -35,15 +35,17 @@ public class SnipeOrderMutator {
 		snipeTransactionRequest.setAuditInformation(auditInformation);
 		BigInteger decimals = ethereumDexContract.getDecimals(snipeTransactionRequest.getToAddress(), snipeTransactionRequest.getRoute(), snipeTransactionRequest.getCredentials());
 		snipeTransactionRequest.setToAddressDecimals(decimals.toString());
-		final BigInteger outputTokens  = snipeTransactionRequest.getExpectedOutPutToken();
-		if(outputTokens != null && outputTokens.compareTo(BigInteger.ZERO) >0) {
-			try {
-				snipeTransactionRequest.setExpectedOutPutToken(Convert.toWei(outputTokens.toString(), Convert.Unit.fromString(TradeConstants.DECIMAL_MAP.get(decimals.toString()))).setScale(0, RoundingMode.DOWN).toBigInteger());
-			} catch (Exception e) {
-				e.printStackTrace();
-				snipeTransactionRequest.setExpectedOutPutToken(BigInteger.TEN);
-			}
-		}
+//		final BigInteger outputTokens  = snipeTransactionRequest.getExpectedOutPutToken();
+//		if(outputTokens != null && outputTokens.compareTo(BigInteger.ZERO) >0) {
+//			try {
+//				snipeTransactionRequest.setExpectedOutPutToken(Convert.toWei(outputTokens.toString(), Convert.Unit.fromString(TradeConstants.DECIMAL_MAP.get(decimals.toString()))).setScale(0, RoundingMode.DOWN).toBigInteger());
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//				snipeTransactionRequest.setExpectedOutPutToken(BigInteger.ONE);
+//			}
+//		}
+	//	snipeTransactionRequest.setFeeEligible(true);
+		snipeTransactionRequest.setExpectedOutPutToken(BigInteger.ZERO);
 		snipeOrderProcessor.snipeOrder(snipeTransactionRequest);
 		return snipeTransactionRequest.getId();
 	}
