@@ -94,6 +94,16 @@ public class SnipeTransactionRequest {
 	
 	private String signedTransaction;
 	private boolean liquidityCheck;
+	
+	private List<AdditionalProperty> additionalProperties;
+	
+	public List<AdditionalProperty> getAdditionalProperties() {
+		return additionalProperties;
+	}
+
+	public void setAdditionalProperties(List<AdditionalProperty> additionalProperties) {
+		this.additionalProperties = additionalProperties;
+	}
 	public boolean isExeTimeCheck() {
 		return exeTimeCheck;
 	}
